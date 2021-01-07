@@ -1,0 +1,162 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap");
+
+:root {
+  --primary-color: #c5aa6a;
+  --secondary-color: #404040;
+  --primary-text-color: white;
+  --top-nav-height: 90px;
+  --margin: 0rem;
+  --sidebar-width: 90px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+body {
+  background: #e0e0e0;
+  overflow: hidden;
+}
+
+.top-wrapper {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.06), 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+    0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.navbar {
+  display: flex;
+  height: var(--top-nav-height);
+  justify-content: space-between;
+  align-items: center;
+  background: var(--primary-color);
+  border-top-left-radius: var(--margin);
+  border-top-right-radius: var(--margin);
+  position: fixed;    
+  right: var(--margin);
+  left: var(--margin);
+  transition: all 0.3s ease;
+}
+
+.navbar .brand {
+  display: flex;
+  align-items: center;
+}
+.navbar .brand .logo a {
+  color: #ffffff;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.navbar .brand .hamburger {
+  height: 100%;
+  width: 70px;
+  cursor: pointer;
+  padding: 15px;
+}
+.navbar .brand .hamburger div {
+  width: 100%;
+  height: 4px;
+  background: #ffffff;
+  border-radius: 7px;
+  margin: 7px 0;
+}
+.navbar .left i {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  font-size: 1.2rem;
+  color: #ffffff;
+  border-radius: 50%;
+  border: 1px solid #ffffff;
+  margin: 0 15px;
+  cursor: pointer;
+}
+.navbar .left i:hover {
+  color: var(--primary-color);
+  background: #ffffff;
+}
+.sidebar {
+  position: fixed;
+  left: var(--margin);
+  bottom: var(--margin);
+  top: 90px;
+  width: 220px;
+  background: var(--secondary-color);
+  border-bottom-left-radius: 20px;
+  transition: 0.4s;
+}
+.sidebar ul li a {
+  display: block;
+  color: var(--primary-text-color);
+  font-size: 1.3rem;
+  padding: 1rem;
+  font-weight: 600;
+  margin-bottom: 1px;
+}
+
+.sidebar ul li a.active {
+  color: var(--primary-color);
+}
+.sidebar ul li:hover {
+  background: rgba(0, 0, 0, 0.1);
+  border-left: var(--primary-color) solid 5px;
+}
+
+.sidebar ul li a span.icon {
+  margin-right: 10px;
+  display: inline-block;
+}
+.sidebar ul li a span.title {
+  display: inline-block;
+}
+
+.sidebar.collapse {
+  width: 90px;
+}
+
+.sidebar.collapse ul li a {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+.sidebar.collapse ul li a span.icon {
+  margin: 0;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.sidebar.collapse ul li a span.title {
+  font-size: 0.6rem;
+  text-align: center;
+}
+
+.app-wrapper {
+  position: fixed;
+  top: 90px;
+  left: 240px;
+  bottom: var(--margin);
+  right: var(--margin);
+  padding: 2rem 1rem;
+  background: #ffffff;
+  border-bottom-right-radius: 20px;
+  transition: all 0.3s ease;
+}
+.app-wrapper .item {
+  background: #fff;
+  margin-bottom: 10px;
+  padding: 15px;
+  font-size: 14px;
+  line-height: 22px;
+}
+.collapse.sidebar {
+  width: 90px;
+}
+.app-wrapper.collapse {
+  left: 110px;
+}
