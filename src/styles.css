@@ -1,10 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap");
 
 :root {
-  --primary-color: #c5aa6a;
-  --secondary-color: #404040;
-  --primary-text-color: white;
-  --top-nav-height: 90px;
+  --primary-color: #14213d;
+  --secondary-color: #e9c46a;
+  --primary-text-color: #364156;
+  --top-nav-height: 60px;
   --margin: 0rem;
   --sidebar-width: 90px;
 }
@@ -35,7 +35,7 @@ body {
   background: var(--primary-color);
   border-top-left-radius: var(--margin);
   border-top-right-radius: var(--margin);
-  position: fixed;    
+  position: fixed;
   right: var(--margin);
   left: var(--margin);
   transition: all 0.3s ease;
@@ -84,8 +84,9 @@ body {
   position: fixed;
   left: var(--margin);
   bottom: var(--margin);
-  top: 90px;
+  top: 60px;
   width: 220px;
+  height: 100%;
   background: var(--secondary-color);
   border-bottom-left-radius: 20px;
   transition: 0.4s;
@@ -100,7 +101,7 @@ body {
 }
 
 .sidebar ul li a.active {
-  color: var(--primary-color);
+  color: linear-gradient(to top, #a3bded 0%, #6991c7 100%);
 }
 .sidebar ul li:hover {
   background: rgba(0, 0, 0, 0.1);
