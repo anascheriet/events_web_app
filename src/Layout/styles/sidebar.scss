@@ -1,0 +1,76 @@
+.sidebar {
+  position: fixed;
+  left: var(--margin);
+  bottom: var(--margin);
+  top: 0px;
+  width: 220px;
+  height: 100%;
+  background: var(--secondary-color);
+  border-bottom-left-radius: 20px;
+  transition: 0.4s;
+}
+.sidebar .brand {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar .brand .hamburger {
+  height: 100%;
+  width: 70px;
+  cursor: pointer;
+  padding: 15px;
+  position: relative;
+  left: 11px;
+  top: -1px;
+}
+.sidebar .brand .hamburger div {
+  width: 100%;
+  height: 4px;
+  background: #14213d;
+  margin: 7px 0;
+}
+.sidebar ul li a {
+  display: block;
+  color: var(--primary-text-color);
+  font-size: 1.3rem;
+  padding: 1rem;
+  font-weight: 600;
+  margin-bottom: 1px;
+}
+
+.sidebar ul li a.active {
+  color: var(--primary-color);
+}
+.sidebar ul li:hover {
+  background: rgba(0, 0, 0, 0.1);
+  border-left: var(--primary-color) solid 5px;
+}
+
+.sidebar ul li a span.icon {
+  margin-right: 10px;
+  display: inline-block;
+}
+.sidebar ul li a span.title {
+  display: inline-block;
+}
+
+.sidebar.collapse {
+  width: 90px;
+}
+
+.sidebar.collapse ul li a {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+.sidebar.collapse ul li a span.icon {
+  margin: 0;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.sidebar.collapse ul li a span.title {
+  font-size: 0.6rem;
+  text-align: center;
+}

@@ -1,26 +1,33 @@
 import React from "react";
-
+import "./styles/sidebar.scss"
 const nav = [
-  { text: "Home", link: "#!", icon: "home" },
-  { text: "About", link: "#!", icon: "box" },
-  { text: "Movies", link: "#!", icon: "tv", active: true },
-  { text: "Contacts", link: "#!", icon: "user" },
-  { text: "Bobliothèque", link: "#!", icon: "book" },
-  { text: "Cartographie", link: "#!", icon: "map-signs" },
-  { text: "Nature", link: "#!", icon: "leaf" }
+  { text: "Dashboard", link: "#!", icon: "chart-line", active: true },
+  { text: "Events", link: "#!", icon: "calendar-week" },
+  { text: "Bookings", link: "#!", icon: "ticket-alt" },
 ];
 
-const Sidebar = ({ toggleBtn }) => {
+
+const Sidebar = ({ toggleBtn, setToggle }) => {
+
   return (
+
     <div
       className={`${toggleBtn ? "sidebar collapse" : "sidebar"}`}
-      style={{marginTop: "0rem"}}
+      style={{ marginTop: "0rem" }}
       data-simplebar
     >
       <ul>
+        <div className="brand">
+          <div className="hamburger" onClick={setToggle}>
+            <div />
+            <div />
+            <div />
+          </div>
+        </div>
+
         {nav.map(item => (
           <li key={item.text}>
-            <a href="#!" className={item.active ? "active" : ""}>
+            <a href="#!">
               <span className="icon">
                 <i className={`fas fa-${item.icon}`} />
               </span>
@@ -31,5 +38,5 @@ const Sidebar = ({ toggleBtn }) => {
       </ul>
     </div>
   );
-};
+}
 export default Sidebar;
