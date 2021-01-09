@@ -1,10 +1,12 @@
 import React from 'react'
-import { Form, Input, Button, Checkbox } from 'antd';
+import "./login.scss"
 
-export const login = () => {
+export const Login = () => {
     return (
-        <div>
-            
+      <div className="parent">  
+        <div className="child">
+
         </div>
+    </div>
     )
 }

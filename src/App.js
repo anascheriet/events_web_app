@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "simplebar";
 import "./app.scss"
-import Navbar from "./Layout/Navbar";
-import Sidebar from "./Layout/Sidebar";
-import Content from "./Layout/Content";
-import { Button } from "antd";
 import { loadUser } from "./redux/actions/userAction";
-import axios from "axios";
-import { userDataUrl } from "./redux/api";
 import { useDispatch } from "react-redux";
+import { Login } from "./Components/auth/Login";
 
 function App() {
   const [toggleBtn, setToggleBtn] = useState(true);
@@ -28,10 +23,11 @@ function App() {
 
   return (
     <div >
-      <Navbar setToggle={toggle} toggleBtn={toggleBtn} />
+      {/* <Navbar setToggle={toggle} toggleBtn={toggleBtn} />
       <Sidebar toggleBtn={toggleBtn} setToggle={toggle} />
       <Content toggleBtn={toggleBtn}>
-      </Content>
+      </Content> */}
+      <Login />
     </div>
   );
 }

@@ -27,7 +27,7 @@ const Sidebar = ({ toggleBtn, setToggle }) => {
 
         {nav.map(item => (
           <li key={item.text}>
-            <a href="#!">
+            <a href="#!" className={item.active ? "active" : ""}>
               <span className="icon">
                 <i className={`fas fa-${item.icon}`} />
               </span>

@@ -14,7 +14,7 @@ const Navbar = ({ setToggle,toggleBtn }) => {
         <a style={{color: "#fdde6c", textTransform: "lowercase", paddingLeft: "2rem"}} href="#!">eventor</a>
       </div>
     </div>
-    <div  className="left">
+    <div className="left">
       <i style={{color: "#fdde6c"}}  className="fas fa-sign-out-alt" />
     </div>
   </div>

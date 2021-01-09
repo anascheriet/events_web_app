@@ -8,6 +8,7 @@
   background: var(--secondary-color);
   border-bottom-left-radius: 20px;
   transition: 0.4s;
+  user-select: none;
 }
 .sidebar .brand {
   display: flex;

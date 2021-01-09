@@ -1,0 +1,16 @@
+.parent {
+    background-color: var(--secondary-color);
+    height: 200vh;
+   
+}
+
+.child {
+    padding: 250px 0;
+    -webkit-transform: skew(0deg, -10deg);
+    -moz-transform: skew(0deg, -10deg);
+    -o-transform: skew(0deg, -10deg);
+    -ms-transform: skew(0deg, -10deg);
+    transform: skew(0deg, -10deg);
+    margin-top: -220px;
+    background-color: var(--primary-color);
+}
