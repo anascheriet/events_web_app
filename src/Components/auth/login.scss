@@ -1,16 +1,72 @@
-.parent {
-    background-color: var(--secondary-color);
-    height: 200vh;
-   
+
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+
+
+.container {
+  height: 100%;
+  background-image: url("../../Layout/img/background.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.child {
-    padding: 250px 0;
-    -webkit-transform: skew(0deg, -10deg);
-    -moz-transform: skew(0deg, -10deg);
-    -o-transform: skew(0deg, -10deg);
-    -ms-transform: skew(0deg, -10deg);
-    transform: skew(0deg, -10deg);
-    margin-top: -220px;
-    background-color: var(--primary-color);
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "poppins", sans-serif;
+
+  /* img {
+    width: 30rem;
+    height: 15rem;
+  } */
 }
+
+.name {
+  background-color: #fdde6b;
+  width: 500px;
+  height: 100px;
+  padding: 10px;
+  text-align: center;
+  margin-top: 5rem;
+  margin-bottom: 2rem;
+
+  h2 {
+    color: #14213d;
+    position: relative;
+    left: 10px;
+    top: -25px;
+    font-family: "Alegreya Sans", sans-serif;
+    font-size: 7rem;
+
+  }
+}
+
+.description {
+  h2 {
+    color: #fdde6b;
+    font-family: "Montserrat", sans-serif;
+  }
+}
+
+//get skewed image
+/* .logo {
+    background-color: green;
+    height: 100vh;
+}
+.form {
+  padding: 250px 0;
+  -webkit-transform: skew(0deg, -10deg);
+  -moz-transform: skew(0deg, -10deg);
+  -o-transform: skew(0deg, -10deg);
+  -ms-transform: skew(0deg, -10deg);
+  transform: skew(0deg, -6deg);
+  margin-top: -220px;
+  background-color: red;
+}
+ */
