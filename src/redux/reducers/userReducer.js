@@ -1,6 +1,6 @@
 const initialState = {
     user: {},
-    token: {},
+    token: null,
     createdEvents: [],
     bookedReservations: []
 }

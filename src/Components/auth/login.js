@@ -1,12 +1,51 @@
-import { Button, Input, Form } from 'antd'
+import { motion } from 'framer-motion';
 import React from 'react'
 import "./login.scss"
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { loadUser } from '../../redux/actions/userAction';
 
 export const Login = () => {
 
+
+  
+  //need a dispatcher that executes the action !!!!!!!!!!:D
+  const dispatch = useDispatch();
+
+  const initialValues = {
+    username: '',
+    password: ''
+  }
+
+  const ValidationSchema = new Yup.ObjectSchema({
+    username: Yup.string().required(),
+    password: Yup.string().required()
+    /* password: Yup.string().matches("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$") */
+  })
+
+  const submitHandler = (values) => {
+    console.log(values);
+    dispatch(loadUser(values));
+  }
+
+  const formik = useFormik({
+    initialValues: initialValues,
+    validationSchema: ValidationSchema,
+    onSubmit: submitHandler
+  })
+
+
+
+
+
   return (
     <div className="container">
-      <div className="logo-container">
+      <motion.div
+        className="logo-container"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ ease: "backOut", duration: 1 }}>
         <div className="name">
           <h2>eventor</h2>
         </div>
@@ -14,28 +53,32 @@ export const Login = () => {
           <h2>EVENT PLANNING.</h2>
         </div>
 
-      </div>
+      </motion.div>
 
 
       <div className="form">
-        <form >
+        <form onSubmit={formik.handleSubmit}>
           <label className="label">USERNAME</label>
           <br />
-          <input type="text" className="input" />
+          <input type="text" name="username" className="input" {...formik.getFieldProps("username")} />
           <br />
+          {formik.touched.username && formik.errors.username &&
+            <span>{formik.errors.username}</span>}
           <br />
           <label className="label">PASSWORD</label>
           <br />
-          <input type="password" className="input" />
+          <input type="password" name="password" className="input" {...formik.getFieldProps("password")} />
           <br />
+          {formik.touched.password && formik.errors.password &&
+            <span>{formik.errors.password}</span>}
           <br />
 
-          <button className="submitBtn">Log In</button>
+          <button type="submit" className="submitBtn" >Log In</button>
 
         </form>
         <div className="links">
-          <a  href="">Create Account</a>
-          <a  href="">Forgot Password?</a>
+          <a >Create Account</a>
+          <a >Forgot Password?</a>
         </div>
       </div>
 

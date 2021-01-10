@@ -1,25 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import "simplebar";
 import "./app.scss"
-import { loadUser } from "./redux/actions/userAction";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Login } from "./Components/auth/Login";
+import Navbar from "./Layout/Navbar"
+import Sidebar from "./Layout/Sidebar"
+import Content from "./Layout/Content"
 
 function App() {
   const [toggleBtn, setToggleBtn] = useState(true);
   const toggle = () => setToggleBtn(!toggleBtn);
 
-  //need a dispatcher that executes the action !!!!!!!!!!:D
-  const dispatch = useDispatch();
-
-  const user = {
-    username: "anas@live.fr",
-    password: "anas"
-  }
-
-  useEffect(() => {
-    dispatch(loadUser(user));
-  }, [])
+  //check if token exists
+  const { token } = useSelector(state => state.userState);
 
   return (
     <div >
@@ -27,7 +20,17 @@ function App() {
       <Sidebar toggleBtn={toggleBtn} setToggle={toggle} />
       <Content toggleBtn={toggleBtn}>
       </Content> */}
-      <Login />
+      { !token ? (
+        <Login />
+      ) : (
+          <>
+            <Navbar setToggle={toggle} toggleBtn={toggleBtn} />
+            <Sidebar toggleBtn={toggleBtn} setToggle={toggle} />
+            <Content toggleBtn={toggleBtn}>
+            </Content>
+          </>
+        )
+      }
     </div>
   );
 }
