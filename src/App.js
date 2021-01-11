@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import "simplebar";
 import "./app.scss"
 import { useSelector } from "react-redux";
@@ -20,7 +20,7 @@ function App() {
       <Sidebar toggleBtn={toggleBtn} setToggle={toggle} />
       <Content toggleBtn={toggleBtn}>
       </Content> */}
-      { !token ? (
+      {!localStorage.getItem("userToken") ? (
         <Login />
       ) : (
           <>

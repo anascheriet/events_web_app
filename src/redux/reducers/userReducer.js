@@ -15,6 +15,13 @@ const userReducer = (state = initialState, action) => {
                 bookedReservations: action.payload.reservations,
                 token: action.payload.token
             }
+
+        case "Log_Out_User": {
+            return {
+                ...state,
+                user: action.payload.user
+            }
+        }
         default: // need this for default case
             return state;
     }

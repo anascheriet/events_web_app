@@ -1,8 +1,9 @@
 import axios from "axios"
 import { userDataUrl } from "../api"
 
-export const loadUser = (user) => async (dispatch) => {
+export const login = (user) => async (dispatch) => {
     const userData = await axios.post(userDataUrl, user);
+    localStorage.setItem("userToken", userData.data.token.token);
     console.log(userData);
     dispatch({
         type: "Fetch_User_Info",

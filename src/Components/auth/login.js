@@ -4,11 +4,9 @@ import "./login.scss"
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { loadUser } from '../../redux/actions/userAction';
+import { login } from '../../redux/actions/loginAction';
 
 export const Login = () => {
-
-
   
   //need a dispatcher that executes the action !!!!!!!!!!:D
   const dispatch = useDispatch();
@@ -26,7 +24,7 @@ export const Login = () => {
 
   const submitHandler = (values) => {
     console.log(values);
-    dispatch(loadUser(values));
+    dispatch(login(values));
   }
 
   const formik = useFormik({
