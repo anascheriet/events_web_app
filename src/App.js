@@ -6,6 +6,9 @@ import { Login } from "./Components/auth/Login";
 import Navbar from "./Layout/Navbar"
 import Sidebar from "./Layout/Sidebar"
 import Content from "./Layout/Content"
+import { Dashboard } from "./Components/events/Dashboard";
+import { Loginn } from "./Components/auth/loginn";
+import { EventsDashboard } from "./Components/events/EventsDashboard";
 
 function App() {
   const [toggleBtn, setToggleBtn] = useState(true);
@@ -27,6 +30,7 @@ function App() {
             <Navbar setToggle={toggle} toggleBtn={toggleBtn} />
             <Sidebar toggleBtn={toggleBtn} setToggle={toggle} />
             <Content toggleBtn={toggleBtn}>
+              <EventsDashboard />
             </Content>
           </>
         )

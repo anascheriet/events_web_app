@@ -1,0 +1,15 @@
+.containerr {
+  box-sizing: border-box;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.yellow {
+  min-height: 50vh;
+  background-image: url("../../Layout/img/wave.svg");
+  background-position: center;
+  background-size: cover;
+}

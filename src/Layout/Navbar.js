@@ -2,6 +2,8 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import "./styles/navbar.scss"
 import { logoutAction } from "../redux/actions/logoutAction"
+import { Menu, Dropdown } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 
 const Navbar = ({ setToggle, toggleBtn }) => {
 
@@ -10,6 +12,24 @@ const Navbar = ({ setToggle, toggleBtn }) => {
   const logOut = () => {
     dispatch(logoutAction());
   }
+
+  const menu = (
+    <Menu style={{backgroundColor: "#14213d"}}>
+      <Menu.Item >
+        <a target="_blank" className="menuLink" style={{color: "#fdde6c"}} >
+          <i className="fas fa-user" style={{marginRight: "1rem"}}/>
+          Profile
+        </a>
+      </Menu.Item>
+      <Menu.Item >
+        <a onClick={logOut} className="menuLink" target="_blank" style={{color: "#fdde6c"}} >
+        <i className="fas fa-sign-out-alt" style={{marginRight: "1rem"}}/>
+          Log out
+        </a>
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <div className={`${toggleBtn ? "navbar" : "navbar collapse"}`}>
       <div className="brand">
@@ -22,9 +42,13 @@ const Navbar = ({ setToggle, toggleBtn }) => {
           <a style={{ color: "#fdde6c", textTransform: "lowercase", paddingLeft: "2rem" }} href="#!">eventor</a>
         </div>
       </div>
-      <div className="left" onClick={logOut}>
-        <i style={{ color: "#fdde6c" }} className="fas fa-sign-out-alt" />
-      </div>
+
+      <Dropdown overlay={menu}>
+        <div className="left">
+          <i style={{ color: "#fdde6c" }} solid class="fas fa-chevron-down" />
+        </div>
+      </Dropdown>
+
     </div>
   );
 };
