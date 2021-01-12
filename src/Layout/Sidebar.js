@@ -1,24 +1,14 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import "./styles/sidebar.scss"
 
+const nav = [
+  { text: "Dashboard", link: "#!", icon: "chart-line", active: true },
+  { text: "Events", link: "#!", icon: "calendar-week" },
+  { text: "Bookings", link: "#!", icon: "ticket-alt" },
+];
 
-
-
-const Sidebar = ({ toggleBtn, setToggle }) => {
-
-  const { user } = useSelector(state => state.userState);
-
-
-  const nav = [
-    { text: "Dashboard", link: "#!", icon: "chart-line", active: true },
-    { text: "Events", link: "#!", icon: "calendar-week" },
-    { text: "Bookings", link: "#!", icon: "ticket-alt" },
-  ];
-
-
+const Sidebar = ({ toggleBtn,setToggle }) => {
   return (
-
+   
     <div
       className={`${toggleBtn ? "sidebar collapse" : "sidebar"}`}
       style={{ marginTop: "0rem" }}
@@ -46,5 +36,5 @@ const Sidebar = ({ toggleBtn, setToggle }) => {
       </ul>
     </div>
   );
-}
+};
 export default Sidebar;

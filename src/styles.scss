@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+:root {
+  --primary-color: #14213d;
+  --secondary-color: #fdde6c;
+  --primary-text-color: #364156;
+  --top-nav-height: 60px;
+  --margin: 0px;
+  --sidebar-width: 90px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: "poppins", sans-serif;
+}
+body {
+  background-color: rgb(234, 234, 234) !important;
+  overflow: hidden;
+}
+
+.navbar {
+  display: flex;
+  height: var(--top-nav-height);
+  justify-content: space-between;
+  align-items: center;
+  background: var(--primary-color);
+  position: fixed;
+  top: var(--margin);
+  right: var(--margin);
+  left: 6.4rem;
+  transition: all 0.3s ease;
+}
+
+.navbar .left i:hover {
+  color: var(--primary-color);
+  background: #ffffff;
+}
+
+.navbar.collapse {
+    margin-left: 120px;
+    transition: all ease 0.5s;
+  }
+
+.sidebar {
+  position: fixed;
+  left: var(--margin);
+  bottom: var(--margin);
+  top: 0px;
+  height: 100%;
+  width: 220px;
+  background: var(--secondary-color);
+  transition: 0.4s;
+}
+
+.sidebar .brand {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar .brand .hamburger {
+  height: 100%;
+  width: 70px;
+  cursor: pointer;
+  padding: 15px;
+  position: relative;
+  left: 11px;
+  top: -1px;
+}
+.sidebar .brand .hamburger div {
+  width: 100%;
+  height: 4px;
+  background: #14213d;
+  margin: 7px 0;
+}
+
+.navbar .left i {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  font-size: 1.2rem;
+  color: #ffffff;
+  border: 1px solid var(--secondary-color);
+  margin: 0 15px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.navbar .left i:hover {
+    background-color: var(--primary-text-color);
+}
+.sidebar ul li a {
+  display: block;
+  color: var(--primary-text-color);
+  font-size: 1.3rem;
+  padding: 1rem;
+  font-weight: 600;
+  margin-bottom: 1px;
+}
+
+.sidebar ul li a.active {
+  color: var(--primary-color);
+}
+.sidebar ul li:hover {
+  background: rgba(0, 0, 0, 0.1);
+  border-left: var(--primary-color) solid 5px;
+}
+
+.sidebar ul li a span.icon {
+  margin-right: 10px;
+  display: inline-block;
+}
+.sidebar ul li a span.title {
+  display: inline-block;
+}
+
+.sidebar.collapse {
+  width: 90px;
+}
+
+.sidebar.collapse ul li a {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+.sidebar.collapse ul li a span.icon {
+  margin: 0;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.sidebar.collapse ul li a span.title {
+  font-size: 0.6rem;
+  text-align: center;
+}
+
+.app-wrapper {
+  position: fixed;
+  top: 5rem;  
+  left: 19rem;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  padding: 2rem 1rem;
+  background: #ffffff;
+  border-bottom-right-radius: 20px;
+  transition: all 0.3s ease;
+}
+.app-wrapper .item {
+  margin-bottom: 10px;
+  padding: 15px;
+  font-size: 14px;
+  line-height: 22px;
+}
+.collapse.sidebar {
+  width: 7rem;
+}
+.app-wrapper.collapse {
+  left: 110px;
+}

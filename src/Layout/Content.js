@@ -1,5 +1,4 @@
 import React from "react";
-import "./styles/content.scss"
 const Content = ({ toggleBtn, children }) => {
   return (
     <div
@@ -10,4 +9,5 @@ const Content = ({ toggleBtn, children }) => {
     </div>
   );
 };
+
 export default Content;
