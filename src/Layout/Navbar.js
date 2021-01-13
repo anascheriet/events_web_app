@@ -42,7 +42,7 @@ const Navbar = ({ setToggle, toggleBtn }) => {
 
     <Dropdown overlay={menu}>
       <div className="left">
-        <i style={{ color: "#fdde6c" }} solid class="fas fa-chevron-down" />
+        <i style={{ color: "#fdde6c" }}  className="fas fa-chevron-down" />
       </div>
     </Dropdown>
 
