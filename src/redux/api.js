@@ -21,8 +21,12 @@ axios.interceptors.request.use((config) => {
     return Promise.reject(error);
 })
 
+export const eventTypesUrls = {
+    get: `${base_url}/eventTypes/`,
+    create: `${base_url}/eventTypes/create`,
+}
 
 
 export const loginUrlUrl = `${base_url}/auth/login`;
-export const createEventUrl = `${base_url}/events/create/`;
+export const createEventUrl = `${base_url}/events/create`;
 export const getCurrentUserUrl = `${base_url}/auth/loggedInUser`;

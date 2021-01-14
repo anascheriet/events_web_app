@@ -11,19 +11,23 @@ import "./eventsDashboard.scss"
 import { fadeIn, popup } from '../../animations';
 import { EventForm } from './EventForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadUserInfo } from '../../redux/actions/loadUserInfo';
+import { loadUserInfo } from '../../redux/actions/Users/loadUserInfo';
+import { getAllEventTypes } from '../../redux/actions/eventTypes/getTypesAction';
 
 export const EventsDashboard = () => {
+
+    //Getting the state
+    const { user } = useSelector(state => state.userState);
+    const { createdEvents } = user;
 
     //set up the dispatcher for actions (api calls)
     const dispatch = useDispatch();
     //get user Info on component load 
     useEffect(() => {
         dispatch(loadUserInfo());
-    }, [])
+        dispatch(getAllEventTypes());
+    }, [createdEvents]);
 
-    const { user } = useSelector(state => state.userState);
-    const { createdEvents } = user;
 
     //setUp Drawer for Create/Edit event form
     const [visibleDrawer, setVisibleDrawer] = useState(false);
@@ -110,7 +114,7 @@ export const EventsDashboard = () => {
             </div>
 
             <Divider />
-             <Card.Group >
+            <Card.Group >
                 {createdEvents.map((item) => (
                     <motion.div key={item.id} className="card" variants={popup} initial="hidden" animate="show">
                         <Card >
@@ -118,7 +122,7 @@ export const EventsDashboard = () => {
                             <Card.Content>
                                 <Card.Header>{item.eventName}</Card.Header>
                                 <Card.Meta>
-                                    <span className='date'>{item.eventDate.split("T")[0]} {item.eventDate.split("T")[1].split(".")[0]}</span>
+                                    <span className='date'>{/* {item.eventDate.split("T")[0]} {item.eventDate.split("T")[1].split(".")[0]} */}</span>
                                 </Card.Meta>
                                 <Card.Description>
                                     {item.description.substring(1, 60)}...

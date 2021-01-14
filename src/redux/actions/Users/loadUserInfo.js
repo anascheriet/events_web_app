@@ -1,5 +1,5 @@
 import axios from "axios"
-import { getCurrentUserUrl } from "../api"
+import { getCurrentUserUrl } from "../../api"
 
 export const loadUserInfo = () => async (dispatch) => {
     const userData = await axios.get(getCurrentUserUrl);

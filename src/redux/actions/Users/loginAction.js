@@ -1,5 +1,5 @@
 import axios from "axios"
-import { loginUrlUrl } from "../api"
+import { loginUrlUrl } from "../../api"
 
 export const login = (user) => async (dispatch) => {
     const tokenData = await axios.post(loginUrlUrl, user);

@@ -4,7 +4,7 @@ import "./login.scss"
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { login } from '../../redux/actions/loginAction';
+import { login } from '../../redux/actions/Users/loginAction';
 
 export const Login = () => {
 

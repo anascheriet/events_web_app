@@ -51,7 +51,8 @@ export const EventForm = ({ closeDrawer }) => {
     })
 
     //get events so we can add to them
-    const { createdEvents } = useSelector(state => state.userState)
+    const { user } = useSelector(state => state.userState);
+    const { createdEvents } = user;
 
     //set uo the dispatcher
     const dispatch = useDispatch()

@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu, Dropdown } from 'antd';
 import { useDispatch } from "react-redux";
-import { logoutAction } from "../redux/actions/logoutAction"
+import { logoutAction } from "../redux/actions/Users/logoutAction"
 const Navbar = ({ setToggle, toggleBtn }) => {
 
     const dispatch = useDispatch();
