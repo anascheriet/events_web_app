@@ -4,7 +4,7 @@ import userReducer from "./userReducer";
 
 const rootReducer = combineReducers({
     userState: userReducer,
-    eventTypes: eventTypeReducer,
+    eventTypesState: eventTypeReducer,
 })
 
 export default rootReducer;

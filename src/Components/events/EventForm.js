@@ -14,8 +14,9 @@ import { Button } from 'semantic-ui-react'
 import { useDispatch, useSelector } from 'react-redux';
 import { createEventAction } from '../../redux/actions/eventAction'
 import { toast } from 'react-toastify';
+import { successToast } from '../../Notifications';
 
-
+//TODO load event data to edit form
 
 export const EventForm = ({ closeDrawer }) => {
 
@@ -32,13 +33,13 @@ export const EventForm = ({ closeDrawer }) => {
     }
 
     //Set up object validation
-    const myValidationSchema = new Yup.object({
+    const myValidationSchema = new Yup.ObjectSchema({
         eventName: Yup.string().required(),
         description: Yup.string().required(),
         country: Yup.string().required(),
         city: Yup.string().required(),
-        availabletickets: Yup.number().required(),
-        ticketprice: Yup.number().required(),
+        availabletickets: Yup.number().required().positive().integer(),
+        ticketprice: Yup.number().required().positive(),
         eventtypeid: Yup.number().required(),
         eventDate: Yup.string().required()
     })
@@ -61,15 +62,7 @@ export const EventForm = ({ closeDrawer }) => {
         dispatch(createEventAction(event));
         createdEvents.push(event);
         closeDrawer();
-        toast.success('The event Has been Created ! 🦄', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        });
+        successToast("The event Has been Created!");
     }
 
 

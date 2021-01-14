@@ -12,7 +12,7 @@ const base_url = "http://localhost:8080";
     return Promise.reject(error);
 }) */
 
-//Add authorization header to request
+//Add authorization header to requests
 axios.interceptors.request.use((config) => {
     const token = window.localStorage.getItem('userToken');
     if (token) config.headers.Authorization = `Bearer ${token}`;
@@ -20,6 +20,8 @@ axios.interceptors.request.use((config) => {
 }, error => {
     return Promise.reject(error);
 })
+
+
 
 export const eventTypesUrls = {
     get: `${base_url}/eventTypes/`,

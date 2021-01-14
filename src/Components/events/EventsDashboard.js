@@ -1,8 +1,5 @@
 
 
-//TODO Fetch DB Events
-//TODO Wire up the Backend Edit and Delete logic to the frontend
-
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button, ButtonGroup, Card, Header, Icon, Divider, Flag } from 'semantic-ui-react'
@@ -25,8 +22,9 @@ export const EventsDashboard = () => {
     //get user Info on component load 
     useEffect(() => {
         dispatch(loadUserInfo());
-        dispatch(getAllEventTypes());
-    }, [createdEvents]);
+        console.log(createdEvents);
+        //dispatch(getAllEventTypes());
+    }, []);
 
 
     //setUp Drawer for Create/Edit event form
@@ -106,7 +104,7 @@ export const EventsDashboard = () => {
                 <Header as='h2'>
                     <Icon name='calendar' />
                     <Header.Content>
-                        Events List
+                        Events List 
       <Header.Subheader>Manage your events</Header.Subheader>
                     </Header.Content>
                 </Header>

@@ -2,8 +2,9 @@ import React from "react";
 
 const nav = [
   { text: "Dashboard", link: "#!", icon: "chart-line", active: true },
-  { text: "Events", link: "#!", icon: "calendar-week" },
+  { text: "Events", link: "#!", icon: "calendar-alt" },
   { text: "Bookings", link: "#!", icon: "ticket-alt" },
+  { text: "Event Types", link: "#!", icon: "list-alt" },
 ];
 
 const Sidebar = ({ toggleBtn,setToggle }) => {
@@ -22,7 +23,6 @@ const Sidebar = ({ toggleBtn,setToggle }) => {
             <div />
           </div>
         </div>
-
         {nav.map(item => (
           <li key={item.text}>
             <a href="#!" className={item.active ? "active" : ""}>
@@ -33,6 +33,7 @@ const Sidebar = ({ toggleBtn,setToggle }) => {
             </a>
           </li>
         ))}
+        
       </ul>
     </div>
   );
