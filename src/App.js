@@ -6,18 +6,27 @@ import Sidebar from "./Layout/Sidebar";
 import Content from "./Layout/Content";
 import "semantic-ui-css/semantic.min.css";
 import "./styles.scss";
-import {EventsDashboard} from "./Components/events/EventsDashboard"
+import { EventsDashboard } from "./Components/events/EventsDashboard"
+import { useSelector } from "react-redux";
+import { Login } from "./Components/auth/Login";
 
 function App() {
   const [toggleBtn, setToggleBtn] = useState(true);
   const toggle = () => setToggleBtn(val => !val);
+
+  const { user } = useSelector(state => state.userState)
   return (
     <div >
-      <Navbar setToggle={toggle} toggleBtn={toggleBtn}/>
-      <Sidebar setToggle={toggle} toggleBtn={toggleBtn} />
-      <Content toggleBtn={toggleBtn}>
-        <EventsDashboard/>
-      </Content>
+
+      {user === null ? (
+        <Login />
+      ) : (
+          <>
+            <Navbar setToggle={toggle} toggleBtn={toggleBtn} />
+            <Sidebar setToggle={toggle} toggleBtn={toggleBtn} />
+            <Content toggleBtn={toggleBtn}>
+              <EventsDashboard />
+            </Content></>)}
     </div>
   );
 }

@@ -10,10 +10,11 @@ import { Drawer } from 'antd';
 import "./eventsDashboard.scss"
 import { fadeIn, popup } from '../../animations';
 import { EventForm } from './EventForm';
+import { useSelector } from 'react-redux';
 
 export const EventsDashboard = () => {
 
-    //const { createdEvents } = useSelector(state => state.userState);
+    const { createdEvents } = useSelector(state => state.userState);
 
     //setUp Drawer for Create/Edit event form
     const [visibleDrawer, setVisibleDrawer] = useState(false);
@@ -101,17 +102,17 @@ export const EventsDashboard = () => {
 
             <Divider />
             <Card.Group >
-                {fakeData.map((item) => (
+                {createdEvents.map((item) => (
                     <motion.div key={item.id} className="card" variants={popup} initial="hidden" animate="show">
                         <Card >
                             <img src='https://dummyimage.com/300x180.png' alt='' />
                             <Card.Content>
                                 <Card.Header>{item.eventName}</Card.Header>
                                 <Card.Meta>
-                                    <span className='date'>{item.eventDate}</span>
+                                    <span className='date'>{item.eventDate.split("T")[0]} {item.eventDate.split("T")[1].split(".")[0]}</span>
                                 </Card.Meta>
                                 <Card.Description>
-                                    {item.description}
+                                    {item.description.substring(1,60)}...
                                 </Card.Description>
                             </Card.Content>
                             <Card.Content extra>
@@ -135,7 +136,7 @@ export const EventsDashboard = () => {
                 onClose={closeDrawer}
                 visible={visibleDrawer}
             >
-                <EventForm />
+                <EventForm closeDrawer={closeDrawer} />
             </Drawer>
 
         </>
