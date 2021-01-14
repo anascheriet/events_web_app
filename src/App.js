@@ -9,16 +9,17 @@ import "./styles.scss";
 import { EventsDashboard } from "./Components/events/EventsDashboard"
 import { useSelector } from "react-redux";
 import { Login } from "./Components/auth/Login";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const [toggleBtn, setToggleBtn] = useState(true);
   const toggle = () => setToggleBtn(val => !val);
 
-  const { user } = useSelector(state => state.userState)
+  const { token } = useSelector(state => state.userState)
   return (
     <div >
-
-      {user === null ? (
+      <ToastContainer />
+      { token === null ? (
         <Login />
       ) : (
           <>

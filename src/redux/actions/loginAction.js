@@ -1,17 +1,14 @@
 import axios from "axios"
-import { userDataUrl } from "../api"
+import { loginUrlUrl } from "../api"
 
 export const login = (user) => async (dispatch) => {
-    const userData = await axios.post(userDataUrl, user);
-    localStorage.setItem("userToken", userData.data.token.token);
-    console.log(userData);
+    const tokenData = await axios.post(loginUrlUrl, user);
+    localStorage.setItem("userToken", tokenData.data.token);
+    console.log(tokenData);
     dispatch({
-        type: "Fetch_User_Info",
+        type: "Log_IN_User",
         payload: {
-            user: userData.data.user,
-            events: userData.data.user.createdEvents,
-            reservations: userData.data.user.bookedReservations,
-            token: userData.data.token
+          token: tokenData.data.token
         }
     })
 }

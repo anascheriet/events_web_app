@@ -23,5 +23,6 @@ axios.interceptors.request.use((config) => {
 
 
 
-export const userDataUrl = `${base_url}/auth/login`;
+export const loginUrlUrl = `${base_url}/auth/login`;
 export const createEventUrl = `${base_url}/events/create/`;
+export const getCurrentUserUrl = `${base_url}/auth/loggedInUser`;

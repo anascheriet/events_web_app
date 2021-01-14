@@ -3,18 +3,27 @@
 //TODO Fetch DB Events
 //TODO Wire up the Backend Edit and Delete logic to the frontend
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button, ButtonGroup, Card, Header, Icon, Divider, Flag } from 'semantic-ui-react'
 import { Drawer } from 'antd';
 import "./eventsDashboard.scss"
 import { fadeIn, popup } from '../../animations';
 import { EventForm } from './EventForm';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadUserInfo } from '../../redux/actions/loadUserInfo';
 
 export const EventsDashboard = () => {
 
-    const { createdEvents } = useSelector(state => state.userState);
+    //set up the dispatcher for actions (api calls)
+    const dispatch = useDispatch();
+    //get user Info on component load 
+    useEffect(() => {
+        dispatch(loadUserInfo());
+    }, [])
+
+    const { user } = useSelector(state => state.userState);
+    const { createdEvents } = user;
 
     //setUp Drawer for Create/Edit event form
     const [visibleDrawer, setVisibleDrawer] = useState(false);
@@ -101,7 +110,7 @@ export const EventsDashboard = () => {
             </div>
 
             <Divider />
-            <Card.Group >
+             <Card.Group >
                 {createdEvents.map((item) => (
                     <motion.div key={item.id} className="card" variants={popup} initial="hidden" animate="show">
                         <Card >
@@ -112,7 +121,7 @@ export const EventsDashboard = () => {
                                     <span className='date'>{item.eventDate.split("T")[0]} {item.eventDate.split("T")[1].split(".")[0]}</span>
                                 </Card.Meta>
                                 <Card.Description>
-                                    {item.description.substring(1,60)}...
+                                    {item.description.substring(1, 60)}...
                                 </Card.Description>
                             </Card.Content>
                             <Card.Content extra>

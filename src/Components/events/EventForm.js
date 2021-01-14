@@ -11,8 +11,9 @@ import "./eventform.scss"
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { Button } from 'semantic-ui-react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createEventAction } from '../../redux/actions/eventAction'
+import { toast } from 'react-toastify';
 
 
 
@@ -49,12 +50,25 @@ export const EventForm = ({ closeDrawer }) => {
         initialValues: initialValues,
     })
 
+    //get events so we can add to them
+    const { createdEvents } = useSelector(state => state.userState)
 
     //set uo the dispatcher
     const dispatch = useDispatch()
     //Submit method
     const submitHandler = (event) => {
         dispatch(createEventAction(event));
+        createdEvents.push(event);
+        closeDrawer();
+        toast.success('The event Has been Created ! 🦄', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
     }
 
 
