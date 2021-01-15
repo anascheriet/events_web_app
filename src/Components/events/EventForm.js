@@ -144,8 +144,12 @@ export const EventForm = ({ closeDrawer }) => {
             </Form.Item>
             <Form.Item >
                 <Button color="green" disabled={Object.keys(formik.errors).length !== 0} htmlType="submit">Submit</Button>
-                <Button color="grey" onClick={closeDrawer}>Cancel</Button>
+                <Button color="grey" type="button" onClick={closeDrawer}>Cancel</Button>
             </Form.Item>
         </Form>
     )
+
+
 }
+
+

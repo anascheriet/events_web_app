@@ -35,9 +35,13 @@ axios.interceptors.response.use(undefined, (error) => {
 export const eventTypesUrls = {
     get: `${base_url}/eventTypes/`,
     create: `${base_url}/eventTypes/create`,
+    details: (id) => `${base_url}/eventTypes/${id}`,
+    delete: (id) => `${base_url}/eventTypes/${id}`,
+    edit: (id) => `${base_url}/eventTypes/${id}`,
 }
 
 
 export const loginUrlUrl = `${base_url}/auth/login`;
 export const createEventUrl = `${base_url}/events/create`;
 export const getCurrentUserUrl = `${base_url}/auth/loggedInUser`;
+

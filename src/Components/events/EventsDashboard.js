@@ -38,7 +38,6 @@ export const EventsDashboard = () => {
     };
 
 
-
     const fakeData = [{
         "id": 1,
         "eventName": "International Brand Consultant",
@@ -147,7 +146,7 @@ export const EventsDashboard = () => {
                 onClose={closeDrawer}
                 visible={visibleDrawer}
             >
-                <EventForm closeDrawer={closeDrawer} />
+                <EventForm closeDrawer={closeDrawer}  />
             </Drawer>
 
         </>

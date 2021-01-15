@@ -6,9 +6,10 @@ import { Tag, Modal, Form, Input, Space } from 'antd';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { createEventTypeAction } from '../../redux/actions/eventTypes/eventTypeCUD';
-import { toast } from 'react-toastify';
 import { successToast } from '../../Notifications';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import axios from 'axios';
+import { eventTypesUrls } from '../../redux/api';
+import { editToast } from "../../Notifications";
 
 
 //TODO load event type data to delete and edit models
@@ -22,22 +23,41 @@ export const EventTypes = () => {
 
     useEffect(() => {
         dispatch(getAllEventTypes());
-    }, [])
+    }, [eventTypes]);
+
+    const [editMode, setEditMode] = useState(false);
 
     //Add event type modal
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const openModal = () => {
+    const openModalforAdd = () => {
+        setEditMode(false);
         setIsModalVisible(true);
     };
+
+
+
+    const openModalforEdit = async (id) => {
+        const eventT = await axios.get(eventTypesUrls.details(id));
+        formik.values.name = eventT.data.name;
+        formik.values.id = eventT.data.id;
+        setEditMode(true);
+        setIsModalVisible(true);
+    };
+
+    //Edit Submit Handler
+    const editHandler = async () => {
+        await axios.put(eventTypesUrls.edit(formik.values.id), formik.values);
+        setIsModalVisible(false);
+        editToast("Event Type updated ! ✅");
+    }
+
 
     const closeModal = () => {
         setIsModalVisible(false);
     };
 
     //Delete Modal
-
-
     const [isDModalVisible, setIsDModalVisible] = useState(false);
     const openDModal = () => {
         setIsDModalVisible(true);
@@ -48,22 +68,25 @@ export const EventTypes = () => {
     };
 
     //Load event Type
-    const [getEvType, setGetEvtType] = useState({ id: 0, name: "" });
+    const [getEvType, setGetEvType] = useState({})
 
-    const loadEType = (id) => {
-        const newObject = eventTypes.find(item => item.id === 10);
-        setGetEvtType(                   // object that we want to update
-            ...getEvType,    // keep all other key-value pairs
-            newObject    // update the value of specific key
-        );
+    const loadEType = async (id) => {
+        const eventT = await axios.get(eventTypesUrls.details(id));
+        setGetEvType({ ...getEvType, ...eventT.data });
+        console.log(getEvType);
         openDModal();
     }
+
+    const deleteETypeHandle = async (id) => {
+        await axios.delete(eventTypesUrls.delete(id));
+    }
+
+
+
     //Form handling 
 
     //Initial Values
-    const myInitialValues = {
-        name: '',
-    }
+    const myInitialValues = { name: '' };
 
     //Validation
     const myValidationSchema = new Yup.object({
@@ -76,7 +99,7 @@ export const EventTypes = () => {
         initialValues: myInitialValues
     })
 
-    //Submit eType handler
+    //Create Submit eType handler
     const submitHandler = (eType) => {
         eType.id = eventTypes[eventTypes.length - 1].id + 1;
         dispatch(createEventTypeAction(eType));
@@ -96,7 +119,7 @@ export const EventTypes = () => {
                         <Header.Subheader>Manage event categories</Header.Subheader>
                     </Header.Content>
                 </Header>
-                <Button onClick={openModal} color="green"><Icon name="calendar" /> Create new Event Type</Button>
+                <Button onClick={openModalforAdd} color="green"><Icon name="calendar" /> Create new Event Type</Button>
             </div>
             <Divider />
             <Table celled>
@@ -113,9 +136,9 @@ export const EventTypes = () => {
                             <Table.Cell>{item.id}</Table.Cell>
                             <Table.Cell>{item.name}</Table.Cell>
                             <Table.Cell>
-                                <Icon name="edit" title="Edit" color="blue" size="large" />
+                                <Icon onClick={() => openModalforEdit(item.id)} name="edit" title="Edit" color="blue" size="large" />
                                 &nbsp;&nbsp;
-                                <Icon size="large" title="Delete" name="trash" color="red" /></Table.Cell>
+                                <Icon onClick={() => loadEType(item.id)} style={{ cursor: 'pointer' }} size="large" title="Delete" name="trash" color="red" /></Table.Cell>
                         </Table.Row>
                     })}
                 </Table.Body>
@@ -123,7 +146,7 @@ export const EventTypes = () => {
 
 
             {/* Add Event type modal  */}
-            <Modal title="Add an Event Type"
+            <Modal title={editMode ? "Edit Event" : "Add an Event Type"}
                 visible={isModalVisible}
                 onCancel={closeModal}
                 footer={[
@@ -132,7 +155,7 @@ export const EventTypes = () => {
                 </Button>,
                     <Button
                         disabled={Object.keys(formik.errors).length !== 0}
-                        onClick={() => submitHandler(formik.values)}
+                        onClick={() => editMode ? editHandler() : submitHandler(formik.values)}
                         color="green">
                         Create
                 </Button>,
@@ -148,7 +171,7 @@ export const EventTypes = () => {
 
 
             {/* Delete evType Modal */}
-            <Modal title={`Delete event type ${getEvType.id}`}
+            <Modal title='Delete Event Type'
                 visible={isDModalVisible}
                 onCancel={closeDModal}
                 footer={[
@@ -156,10 +179,12 @@ export const EventTypes = () => {
                         Cancel
                 </Button>,
                     <Button
+                        onClick={() => deleteETypeHandle(getEvType.id)}
                         color="red">
                         Delete
                 </Button>,
                 ]}>
+                <h3>Are you sure you want to delete Event Type: <Tag style={{ fontSize: "20px" }} color="red">{getEvType.name}</Tag></h3>
             </Modal>
 
         </>
