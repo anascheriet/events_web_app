@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const base_url = "http://localhost:8080";
 
@@ -19,6 +20,14 @@ axios.interceptors.request.use((config) => {
     return config;
 }, error => {
     return Promise.reject(error);
+})
+
+
+//Handle undefined connection to the backend (spring boot server is down)
+axios.interceptors.response.use(undefined, (error) => {
+    if (error.message === "Network Error" && !error.response) {
+        toast.error('Network error ☠️ - Make sure your API is running!');
+    }
 })
 
 
