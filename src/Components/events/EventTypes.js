@@ -33,6 +33,8 @@ export const EventTypes = () => {
     const openModalforAdd = () => {
         setEditMode(false);
         setIsModalVisible(true);
+        formik.values.name = "";
+        formik.values.id = 0;
     };
 
 
@@ -146,7 +148,7 @@ export const EventTypes = () => {
 
 
             {/* Add Event type modal  */}
-            <Modal title={editMode ? "Edit Event" : "Add an Event Type"}
+            <Modal title={editMode ? "Update Event" : "Add an Event Type"}
                 visible={isModalVisible}
                 onCancel={closeModal}
                 footer={[
@@ -156,9 +158,9 @@ export const EventTypes = () => {
                     <Button
                         disabled={Object.keys(formik.errors).length !== 0}
                         onClick={() => editMode ? editHandler() : submitHandler(formik.values)}
-                        color="green">
-                        Create
-                </Button>,
+                        color={editMode ? "blue" : "green"}>
+                        {editMode ? "Update" : "Create"}
+                    </Button>,
                 ]}>
                 <Form layout="vertical">
                     <Form.Item

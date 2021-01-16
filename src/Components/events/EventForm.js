@@ -1,4 +1,3 @@
-import { Divider, Tooltip } from 'antd'
 import React from 'react'
 import {
     Form,
@@ -6,15 +5,20 @@ import {
     Select,
     DatePicker,
     InputNumber,
+    Upload,
+    message,
+    Button as AntdButton
 } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 import "./eventform.scss"
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { Button } from 'semantic-ui-react'
 import { useDispatch, useSelector } from 'react-redux';
 import { createEventAction } from '../../redux/actions/eventAction'
-import { toast } from 'react-toastify';
 import { successToast } from '../../Notifications';
+import axios from 'axios';
+import { uploadImageUrl } from '../../redux/api';
 
 //TODO load event data to edit form
 
@@ -29,7 +33,8 @@ export const EventForm = ({ closeDrawer }) => {
         availabletickets: null,
         ticketprice: null,
         eventtypeid: 0,
-        eventDate: ''
+        eventDate: '',
+        image: ''
     }
 
     //Set up object validation
@@ -64,6 +69,27 @@ export const EventForm = ({ closeDrawer }) => {
         closeDrawer();
         successToast("The event Has been Created!");
     }
+
+
+    //Upload event Image
+    /* const eventImageUpload = async (file) => {
+        const data = new FormData();
+        data.append('file', file);
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data',
+            },
+        };  
+    }; */
+
+    const eventImageUpload = async (file) => {
+        let formData = new FormData();
+        formData.append('file', file);
+        let response = await axios.post(uploadImageUrl, formData);
+        //Assign response to image path
+        formik.values.image = response.data;
+    }
+
 
 
     return (
@@ -141,6 +167,11 @@ export const EventForm = ({ closeDrawer }) => {
                     style={{ width: "25.2rem" }} />
                 {formik.touched.availabletickets && formik.errors.availabletickets &&
                     <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.availabletickets}</pre>}
+            </Form.Item>
+            <Form.Item label="Event Image">
+                <Upload name='image' action={eventImageUpload}>
+                    <AntdButton icon={<UploadOutlined />}>Click to Upload</AntdButton>
+                </Upload>
             </Form.Item>
             <Form.Item >
                 <Button color="green" disabled={Object.keys(formik.errors).length !== 0} htmlType="submit">Submit</Button>

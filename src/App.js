@@ -10,7 +10,6 @@ import { EventsDashboard } from "./Components/events/EventsDashboard"
 import { useSelector } from "react-redux";
 import { Login } from "./Components/auth/Login";
 import { ToastContainer } from "react-toastify";
-import { EventTypes } from "./Components/events/EventTypes";
 
 function App() {
   const [toggleBtn, setToggleBtn] = useState(true);
@@ -27,7 +26,7 @@ function App() {
             <Navbar setToggle={toggle} toggleBtn={toggleBtn} />
             <Sidebar setToggle={toggle} toggleBtn={toggleBtn} />
             <Content toggleBtn={toggleBtn}>
-              <EventTypes />
+              <EventsDashboard />
             </Content></>)}
     </div>
   );
