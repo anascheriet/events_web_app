@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Form,
     Input,
@@ -19,10 +19,35 @@ import { createEventAction } from '../../redux/actions/eventAction'
 import { successToast } from '../../Notifications';
 import axios from 'axios';
 import { uploadImageUrl } from '../../redux/api';
+import { getAllEventTypes } from '../../redux/actions/eventTypes/getTypesAction';
 
 //TODO load event data to edit form
 
 export const EventForm = ({ closeDrawer }) => {
+
+
+    //set uo the dispatcher for different actions
+    const dispatch = useDispatch();
+
+    //retrieve event types array from evTypes reducer
+    const { eventTypes } = useSelector(state => state.eventTypesState);
+
+    //Country / City Dropdown logic
+    const [CountryCity, setCountryCity] = useState([]);
+    const [Cities, setCities] = useState([]);
+
+    //fetch event types for form event type dropdown from the api on component load
+    useEffect(() => {
+        dispatch(getAllEventTypes);
+        console.log(eventTypes);
+        const fetchCountryAPI = async () => {
+            let response = await axios.get("https://countriesnow.space/api/v0.1/countries");
+            setCountryCity(response.data.data);
+        }
+        fetchCountryAPI();
+    }, [])
+
+
 
     //Set up Event Object
     const initialValues = {
@@ -32,7 +57,7 @@ export const EventForm = ({ closeDrawer }) => {
         city: '',
         availabletickets: null,
         ticketprice: null,
-        eventtypeid: 0,
+        eventtypeid: null,
         eventDate: '',
         image: ''
     }
@@ -60,8 +85,7 @@ export const EventForm = ({ closeDrawer }) => {
     const { user } = useSelector(state => state.userState);
     const { createdEvents } = user;
 
-    //set uo the dispatcher
-    const dispatch = useDispatch()
+
     //Submit method
     const submitHandler = (event) => {
         dispatch(createEventAction(event));
@@ -71,17 +95,7 @@ export const EventForm = ({ closeDrawer }) => {
     }
 
 
-    //Upload event Image
-    /* const eventImageUpload = async (file) => {
-        const data = new FormData();
-        data.append('file', file);
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data',
-            },
-        };  
-    }; */
-
+    //Image upload logic
     const eventImageUpload = async (file) => {
         let formData = new FormData();
         formData.append('file', file);
@@ -89,6 +103,8 @@ export const EventForm = ({ closeDrawer }) => {
         //Assign response to image path
         formik.values.image = response.data;
     }
+
+
 
 
 
@@ -109,7 +125,9 @@ export const EventForm = ({ closeDrawer }) => {
                     name='eventtypeid'
                     onChange={evtype => formik.setFieldValue('eventtypeid', evtype)}
                     value={formik.values.eventtypeid}>
-                    <Select.Option value="5">Sport</Select.Option>
+                    {eventTypes.map(eType => {
+                        return <Select.Option value={eType.id}>{eType.name}</Select.Option>
+                    })}
                 </Select>
                 {formik.touched.eventtypeid && formik.errors.eventtypeid &&
                     <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.eventtypeid}</pre>}
@@ -118,8 +136,11 @@ export const EventForm = ({ closeDrawer }) => {
                 <Select
                     name='country'
                     onChange={country => formik.setFieldValue('country', country)}
+                    onSelect={country => ((setCities(CountryCity.filter(x => x.country == country)[0].cities), formik.setFieldValue('country', country)))}
                     value={formik.values.country}>
-                    <Select.Option value="France">France</Select.Option>
+                    {CountryCity.map(c => {
+                        return <Select.Option value={c.country}>{c.country}</Select.Option>
+                    })}
                 </Select>
                 {formik.touched.country && formik.values.country === "" && console.log(formik.errors.country)}
             </Form.Item>
@@ -128,7 +149,10 @@ export const EventForm = ({ closeDrawer }) => {
                     name='city'
                     onChange={city => (formik.setFieldValue('city', city))}
                     value={formik.values.city}>
-                    <Select.Option value="Paris">Paris</Select.Option>
+                    {Cities.map((c, index) => {
+                        return <Select.Option key={index} value={c}>{c}</Select.Option>
+                    })}
+
                 </Select>
                 {formik.touched.city && formik.errors.city &&
                     <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.city}</pre>}

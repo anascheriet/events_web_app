@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Button, ButtonGroup, Card, Header, Icon, Divider, Flag } from 'semantic-ui-react'
 import { Drawer } from 'antd';
 import "./eventsDashboard.scss"
-import { fadeIn, popup } from '../../animations';
+import { fadeIn, popup } from '../../common/animations';
 import { EventForm } from './EventForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUserInfo } from '../../redux/actions/Users/loadUserInfo';
@@ -36,7 +36,6 @@ export const EventsDashboard = () => {
     const closeDrawer = () => {
         setVisibleDrawer(false);
     };
-
 
     const fakeData = [{
         "id": 1,
@@ -103,7 +102,7 @@ export const EventsDashboard = () => {
                 <Header as='h2'>
                     <Icon name='calendar' />
                     <Header.Content>
-                        Events List 
+                        Events List
       <Header.Subheader>Manage your events</Header.Subheader>
                     </Header.Content>
                 </Header>
@@ -112,7 +111,7 @@ export const EventsDashboard = () => {
 
             <Divider />
             <Card.Group >
-                {createdEvents.map((item) => (
+                {createdEvents?.map((item) => (
                     <motion.div key={item.id} className="card" variants={popup} initial="hidden" animate="show">
                         <Card >
                             <img src='https://dummyimage.com/300x180.png' alt='' />
@@ -146,7 +145,7 @@ export const EventsDashboard = () => {
                 onClose={closeDrawer}
                 visible={visibleDrawer}
             >
-                <EventForm closeDrawer={closeDrawer}  />
+                <EventForm closeDrawer={closeDrawer} />
             </Drawer>
 
         </>
