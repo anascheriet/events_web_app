@@ -1,4 +1,7 @@
+import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { myValidationSchema } from './EventForm';
 import {
     Form,
     Input,
@@ -9,32 +12,12 @@ import {
     Button as AntdButton
 } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import "./eventform.scss"
-import * as Yup from 'yup';
-import { useFormik } from 'formik';
-import { Button } from 'semantic-ui-react'
-import { useDispatch, useSelector } from 'react-redux';
-import { createEventAction } from '../../redux/actions/eventActions/eventAction'
-import { successToast } from '../../common/Notifications';
+import { Button } from 'semantic-ui-react';
+import { eventsUrls, uploadImageUrl } from '../../redux/api';
 import axios from 'axios';
-import { uploadImageUrl } from '../../redux/api';
+import { editToast } from '../../common/Notifications';
 
-//TODO load event data to edit form
-
-//Set up object validation
-export const myValidationSchema = new Yup.ObjectSchema({
-    eventName: Yup.string().required(),
-    description: Yup.string().required(),
-    country: Yup.string().required(),
-    city: Yup.string().required(),
-    availabletickets: Yup.number().required().positive().integer(),
-    ticketprice: Yup.number().required().positive(),
-    eventtypeid: Yup.number().required(),
-    eventDate: Yup.string().required()
-})
-
-export const EventForm = ({ closeDrawer, }) => {
-
+export const EventEditForm = ({ event, closeEDrawer }) => {
 
     //set uo the dispatcher for different actions
     const dispatch = useDispatch();
@@ -42,57 +25,25 @@ export const EventForm = ({ closeDrawer, }) => {
     //retrieve event types array from evTypes reducer
     const { eventTypes } = useSelector(state => state.eventTypesState);
 
-    //Country / City Dropdown logic
-    const [CountryCity, setCountryCity] = useState([]);
-    const [Cities, setCities] = useState([]);
 
-    //fetch event types for form event type dropdown from the api on component load
-    useEffect(() => {
-        const fetchCountryAPI = async () => {
-            let response = await axios.get("https://countriesnow.space/api/v0.1/countries");
-            setCountryCity(response.data.data);
-        }
-        fetchCountryAPI();
-        console.log(new Date("2021-01-16T02:00:00.042+00:00"));
-    }, [])
-
-
-
-    //Set up Event Object
+    //Set up Event Object to object
     const initialValues = {
-        eventName: '',
-        description: '',
-        country: '',
-        city: '',
-        availabletickets: null,
-        ticketprice: null,
-        eventtypeid: null,
-        eventDate: '',
-        image: ''
+        eventName: event.eventName,
+        description: event.description,
+        country: event.country,
+        city: event.city,
+        availabletickets: event.availableTickets,
+        ticketprice: event.ticketPrice,
+        eventtypeid: event.eventType.id,
+        eventDate: null,
+        image: event.imagePath,
     }
-
-    
-
 
     //Set up formik object to handle the form
     const formik = useFormik({
         validationSchema: myValidationSchema,
         initialValues: initialValues,
     })
-
-    //get events so we can add to them
-    const { user } = useSelector(state => state.userState);
-    const { createdEvents } = user;
-
-
-    //Submit method
-    const submitHandler = (event) => {
-        dispatch(createEventAction(event));
-        createdEvents.push(event);
-        closeDrawer();
-        successToast("The event Has been Created!");
-    }
-
 
     //Image upload logic
     const eventImageUpload = async (file) => {
@@ -104,7 +55,25 @@ export const EventForm = ({ closeDrawer, }) => {
     }
 
 
+    //Country / City Dropdown logic
+    const [CountryCity, setCountryCity] = useState([]);
+    const [Cities, setCities] = useState([]);
 
+    //fetch event types for form event type dropdown from the api on component load
+    useEffect(() => {
+
+        const fetchCountryAPI = async () => {
+            let response = await axios.get("https://countriesnow.space/api/v0.1/countries");
+            setCountryCity(response.data.data);
+        }
+        fetchCountryAPI();
+    }, [])
+
+    const submitHandler = async (ev) => {
+        await axios.patch(eventsUrls.edit(event.id), ev)
+        closeEDrawer();
+        editToast("The event Has been Updated! ✅");
+    }
 
 
     return (
@@ -162,6 +131,7 @@ export const EventForm = ({ closeDrawer, }) => {
                     <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.description}</pre>}
             </Form.Item>
             <Form.Item label="Event Date">
+
                 <DatePicker
                     name='eventDate'
                     onChange={date => (formik.setFieldValue('eventDate', date))}
@@ -171,6 +141,7 @@ export const EventForm = ({ closeDrawer, }) => {
                     format="YYYY-MM-DD HH:mm:ss" />
                 {formik.touched.eventDate && formik.errors.eventDate &&
                     <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.eventDate}</pre>}
+
             </Form.Item>
             <Form.Item label="Ticket Price">
                 <InputNumber
@@ -197,13 +168,9 @@ export const EventForm = ({ closeDrawer, }) => {
                 </Upload>
             </Form.Item>
             <Form.Item >
-                <Button color="green" disabled={Object.keys(formik.errors).length !== 0} htmlType="submit">Submit</Button>
-                <Button color="grey" type="button" onClick={closeDrawer}>Cancel</Button>
+                <Button color="blue" disabled={Object.keys(formik.errors).length > 1} htmlType="submit">Update</Button>
+                <Button color="grey" type="button" onClick={closeEDrawer}>Cancel</Button>
             </Form.Item>
         </Form>
     )
-
-
 }
-
-

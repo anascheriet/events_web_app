@@ -40,9 +40,15 @@ export const eventTypesUrls = {
     edit: (id) => `${base_url}/eventTypes/${id}`,
 }
 
+export const eventsUrls = {
+    create: `${base_url}/events/create`,
+    details: (id) => `${base_url}/events/${id}`,
+    edit: (id) => `${base_url}/events/${id}`,
+}
+
 export const uploadImageUrl = `${base_url}/events/image`;
 
 export const loginUrlUrl = `${base_url}/auth/login`;
-export const createEventUrl = `${base_url}/events/create`;
+
 export const getCurrentUserUrl = `${base_url}/auth/loggedInUser`;
 

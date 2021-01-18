@@ -2,13 +2,16 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Button, ButtonGroup, Card, Header, Icon, Divider, Flag } from 'semantic-ui-react'
+import { Button, ButtonGroup, Card, Header, Icon, Divider } from 'semantic-ui-react'
 import { Drawer } from 'antd';
 import "./eventsDashboard.scss"
-import { fadeIn, popup } from '../../common/animations';
+import { popup } from '../../common/animations';
 import { EventForm } from './EventForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUserInfo } from '../../redux/actions/Users/loadUserInfo';
+import axios from 'axios';
+import { eventsUrls } from '../../redux/api';
+import { EventEditForm } from './EventEditForm';
 import { getAllEventTypes } from '../../redux/actions/eventTypes/getTypesAction';
 
 export const EventsDashboard = () => {
@@ -22,8 +25,7 @@ export const EventsDashboard = () => {
     //get user Info on component load 
     useEffect(() => {
         dispatch(loadUserInfo());
-        console.log(createdEvents);
-        //dispatch(getAllEventTypes());
+        dispatch(getAllEventTypes);
     }, []);
 
 
@@ -37,64 +39,87 @@ export const EventsDashboard = () => {
         setVisibleDrawer(false);
     };
 
-    const fakeData = [{
-        "id": 1,
-        "eventName": "International Brand Consultant",
-        "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-        "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-    },
-    {
-        "id": 2,
-        "eventName": "International Brand Consultant",
-        "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-        "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-    },
-    {
-        "id": 3,
-        "eventName": "International Brand Consultant",
-        "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-        "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-    }, {
-        "id": 4,
-        "eventName": "International Brand Consultant",
-        "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-        "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-    }, {
-        "id": 5,
-        "eventName": "International Brand Consultant",
-        "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-        "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-    }, {
-        "id": 6,
-        "eventName": "International Brand Consultant",
-        "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-        "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-    }, {
-        "id": 7,
-        "eventName": "International Brand Consultant",
-        "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-        "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-    }, {
-        "id": 8,
-        "eventName": "International Brand Consultant",
-        "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-        "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-    }, {
-        "id": 9,
-        "eventName": "International Brand Consultant",
-        "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-        "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-    }, {
-        "id": 10,
-        "eventName": "International Brand Consultant",
-        "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-        "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-    }, {
-        "id": 11,
-        "eventName": "International Brand Consultant",
-        "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-        "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-    }]
+    /* 
+        const fakeData = [{
+            "id": 1,
+            "eventName": "International Brand Consultant",
+            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
+            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
+        },
+        {
+            "id": 2,
+            "eventName": "International Brand Consultant",
+            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
+            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
+        },
+        {
+            "id": 3,
+            "eventName": "International Brand Consultant",
+            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
+            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
+        }, {
+            "id": 4,
+            "eventName": "International Brand Consultant",
+            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
+            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
+        }, {
+            "id": 5,
+            "eventName": "International Brand Consultant",
+            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
+            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
+        }, {
+            "id": 6,
+            "eventName": "International Brand Consultant",
+            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
+            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
+        }, {
+            "id": 7,
+            "eventName": "International Brand Consultant",
+            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
+            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
+        }, {
+            "id": 8,
+            "eventName": "International Brand Consultant",
+            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
+            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
+        }, {
+            "id": 9,
+            "eventName": "International Brand Consultant",
+            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
+            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
+        }, {
+            "id": 10,
+            "eventName": "International Brand Consultant",
+            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
+            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
+        }, {
+            "id": 11,
+            "eventName": "International Brand Consultant",
+            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
+            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
+        }]
+     */
+
+
+    //Set up conditional rendering of edit event form
+    const [eventToEdit, setEventToEdit] = useState({});
+
+    const [editDrawer, setEditDrawer] = useState(false);
+
+    const showEDrawer = () => {
+        setEditDrawer(true);
+    };
+    const closeEDrawer = () => {
+        setEditDrawer(false);
+    };
+
+    const openEditEventForm = async (id) => {
+        const reponse = await axios.get(eventsUrls.details(id));
+        setEventToEdit(reponse.data.event);
+        console.log(eventToEdit);
+        showEDrawer();
+    }
+
 
     return (
         <>
@@ -126,7 +151,7 @@ export const EventsDashboard = () => {
                             </Card.Content>
                             <Card.Content extra>
                                 <ButtonGroup widths={2}>
-                                    <Button basic color='blue' content='Edit' />
+                                    <Button onClick={() => openEditEventForm(item.id)} basic color='blue' content='Edit' />
                                     <Button basic color='red' content='Delete' />
                                 </ButtonGroup>
                             </Card.Content>
@@ -136,7 +161,7 @@ export const EventsDashboard = () => {
                 ))}
             </Card.Group>
 
-            {/* Create/Edit form Drawer  */}
+            {/* Create form Drawer  */}
 
             <Drawer
                 width={400}
@@ -145,7 +170,22 @@ export const EventsDashboard = () => {
                 onClose={closeDrawer}
                 visible={visibleDrawer}
             >
-                <EventForm closeDrawer={closeDrawer} />
+                <EventForm
+                    closeDrawer={closeDrawer}
+                />
+            </Drawer>
+
+
+            {/* Edit form Drawer  */}
+
+            <Drawer
+                width={400}
+                placement="right"
+                closable={false}
+                onClose={closeEDrawer}
+                visible={editDrawer}
+            >
+                <EventEditForm closeEDrawer={closeEDrawer} event={eventToEdit} />
             </Drawer>
 
         </>

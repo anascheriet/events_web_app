@@ -6,7 +6,7 @@ import { Tag, Modal, Form, Input, Space } from 'antd';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { createEventTypeAction } from '../../redux/actions/eventTypes/eventTypeCUD';
-import { successToast } from '../../Notifications';
+import { successToast } from '../../common/Notifications';
 import axios from 'axios';
 import { eventTypesUrls } from '../../redux/api';
 import { editToast } from "../../Notifications";
