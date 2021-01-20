@@ -17,13 +17,17 @@ import { eventsUrls, uploadImageUrl } from '../../redux/api';
 import axios from 'axios';
 import { editToast } from '../../common/Notifications';
 
-export const EventEditForm = ({ event, closeEDrawer }) => {
+export const EventEditForm = ({ eventToEdit, closeEDrawer }) => {
 
-    //set uo the dispatcher for different actions
-    const dispatch = useDispatch();
 
     //retrieve event types array from evTypes reducer
     const { eventTypes } = useSelector(state => state.eventTypesState);
+    const { event } = useSelector(state => state.eventState);
+
+    useEffect(() => {
+     
+        console.log(event);
+    }, [])
 
 
     //Set up Event Object to object
@@ -70,6 +74,7 @@ export const EventEditForm = ({ event, closeEDrawer }) => {
     }, [])
 
     const submitHandler = async (ev) => {
+        console.log(ev);
         await axios.patch(eventsUrls.edit(event.id), ev)
         closeEDrawer();
         editToast("The event Has been Updated! ✅");

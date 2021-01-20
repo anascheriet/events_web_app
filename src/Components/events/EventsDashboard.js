@@ -13,12 +13,16 @@ import axios from 'axios';
 import { eventsUrls } from '../../redux/api';
 import { EventEditForm } from './EventEditForm';
 import { getAllEventTypes } from '../../redux/actions/eventTypes/getTypesAction';
+import { loadEventAction, unMountDrawer } from '../../redux/actions/eventActions/loadEventAction';
 
 export const EventsDashboard = () => {
 
     //Getting the state
     const { user } = useSelector(state => state.userState);
     const { createdEvents } = user;
+
+    const { drawer } = useSelector(state => state.eventState);
+
 
     //set up the dispatcher for actions (api calls)
     const dispatch = useDispatch();
@@ -102,22 +106,20 @@ export const EventsDashboard = () => {
 
 
     //Set up conditional rendering of edit event form
-    const [eventToEdit, setEventToEdit] = useState({});
-
     const [editDrawer, setEditDrawer] = useState(false);
 
     const showEDrawer = () => {
         setEditDrawer(true);
     };
+
     const closeEDrawer = () => {
         setEditDrawer(false);
+        dispatch(unMountDrawer());
     };
 
     const openEditEventForm = async (id) => {
-        const reponse = await axios.get(eventsUrls.details(id));
-        setEventToEdit(reponse.data.event);
-        console.log(eventToEdit);
         showEDrawer();
+        dispatch(loadEventAction(id));
     }
 
 
@@ -138,8 +140,9 @@ export const EventsDashboard = () => {
             <Card.Group >
                 {createdEvents?.map((item) => (
                     <motion.div key={item.id} className="card" variants={popup} initial="hidden" animate="show">
-                        <Card >
-                            <img src='https://dummyimage.com/300x180.png' alt='' />
+                        <Card key={item.id} color="yellow" >
+                            {/* <img src='https://dummyimage.com/300x180.png' alt='' /> */}
+                            <img src='https://dummyimage.com/300x200.png' alt='' />
                             <Card.Content>
                                 <Card.Header>{item.eventName}</Card.Header>
                                 <Card.Meta>
@@ -177,17 +180,17 @@ export const EventsDashboard = () => {
 
 
             {/* Edit form Drawer  */}
-
-            <Drawer
-                width={400}
-                placement="right"
-                closable={false}
-                onClose={closeEDrawer}
-                visible={editDrawer}
-            >
-                <EventEditForm closeEDrawer={closeEDrawer} event={eventToEdit} />
-            </Drawer>
-
+            {drawer &&
+                <Drawer
+                    width={400}
+                    placement="right"
+                    closable={false}
+                    onClose={closeEDrawer}
+                    visible={editDrawer}
+                >
+                    <EventEditForm closeEDrawer={closeEDrawer} />
+                </Drawer>
+            }
         </>
 
     )
