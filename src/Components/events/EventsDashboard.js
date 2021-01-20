@@ -15,20 +15,23 @@ import { loadEventAction, unMountDrawer } from '../../redux/actions/eventActions
 
 export const EventsDashboard = () => {
 
+
+    //get user Info on component load 
+    useEffect(() => {
+        console.log("here");
+        dispatch(loadUserInfo());
+        dispatch(getAllEventTypes);
+    }, []);
+
     //Getting the state
-    const { user } = useSelector(state => state.userState);
-    const { createdEvents } = user;
+    const { user, createdEvents } = useSelector(state => state.userState);
 
     const { drawer } = useSelector(state => state.eventState);
 
 
     //set up the dispatcher for actions (api calls)
     const dispatch = useDispatch();
-    //get user Info on component load 
-    useEffect(() => {
-        dispatch(loadUserInfo());
-        dispatch(getAllEventTypes);
-    }, []);
+
 
 
     //setUp Drawer for Create/Edit event form

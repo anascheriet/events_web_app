@@ -83,7 +83,6 @@ body {
   top: 60px;
   width: 220px;
   background: var(--secondary-color);
-  border-bottom-left-radius: 20px;
   transition: 0.4s;
 }
 .sidebar ul li a {
@@ -136,7 +135,7 @@ body {
 .app-wrapper {
   position: fixed;
   top: 5rem;  
-  left: 19rem;
+  left: 17.5rem;
   bottom: 0.5rem;
   right: 0.5rem;
   padding: 2rem 1rem;

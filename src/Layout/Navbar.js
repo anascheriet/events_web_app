@@ -3,22 +3,25 @@ import { Menu, Dropdown } from 'antd';
 import { useDispatch, useSelector } from "react-redux";
 import { logoutAction } from "../redux/actions/Users/logoutAction"
 import { loadUserInfo } from "../redux/actions/Users/loadUserInfo"
+import { useHistory } from "react-router-dom";
 const Navbar = ({ setToggle }) => {
 
   const dispatch = useDispatch();
 
   const { token, user } = useSelector(state => state.userState);
 
+  const history = useHistory();
 
 
   useEffect(() => {
-    dispatch(loadUserInfo());
+   // dispatch(loadUserInfo());
   }, [])
 
   const isAdmin = token !== null && user?.role?.name !== "Client";
 
   const logOut = () => {
     dispatch(logoutAction());
+    history.push("/");
   }
 
   const menu = (
@@ -51,8 +54,6 @@ const Navbar = ({ setToggle }) => {
           <a style={{ color: "#fdde6c", textTransform: "lowercase", paddingLeft: "2rem", fontSize: "25px" }} href="#!">eventor</a>
         </div>
       </div>
-
-
 
       <Dropdown overlay={menu}>
         <div className="left">

@@ -5,8 +5,13 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/actions/Users/loginAction';
+import { useHistory } from 'react-router-dom';
+import { loadUserInfo } from '../../redux/actions/Users/loadUserInfo';
 
 export const Login = () => {
+
+  //Router redirector
+  const history = useHistory();
 
   //need a dispatcher that executes the action !!!!!!!!!!:D
   const dispatch = useDispatch();
@@ -23,8 +28,8 @@ export const Login = () => {
   })
 
   const submitHandler = (values) => {
-    console.log(values);
     dispatch(login(values));
+    history.push("/events");
   }
 
   const formik = useFormik({

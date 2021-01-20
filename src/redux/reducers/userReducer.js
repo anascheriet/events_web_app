@@ -1,7 +1,8 @@
 const initialState = {
     user: null,
     token: null,
-    isLoggedIn: false
+    isLoggedIn: false,
+    createdEvents: []
 }
 
 const userReducer = (state = initialState, action) => {
@@ -24,7 +25,8 @@ const userReducer = (state = initialState, action) => {
         case "Load_User_Info":
             return {
                 ...state,
-                user: action.payload.user
+                user: action.payload.user,
+                createdEvents: action.payload.createdEvents
 
             }
         default: // need this for default case

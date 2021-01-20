@@ -135,7 +135,7 @@ export const EventForm = ({ closeDrawer, }) => {
                 <Select
                     name='country'
                     onChange={country => formik.setFieldValue('country', country)}
-                    onSelect={country => ((setCities(CountryCity.filter(x => x.country == country)[0].cities), formik.setFieldValue('country', country)))}
+                    onSelect={country => ((setCities(CountryCity.filter(x => x.country === country)[0].cities), formik.setFieldValue('country', country)))}
                     value={formik.values.country}>
                     {CountryCity.map(c => {
                         return <Select.Option value={c.country}>{c.country}</Select.Option>

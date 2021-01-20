@@ -12,7 +12,7 @@ import { Login } from "./Components/auth/Login";
 import { ToastContainer } from "react-toastify";
 import { HHHHH } from "./Components/events/HHHHH";
 import { loadUserInfo } from "./redux/actions/Users/loadUserInfo";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
   const [toggleBtn, setToggleBtn] = useState(true);
@@ -25,19 +25,26 @@ function App() {
 
   return (
     <div >
-      <BrowserRouter>
+      <Router>
         <ToastContainer />
         {token === null ?
           <Route exact path="/" component={Login} />
           :
           <>
-            {isAdmin && <Sidebar toggleBtn={toggleBtn}  />}
-            <Navbar setToggle={toggle} toggleBtn={toggleBtn} />
+            <Navbar setToggle={toggle} />
+            {token !== null && isAdmin ? <>
+              <Sidebar toggleBtn={toggleBtn} />
+              <Content toggleBtn={toggleBtn}>
+                <Switch>
+                  <Route exact path="/events" component={EventsDashboard} />
+                </Switch>
+              </Content></>
+              :
+              ''}
+
           </>
         }
-        <Switch>
 
-        </Switch>
 
 
         {/*     <Navbar setToggle={toggle} toggleBtn={toggleBtn} />
@@ -46,7 +53,7 @@ function App() {
 
           {user.role.name === "SuperAdmin" ? <EventsDashboard /> : <HHHHH />}
         </Content> */}
-      </BrowserRouter>
+      </Router>
 
     </div>
   );

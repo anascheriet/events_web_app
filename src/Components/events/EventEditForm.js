@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { myValidationSchema } from './EventForm';
 import {
     Form,
@@ -17,7 +17,7 @@ import { eventsUrls, uploadImageUrl } from '../../redux/api';
 import axios from 'axios';
 import { editToast } from '../../common/Notifications';
 
-export const EventEditForm = ({ eventToEdit, closeEDrawer }) => {
+export const EventEditForm = ({ closeEDrawer }) => {
 
 
     //retrieve event types array from evTypes reducer
@@ -65,7 +65,6 @@ export const EventEditForm = ({ eventToEdit, closeEDrawer }) => {
 
     //fetch event types for form event type dropdown from the api on component load
     useEffect(() => {
-
         const fetchCountryAPI = async () => {
             let response = await axios.get("https://countriesnow.space/api/v0.1/countries");
             setCountryCity(response.data.data);
@@ -109,7 +108,7 @@ export const EventEditForm = ({ eventToEdit, closeEDrawer }) => {
                 <Select
                     name='country'
                     onChange={country => formik.setFieldValue('country', country)}
-                    onSelect={country => ((setCities(CountryCity.filter(x => x.country == country)[0].cities), formik.setFieldValue('country', country)))}
+                    onSelect={country => ((setCities(CountryCity.filter(x => x.country === country)[0].cities), formik.setFieldValue('country', country)))}
                     value={formik.values.country}>
                     {CountryCity.map(c => {
                         return <Select.Option value={c.country}>{c.country}</Select.Option>
