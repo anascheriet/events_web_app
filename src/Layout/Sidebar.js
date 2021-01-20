@@ -1,10 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const nav = [
   { text: "Dashboard", link: "#!", icon: "chart-line", active: true },
   { text: "Events", link: "#!", icon: "calendar-alt" },
   { text: "Bookings", link: "#!", icon: "ticket-alt" },
-  { text: "Event Types", link: "#!", icon: "list-alt" },
+  { text: "EventTypes", link: "#!", icon: "list-alt" },
 ];
 
 const Sidebar = ({ toggleBtn }) => {
@@ -16,14 +17,16 @@ const Sidebar = ({ toggleBtn }) => {
     >
       <ul>
         {nav.map(item => (
-          <li key={item.text}>
-            <a href="#!" className={item.active ? "active" : ""}>
-              <span className="icon">
-                <i className={`fas fa-${item.icon}`} />
-              </span>
-              <span className="title">{item.text}</span>
-            </a>
-          </li>
+          <Link to={`/${item.text}`}>
+            <li key={item.text}>
+              <a href="#!" className={item.active ? "active" : ""}>
+                <span className="icon">
+                  <i className={`fas fa-${item.icon}`} />
+                </span>
+                <span className="title">{item.text}</span>
+              </a>
+            </li>
+          </Link>
         ))}
 
       </ul>

@@ -24,7 +24,7 @@ export const EventsDashboard = () => {
     }, []);
 
     //Getting the state
-    const { user, createdEvents } = useSelector(state => state.userState);
+    const { createdEvents } = useSelector(state => state.userState);
 
     const { drawer } = useSelector(state => state.eventState);
 

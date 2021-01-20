@@ -10,9 +10,8 @@ import { EventsDashboard } from "./Components/events/EventsDashboard"
 import { useDispatch, useSelector } from "react-redux";
 import { Login } from "./Components/auth/Login";
 import { ToastContainer } from "react-toastify";
-import { HHHHH } from "./Components/events/HHHHH";
-import { loadUserInfo } from "./redux/actions/Users/loadUserInfo";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { EventTypes } from "./Components/events/EventTypes";
 
 function App() {
   const [toggleBtn, setToggleBtn] = useState(true);
@@ -36,7 +35,8 @@ function App() {
               <Sidebar toggleBtn={toggleBtn} />
               <Content toggleBtn={toggleBtn}>
                 <Switch>
-                  <Route exact path="/events" component={EventsDashboard} />
+                  <Route exact path="/Events" component={EventsDashboard} />
+                  <Route exact path="/EventTypes" component={EventTypes} />
                 </Switch>
               </Content></>
               :

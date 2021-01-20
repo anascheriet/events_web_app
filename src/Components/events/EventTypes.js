@@ -9,7 +9,7 @@ import { createEventTypeAction } from '../../redux/actions/eventTypes/eventTypeC
 import { successToast } from '../../common/Notifications';
 import axios from 'axios';
 import { eventTypesUrls } from '../../redux/api';
-import { editToast } from "../../Notifications";
+import { editToast } from "../../common/Notifications";
 
 
 //TODO load event type data to delete and edit models
