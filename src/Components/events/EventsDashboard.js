@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button, ButtonGroup, Card, Header, Icon, Divider } from 'semantic-ui-react'

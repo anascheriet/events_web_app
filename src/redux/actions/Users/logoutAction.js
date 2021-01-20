@@ -5,7 +5,8 @@ export const logoutAction = () => async (dispatch) => {
     dispatch({
         type: "Log_Out_User",
         payload: {
-            token: null
+            token: null,
+            user: null
         }
     })
 }

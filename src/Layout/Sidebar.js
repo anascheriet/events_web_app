@@ -7,22 +7,14 @@ const nav = [
   { text: "Event Types", link: "#!", icon: "list-alt" },
 ];
 
-const Sidebar = ({ toggleBtn,setToggle }) => {
+const Sidebar = ({ toggleBtn }) => {
   return (
-   
+
     <div
       className={`${toggleBtn ? "sidebar collapse" : "sidebar"}`}
-      style={{ marginTop: "0rem" }}
       data-simplebar
     >
       <ul>
-        <div className="brand">
-          <div className="hamburger" onClick={setToggle}>
-            <div />
-            <div />
-            <div />
-          </div>
-        </div>
         {nav.map(item => (
           <li key={item.text}>
             <a href="#!" className={item.active ? "active" : ""}>
@@ -33,7 +25,7 @@ const Sidebar = ({ toggleBtn,setToggle }) => {
             </a>
           </li>
         ))}
-        
+
       </ul>
     </div>
   );

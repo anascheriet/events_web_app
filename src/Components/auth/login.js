@@ -47,9 +47,7 @@ export const Login = () => {
         <div className="description">
           <h2>EVENT PLANNING.</h2>
         </div>
-
       </motion.div>
-
 
       <div className="form">
         <form onSubmit={formik.handleSubmit}>

@@ -1,52 +1,67 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Menu, Dropdown } from 'antd';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutAction } from "../redux/actions/Users/logoutAction"
-const Navbar = ({ setToggle, toggleBtn }) => {
+import { loadUserInfo } from "../redux/actions/Users/loadUserInfo"
+const Navbar = ({ setToggle }) => {
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+
+  const { token, user } = useSelector(state => state.userState);
+
+
+
+  useEffect(() => {
+    dispatch(loadUserInfo());
+  }, [])
+
+  const isAdmin = token !== null && user?.role?.name !== "Client";
 
   const logOut = () => {
     dispatch(logoutAction());
   }
 
-    const menu = (
-        <Menu style={{backgroundColor: "#14213d"}}>
-          <Menu.Item >
-            <a target="_blank" className="menuLink" style={{color: "#fdde6c"}} >
-              <i className="fas fa-user" style={{marginRight: "1rem"}}/>
+  const menu = (
+    <Menu style={{ backgroundColor: "#14213d" }}>
+      <Menu.Item >
+        <a target="_blank" className="menuLink" style={{ color: "#fdde6c" }} >
+          <i className="fas fa-user" style={{ marginRight: "1rem" }} />
               Profile
             </a>
-          </Menu.Item>
-          <Menu.Item >
-            <a onClick={logOut} className="menuLink" target="_blank" style={{color: "#fdde6c"}} >
-            <i className="fas fa-sign-out-alt" style={{marginRight: "1rem"}}/>
+      </Menu.Item>
+      <Menu.Item >
+        <a onClick={logOut} className="menuLink" target="_blank" style={{ color: "#fdde6c" }} >
+          <i className="fas fa-sign-out-alt" style={{ marginRight: "1rem" }} />
               Log out
             </a>
-          </Menu.Item>
-        </Menu>
-      );
-    
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
-    <div className={`${toggleBtn ? "navbar" : "navbar collapse"}`}>
-    <div className="brand">
-      <div className="hamburger" onClick={setToggle}>
-        <div />
-        <div />
-        <div />
+    <div className="navbar">
+      <div className="brand">
+        {isAdmin && <div className="hamburger" onClick={setToggle}>
+          <div />
+          <div />
+          <div />
+        </div>}
+
+        <div className="logo">
+          <a style={{ color: "#fdde6c", textTransform: "lowercase", paddingLeft: "2rem", fontSize: "25px" }} href="#!">eventor</a>
+        </div>
       </div>
-      <div className="logo">
-        <a style={{ color: "#fdde6c", textTransform: "lowercase", paddingLeft: "2rem", fontSize:"25px" }} href="#!">eventor</a>
-      </div>
+
+
+
+      <Dropdown overlay={menu}>
+        <div className="left">
+          <i style={{ color: "#fdde6c" }} className="fas fa-chevron-down" />
+        </div>
+      </Dropdown>
     </div>
-
-    <Dropdown overlay={menu}>
-      <div className="left">
-        <i style={{ color: "#fdde6c" }}  className="fas fa-chevron-down" />
-      </div>
-    </Dropdown>
-
-  </div>
   );
 };
+
+
 export default Navbar;
