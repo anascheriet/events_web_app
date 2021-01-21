@@ -12,7 +12,7 @@ import { Login } from "./Components/auth/Login";
 import { ToastContainer } from "react-toastify";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { EventTypes } from "./Components/events/Admin/EventTypes";
-import { HHHHH } from "./Components/events/Client/HHHHH"
+import { EventsHome } from "./Components/events/Client/EventsHome"
 
 function App() {
   const [toggleBtn, setToggleBtn] = useState(true);
@@ -44,7 +44,7 @@ function App() {
               <Fragment style>
                 <div style={{ marginTop: "5rem", marginLeft: "2rem" }}>
                   <Switch>
-                    <Route exact path="/Events" component={HHHHH} />
+                    <Route exact path="/Events" component={EventsHome} />
                   </Switch>
                 </div>
               </Fragment>

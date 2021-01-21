@@ -10,6 +10,7 @@ import { loadUserInfo } from '../../../redux/actions/Users/loadUserInfo';
 import { EventEditForm } from './EventEditForm';
 import { getAllEventTypes } from '../../../redux/actions/eventTypes/getTypesAction';
 import { loadEventAction, unMountDrawer } from '../../../redux/actions/eventActions/loadEventAction';
+import { formatDate, formatImageLink } from '../../../common/util';
 
 export const EventsDashboard = () => {
 
@@ -74,11 +75,11 @@ export const EventsDashboard = () => {
                 {createdEvents?.map((item) => (
                     <motion.div key={item.id} className="card" variants={popup} initial="hidden" animate="show">
                         <Card key={item.id} color="yellow" >
-                            <img style={{ width: "20.7rem", height: "20rem" }} src={`http://localhost:8080/${item.imagePath?.split("/").pop()}`} alt="img" />
+                            <img style={{ width: "20.7rem", height: "20rem" }} src={formatImageLink(item.imagePath)} alt="img" />
                             <Card.Content>
                                 <Card.Header>{item.eventName}</Card.Header>
                                 <Card.Meta>
-                                    <span className='date'>{/* {item.eventDate.split("T")[0]} {item.eventDate.split("T")[1].split(".")[0]} */}</span>
+                                    <span>{formatDate(item.eventDate)}</span>
                                 </Card.Meta>
                                 <Card.Description>
                                     {item.description.substring(1, 60)}...

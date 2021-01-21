@@ -1,0 +1,22 @@
+.eventList {
+  padding: 0rem 5rem;
+  h2 {
+    padding: 5rem 0rem;
+  }
+  img {
+    width: 20rem;
+    height: 22rem;
+  }
+  overflow: scroll;
+  position: fixed;
+  top: 6rem;
+  left: 2rem;
+  right: 0.1rem;
+  bottom: 0.5rem;
+}
+
+.events {
+  min-height: 80vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
