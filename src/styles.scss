@@ -12,14 +12,33 @@
 * {
   margin: 0;
   padding: 0;
-  list-style: none;
-  text-decoration: none;
   box-sizing: border-box;
-  font-family: "poppins", sans-serif;
 }
+
 body {
-  background-color: rgb(234, 234, 234) !important;
-  overflow: hidden;
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
+}
+
+h3 {
+  font-size: 1.3rem;
+  color: #333;
+  padding: 1.5rem 0rem;
+}
+
+p {
+  font-size: 1.2rem;
+  line-height: 200%;
+  color: #696969;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+img {
+  display: block;
 }
 
 .navbar {
@@ -155,3 +174,12 @@ body {
 .app-wrapper.collapse {
   left: 110px;
 }
+
+input {
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+}
+
+@import "./Components/events/Client/EventHome.scss" ;
+@import "./Components/events/Client/events.scss" ;
+@import "./Components/events/Client/eventDetail.scss" ;

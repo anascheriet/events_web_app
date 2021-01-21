@@ -1,0 +1,84 @@
+.card-shadow {
+  width: 100%;
+  min-height: 100vh;
+  overflow-y: scroll;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #ff7676;
+  }
+  &::-webkit-scrollbar-track {
+    background: white;
+  }
+  z-index: 10;
+}
+
+.detail {
+  width: 80%;
+  border-radius: 1rem;
+  padding: 2rem 5rem;
+  background: white;
+  position: absolute;
+  left: 10%;
+  color: black;
+  img {
+    width: 100%;
+  }
+  h3 {
+    font-family: "ubuntu";
+  }
+  z-index: 20;
+}
+
+.stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  img {
+    width: 2rem;
+    height: 2rem;
+    display: inline;
+  }
+}
+
+.info {
+  text-align: center;
+}
+.platforms {
+  display: flex;
+  justify-content: space-evenly;
+  img {
+    margin-left: 3rem;
+    width: 100%;
+  }
+}
+
+.media {
+  margin-top: 5rem;
+  img {
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.description {
+  display: flex;
+  margin-top: 2rem;
+  height:100%;
+}
+.sliderimg{
+  width: 100%;
+  height: 500px;
+  object-fit: cover
+}
+/* .rating {
+  display: flex;
+  flex-direction: column;
+}
+ */

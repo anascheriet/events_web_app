@@ -1,22 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap");
+
 .eventList {
   padding: 0rem 5rem;
   h2 {
-    padding: 5rem 0rem;
+    padding: 4rem 0rem;
+    font-family: "ubuntu";
+    font-weight: bolder;
+    font-size: 3rem;
   }
-  img {
-    width: 20rem;
-    height: 22rem;
-  }
-  overflow: scroll;
-  position: fixed;
-  top: 6rem;
-  left: 2rem;
-  right: 0.1rem;
-  bottom: 0.5rem;
 }
 
 .events {
   min-height: 80vh;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-column-gap: 3rem;
+  grid-row-gap: 3rem;
 }
