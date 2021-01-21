@@ -1,4 +1,4 @@
-import React, { Fragment,useState } from "react";
+import React, { Fragment, useState } from "react";
 import "simplebar"; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
 import "simplebar/dist/simplebar.css";
 import Navbar from "./Layout/Navbar";
@@ -44,7 +44,7 @@ function App() {
               <Fragment style>
                 <div style={{ marginTop: "5rem", marginLeft: "2rem" }}>
                   <Switch>
-                    <Route exact path="/Events" component={EventsHome} />
+                    <Route exact path={["/Events/:id", "/Events"]} component={EventsHome} />
                   </Switch>
                 </div>
               </Fragment>
