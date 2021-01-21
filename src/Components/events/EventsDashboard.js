@@ -10,6 +10,7 @@ import { loadUserInfo } from '../../redux/actions/Users/loadUserInfo';
 import { EventEditForm } from './EventEditForm';
 import { getAllEventTypes } from '../../redux/actions/eventTypes/getTypesAction';
 import { loadEventAction, unMountDrawer } from '../../redux/actions/eventActions/loadEventAction';
+import axios from 'axios';
 
 export const EventsDashboard = () => {
 
@@ -39,68 +40,6 @@ export const EventsDashboard = () => {
         setVisibleDrawer(false);
     };
 
-    /* 
-        const fakeData = [{
-            "id": 1,
-            "eventName": "International Brand Consultant",
-            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-        },
-        {
-            "id": 2,
-            "eventName": "International Brand Consultant",
-            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-        },
-        {
-            "id": 3,
-            "eventName": "International Brand Consultant",
-            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-        }, {
-            "id": 4,
-            "eventName": "International Brand Consultant",
-            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-        }, {
-            "id": 5,
-            "eventName": "International Brand Consultant",
-            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-        }, {
-            "id": 6,
-            "eventName": "International Brand Consultant",
-            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-        }, {
-            "id": 7,
-            "eventName": "International Brand Consultant",
-            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-        }, {
-            "id": 8,
-            "eventName": "International Brand Consultant",
-            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-        }, {
-            "id": 9,
-            "eventName": "International Brand Consultant",
-            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-        }, {
-            "id": 10,
-            "eventName": "International Brand Consultant",
-            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-        }, {
-            "id": 11,
-            "eventName": "International Brand Consultant",
-            "eventDate": "Wed Jan 13 2021 05:27:46 GMT+0100 (GMT+01:00)",
-            "description": "Sit a sint reprehenderit tempore saepe expedita molestiae id."
-        }]
-     */
-
-
     //Set up conditional rendering of edit event form
     const [editDrawer, setEditDrawer] = useState(false);
 
@@ -117,7 +56,6 @@ export const EventsDashboard = () => {
         showEDrawer();
         dispatch(loadEventAction(id));
     }
-
 
     return (
         <>
@@ -137,8 +75,7 @@ export const EventsDashboard = () => {
                 {createdEvents?.map((item) => (
                     <motion.div key={item.id} className="card" variants={popup} initial="hidden" animate="show">
                         <Card key={item.id} color="yellow" >
-                            <h2>{item.imagePath?.split("/").pop()}</h2>
-                           <img src={`http://localhost:8080/${item.imagePath?.split("/").pop()}`} />
+                            <img style={{ width: "20.7rem", height: "20rem" }} src={`http://localhost:8080/${item.imagePath?.split("/").pop()}`} />
                             <Card.Content>
                                 <Card.Header>{item.eventName}</Card.Header>
                                 <Card.Meta>

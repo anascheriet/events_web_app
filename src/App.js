@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import "simplebar"; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
 import "simplebar/dist/simplebar.css";
 import Navbar from "./Layout/Navbar";
@@ -12,6 +12,8 @@ import { Login } from "./Components/auth/Login";
 import { ToastContainer } from "react-toastify";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { EventTypes } from "./Components/events/EventTypes";
+import { HHHHH } from "./Components/events/HHHHH"
+import { Container } from "semantic-ui-react";
 
 function App() {
   const [toggleBtn, setToggleBtn] = useState(true);
@@ -40,7 +42,16 @@ function App() {
                 </Switch>
               </Content></>
               :
-              ''}
+
+              <Fragment style>
+                <div style={{ marginTop: "5rem", marginLeft: "2rem" }}>
+                  <Switch>
+                    <Route exact path="/Events" component={HHHHH} />
+                  </Switch>
+                </div>
+              </Fragment>
+
+            }
 
           </>
         }
@@ -55,7 +66,7 @@ function App() {
         </Content> */}
       </Router>
 
-    </div>
+    </div >
   );
 }
 
