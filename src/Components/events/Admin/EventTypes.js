@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Header, Icon, Table, Divider } from 'semantic-ui-react'
-import { Tag, Modal, Form, Input  } from 'antd';
+import { Tag, Modal, Form, Input } from 'antd';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import axios from 'axios';
@@ -13,9 +13,7 @@ import { createEventTypeAction } from '../../../redux/actions/eventTypes/eventTy
 export const EventTypes = () => {
 
     const { eventTypes } = useSelector(state => state.eventTypesState);
-
     const dispatch = useDispatch();
-
     useEffect(() => {
         dispatch(getAllEventTypes());
     }, [eventTypes]);

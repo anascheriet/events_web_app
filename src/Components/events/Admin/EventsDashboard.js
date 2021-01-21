@@ -97,7 +97,6 @@ export const EventsDashboard = () => {
             </Card.Group>
 
             {/* Create form Drawer  */}
-
             <Drawer
                 width={400}
                 placement="right"
@@ -109,7 +108,6 @@ export const EventsDashboard = () => {
                     closeDrawer={closeDrawer}
                 />
             </Drawer>
-
 
             {/* Edit form Drawer  */}
             {drawer &&

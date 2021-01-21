@@ -44,6 +44,7 @@ export const eventsUrls = {
     create: `${base_url}/events/create`,
     details: (id) => `${base_url}/events/${id}`,
     edit: (id) => `${base_url}/events/${id}`,
+    getAll : `${base_url}/events/`
 }
 
 export const uploadImageUrl = `${base_url}/events/image`;
