@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Menu, Dropdown } from 'antd';
 import { useDispatch, useSelector } from "react-redux";
 import { logoutAction } from "../redux/actions/Users/logoutAction"
-import { loadUserInfo } from "../redux/actions/Users/loadUserInfo"
 import { useHistory } from "react-router-dom";
 const Navbar = ({ setToggle }) => {
 
@@ -12,10 +11,6 @@ const Navbar = ({ setToggle }) => {
 
   const history = useHistory();
 
-
-  useEffect(() => {
-   // dispatch(loadUserInfo());
-  }, [])
 
   const isAdmin = token !== null && user?.role?.name !== "Client";
 

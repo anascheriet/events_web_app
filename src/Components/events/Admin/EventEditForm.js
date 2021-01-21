@@ -13,9 +13,9 @@ import {
 } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button } from 'semantic-ui-react';
-import { eventsUrls, uploadImageUrl } from '../../redux/api';
+import { eventsUrls, uploadImageUrl } from '../../../redux/api';
 import axios from 'axios';
-import { editToast } from '../../common/Notifications';
+import { editToast } from '../../../common/Notifications';
 
 export const EventEditForm = ({ closeEDrawer }) => {
 

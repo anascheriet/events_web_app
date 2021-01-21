@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Header, Icon, Table, Menu, Divider, IconGroup } from 'semantic-ui-react'
-import { getAllEventTypes } from '../../redux/actions/eventTypes/getTypesAction';
-import { Tag, Modal, Form, Input, Space } from 'antd';
+import { Button, Header, Icon, Table, Divider } from 'semantic-ui-react'
+import { Tag, Modal, Form, Input  } from 'antd';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { createEventTypeAction } from '../../redux/actions/eventTypes/eventTypeCUD';
-import { successToast } from '../../common/Notifications';
 import axios from 'axios';
-import { eventTypesUrls } from '../../redux/api';
-import { editToast } from "../../common/Notifications";
+import { eventTypesUrls } from '../../../redux/api'
+import { editToast, successToast } from '../../../common/Notifications';
+import { getAllEventTypes } from '../../../redux/actions/eventTypes/getTypesAction';
+import { createEventTypeAction } from '../../../redux/actions/eventTypes/eventTypeCUD'
 
 export const EventTypes = () => {
 
     const { eventTypes } = useSelector(state => state.eventTypesState);
-    const { user } = useSelector(state => state.userState);
 
     const dispatch = useDispatch();
 

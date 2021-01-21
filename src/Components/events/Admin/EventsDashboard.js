@@ -3,14 +3,13 @@ import { motion } from 'framer-motion';
 import { Button, ButtonGroup, Card, Header, Icon, Divider } from 'semantic-ui-react'
 import { Drawer } from 'antd';
 import "./eventsDashboard.scss"
-import { popup } from '../../common/animations';
+import { popup } from '../../../common/animations';
 import { EventForm } from './EventForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadUserInfo } from '../../redux/actions/Users/loadUserInfo';
+import { loadUserInfo } from '../../../redux/actions/Users/loadUserInfo';
 import { EventEditForm } from './EventEditForm';
-import { getAllEventTypes } from '../../redux/actions/eventTypes/getTypesAction';
-import { loadEventAction, unMountDrawer } from '../../redux/actions/eventActions/loadEventAction';
-import axios from 'axios';
+import { getAllEventTypes } from '../../../redux/actions/eventTypes/getTypesAction';
+import { loadEventAction, unMountDrawer } from '../../../redux/actions/eventActions/loadEventAction';
 
 export const EventsDashboard = () => {
 
@@ -75,7 +74,7 @@ export const EventsDashboard = () => {
                 {createdEvents?.map((item) => (
                     <motion.div key={item.id} className="card" variants={popup} initial="hidden" animate="show">
                         <Card key={item.id} color="yellow" >
-                            <img style={{ width: "20.7rem", height: "20rem" }} src={`http://localhost:8080/${item.imagePath?.split("/").pop()}`} />
+                            <img style={{ width: "20.7rem", height: "20rem" }} src={`http://localhost:8080/${item.imagePath?.split("/").pop()}`} alt="img" />
                             <Card.Content>
                                 <Card.Header>{item.eventName}</Card.Header>
                                 <Card.Meta>

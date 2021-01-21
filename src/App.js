@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment,useState } from "react";
 import "simplebar"; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
 import "simplebar/dist/simplebar.css";
 import Navbar from "./Layout/Navbar";
@@ -6,21 +6,19 @@ import Sidebar from "./Layout/Sidebar";
 import Content from "./Layout/Content";
 import "semantic-ui-css/semantic.min.css";
 import "./styles.scss";
-import { EventsDashboard } from "./Components/events/EventsDashboard"
-import { useDispatch, useSelector } from "react-redux";
+import { EventsDashboard } from "./Components/events/Admin/EventsDashboard"
+import { useSelector } from "react-redux";
 import { Login } from "./Components/auth/Login";
 import { ToastContainer } from "react-toastify";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { EventTypes } from "./Components/events/EventTypes";
-import { HHHHH } from "./Components/events/HHHHH"
-import { Container } from "semantic-ui-react";
+import { EventTypes } from "./Components/events/Admin/EventTypes";
+import { HHHHH } from "./Components/events/Client/HHHHH"
 
 function App() {
   const [toggleBtn, setToggleBtn] = useState(true);
   const toggle = () => setToggleBtn(val => !val);
 
   const { token, user } = useSelector(state => state.userState);
-  const dispatch = useDispatch();
 
   const isAdmin = token !== null && user?.role?.name !== "Client";
 

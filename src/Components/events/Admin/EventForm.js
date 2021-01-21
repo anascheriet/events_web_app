@@ -14,10 +14,10 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { Button } from 'semantic-ui-react'
 import { useDispatch, useSelector } from 'react-redux';
-import { createEventAction } from '../../redux/actions/eventActions/eventAction'
-import { successToast } from '../../common/Notifications';
+import { createEventAction } from '../../../redux/actions/eventActions/eventAction'
+import { successToast } from '../../../common/Notifications';
 import axios from 'axios';
-import { uploadImageUrl } from '../../redux/api';
+import { uploadImageUrl } from '../../../redux/api';
 
 //Set up object validation
 export const myValidationSchema = new Yup.ObjectSchema({
