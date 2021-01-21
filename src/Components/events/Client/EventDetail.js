@@ -4,7 +4,9 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 import { formatDate, formatImageLink } from '../../../common/util';
-import "./eventDetail.scss"
+import "./eventDetail.scss";
+import emptyStar from "../../../../src/Layout/img/star-empty.svg";
+import fullStar from "../../../../src/Layout/img/star-full.svg";
 
 export const EventDetail = () => {
 
@@ -18,6 +20,46 @@ export const EventDetail = () => {
         }
         history.push("/Events/")
     }
+
+    const getStars = () => {
+        let length = event.clientReservations.length;
+        let stars = [];
+
+        if (length === 0) {
+            for (let i = 0; i < 5; i++) {
+                stars.push(<img key={i} alt="star" src={emptyStar} />)
+            }
+        } else if (length > 13) {
+            for (let i = 0; i < 5; i++) {
+                stars.push(<img key={i} alt="star" src={fullStar} />)
+            }
+        } else if (length > 3 && length < 5) {
+            for (let i = 0; i < 1; i++) {
+                stars.push(<img key={i} alt="star" src={fullStar} />)
+            }
+            for (let i = 0; i < 4; i++) {
+                stars.push(<img key={i} alt="star" src={emptyStar} />)
+            }
+        } else if (length > 5 && length < 10) {
+            for (let i = 0; i < 2; i++) {
+                stars.push(<img key={i} alt="star" src={fullStar} />)
+            }
+            for (let i = 0; i < 3; i++) {
+                stars.push(<img key={i} alt="star" src={emptyStar} />)
+            }
+
+        } else if (length > 10 && length < 13) {
+            for (let i = 0; i < 4; i++) {
+                stars.push(<img key={i} alt="star" src={fullStar} />)
+            }
+            for (let i = 0; i < 1; i++) {
+                stars.push(<img key={i} alt="star" src={emptyStar} />)
+            }
+        }
+        return stars;
+    }
+
+
     return (
         <>
             (
@@ -30,7 +72,7 @@ export const EventDetail = () => {
                         <motion.div className="rating">
                             <motion.h3 style={{ fontSize: "2rem" }} layoutId={`h3 ${event.id}`}>{event.eventName}</motion.h3>
                             <p>Popularity: {/* {game.rating} */}</p >
-                            {/* {getStars()} */}
+                            {getStars()}
 
                         </motion.div>
                         <motion.div className="info">

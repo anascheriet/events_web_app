@@ -13,8 +13,6 @@ export const EventsHome = () => {
     //get current location
     const location = useLocation();
     const pathId = location.pathname.split("/")[2];
-    console.log(pathId);
-
 
     //fetch existing events from the api
     useEffect(() => {
@@ -28,7 +26,7 @@ export const EventsHome = () => {
     return (
         <motion.div className="eventList">
             {pathId && <EventDetail />}
-            <h2>events</h2>
+            <h2>Available events</h2>
             <motion.div className="events" >
                 {availableEvents.map((event) => {
                     return <Event event={event.event} />
