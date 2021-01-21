@@ -74,7 +74,8 @@ export const EventsDashboard = () => {
             <Card.Group >
                 {createdEvents?.map((item) => (
                     <motion.div key={item.id} className="card" variants={popup} initial="hidden" animate="show">
-                        <Card key={item.id} color="yellow" >
+                        <Card 
+                            key={item.id} color="yellow" >
                             <img style={{ width: "20.7rem", height: "20rem" }} src={formatImageLink(item.imagePath)} alt="img" />
                             <Card.Content>
                                 <Card.Header>{item.eventName}</Card.Header>

@@ -8,7 +8,7 @@ import "./eventDetail.scss";
 import emptyStar from "../../../../src/Layout/img/star-empty.svg";
 import fullStar from "../../../../src/Layout/img/star-full.svg";
 
-export const EventDetail = () => {
+export const EventDetail = ({ pathId }) => {
 
     const { event } = useSelector(state => state.eventState);
     const history = useHistory();
@@ -20,6 +20,13 @@ export const EventDetail = () => {
         }
         history.push("/Events/")
     }
+
+    const stopevent = (e) => {
+        //make game detail unclickable
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+    }
+
 
     const getStars = () => {
         let length = event.clientReservations.length;
@@ -66,29 +73,30 @@ export const EventDetail = () => {
             <motion.div
                 className="card-shadow" onClick={(e) => exitCardHandler(e)}>
                 <motion.div
+                    onClick={stopevent}
+                    layoutId={pathId}
                     /* I added the layoutId because framer motion needs an id for each component it uses */
-                    className="detail">
+                    className="detail"
+                >
+
                     <motion.div className="stats">
                         <motion.div className="rating">
-                            <motion.h3 style={{ fontSize: "2rem" }} layoutId={`h3 ${event.id}`}>{event.eventName}</motion.h3>
-                            <p>Popularity: {/* {game.rating} */}</p >
+                            <motion.h3 layoutId={`name ${pathId}`} style={{ fontSize: "2rem" }} >{event.eventName}</motion.h3>
+                            <motion.p>Popularity: {/* {game.rating} */}</motion.p >
                             {getStars()}
 
                         </motion.div>
                         <motion.div className="info">
-                            <motion.p><Icon name="map pin" />{event.city}, {event.country}</motion.p>
-                            <p>{formatDate(event.eventDate)}</p>
+                            <motion.p layoutId={`location ${pathId}`}><Icon name="map pin" />{event.city}, {event.country}</motion.p>
+                            <motion.p layoutId={`date ${pathId}`}>{formatDate(event.eventDate)}</motion.p>
                         </motion.div>
                     </motion.div>
                     <motion.div className="media">
-                        <motion.img layoutId={`image ${event.id}`} src={formatImageLink(event.imagePath)} alt="image" />
+                        <motion.img layoutId={`image ${pathId}`} src={formatImageLink(event.imagePath)} alt="image" />
                     </motion.div>
                     <div className="description">
                         <p>{event.description}</p>
                     </div>
-
-
-
                 </motion.div>
             </motion.div>
             )

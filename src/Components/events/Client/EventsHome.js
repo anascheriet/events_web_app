@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -25,13 +25,19 @@ export const EventsHome = () => {
 
     return (
         <motion.div className="eventList">
-            {pathId && <EventDetail />}
-            <h2>Available events</h2>
-            <motion.div className="events" >
-                {availableEvents.map((event) => {
-                    return <Event event={event.event} />
-                })}
-            </motion.div>
+            <AnimateSharedLayout type="switch">
+                {/* wrap all the components that will be transitioning*/}
+                <AnimatePresence>
+                    {/* The component that will be animated should have a conditional toggle, pathId here */}
+                    {pathId && <EventDetail pathId={pathId} />}
+                </AnimatePresence>
+                <h2>Available events</h2>
+                <motion.div className="events" >
+                    {availableEvents.map((event) => {
+                        return <Event event={event.event} />
+                    })}
+                </motion.div>
+            </AnimateSharedLayout>
         </motion.div>
     )
 }
