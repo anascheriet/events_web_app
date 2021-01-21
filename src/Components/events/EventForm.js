@@ -19,8 +19,6 @@ import { successToast } from '../../common/Notifications';
 import axios from 'axios';
 import { uploadImageUrl } from '../../redux/api';
 
-//TODO load event data to edit form
-
 //Set up object validation
 export const myValidationSchema = new Yup.ObjectSchema({
     eventName: Yup.string().required(),

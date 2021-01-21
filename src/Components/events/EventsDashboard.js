@@ -7,8 +7,6 @@ import { popup } from '../../common/animations';
 import { EventForm } from './EventForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUserInfo } from '../../redux/actions/Users/loadUserInfo';
-import axios from 'axios';
-import { eventsUrls } from '../../redux/api';
 import { EventEditForm } from './EventEditForm';
 import { getAllEventTypes } from '../../redux/actions/eventTypes/getTypesAction';
 import { loadEventAction, unMountDrawer } from '../../redux/actions/eventActions/loadEventAction';
@@ -28,11 +26,8 @@ export const EventsDashboard = () => {
 
     const { drawer } = useSelector(state => state.eventState);
 
-
     //set up the dispatcher for actions (api calls)
     const dispatch = useDispatch();
-
-
 
     //setUp Drawer for Create/Edit event form
     const [visibleDrawer, setVisibleDrawer] = useState(false);
@@ -142,8 +137,8 @@ export const EventsDashboard = () => {
                 {createdEvents?.map((item) => (
                     <motion.div key={item.id} className="card" variants={popup} initial="hidden" animate="show">
                         <Card key={item.id} color="yellow" >
-                            {/* <img src='https://dummyimage.com/300x180.png' alt='' /> */}
-                            <img src='https://dummyimage.com/300x200.png' alt='' />
+                            <h2>{item.imagePath?.split("/").pop()}</h2>
+                           <img src={`http://localhost:8080/${item.imagePath?.split("/").pop()}`} />
                             <Card.Content>
                                 <Card.Header>{item.eventName}</Card.Header>
                                 <Card.Meta>

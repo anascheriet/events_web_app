@@ -11,9 +11,6 @@ import axios from 'axios';
 import { eventTypesUrls } from '../../redux/api';
 import { editToast } from "../../common/Notifications";
 
-
-//TODO load event type data to delete and edit models
-
 export const EventTypes = () => {
 
     const { eventTypes } = useSelector(state => state.eventTypesState);

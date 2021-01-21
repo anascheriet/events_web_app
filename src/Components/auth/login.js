@@ -6,7 +6,6 @@ import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/actions/Users/loginAction';
 import { useHistory } from 'react-router-dom';
-import { loadUserInfo } from '../../redux/actions/Users/loadUserInfo';
 
 export const Login = () => {
 
