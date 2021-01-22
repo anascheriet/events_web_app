@@ -17,8 +17,7 @@ export const EventsHome = () => {
     //fetch existing events from the api
     useEffect(() => {
         dispatch(getAllEventsAction());
-        console.log(location.pathname);
-    }, [])
+    }, [dispatch])
     //get events from the state
     const { availableEvents } = useSelector(state => state.clientState);
 

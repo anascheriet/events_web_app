@@ -14,21 +14,20 @@ import { formatDate, formatImageLink } from '../../../common/util';
 
 export const EventsDashboard = () => {
 
+    //set up the dispatcher for actions (api calls)
+    const dispatch = useDispatch();
 
     //get user Info on component load 
     useEffect(() => {
         console.log("here");
         dispatch(loadUserInfo());
         dispatch(getAllEventTypes);
-    }, []);
+    }, [dispatch]);
 
     //Getting the state
     const { createdEvents } = useSelector(state => state.userState);
 
     const { drawer } = useSelector(state => state.eventState);
-
-    //set up the dispatcher for actions (api calls)
-    const dispatch = useDispatch();
 
     //setUp Drawer for Create/Edit event form
     const [visibleDrawer, setVisibleDrawer] = useState(false);
@@ -74,7 +73,7 @@ export const EventsDashboard = () => {
             <Card.Group >
                 {createdEvents?.map((item) => (
                     <motion.div key={item.id} className="card" variants={popup} initial="hidden" animate="show">
-                        <Card 
+                        <Card
                             key={item.id} color="yellow" >
                             <img style={{ width: "20.7rem", height: "20rem" }} src={formatImageLink(item.imagePath)} alt="img" />
                             <Card.Content>

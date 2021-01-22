@@ -24,12 +24,6 @@ export const EventEditForm = ({ closeEDrawer }) => {
     const { eventTypes } = useSelector(state => state.eventTypesState);
     const { event } = useSelector(state => state.eventState);
 
-    useEffect(() => {
-     
-        console.log(event);
-    }, [])
-
-
     //Set up Event Object to object
     const initialValues = {
         eventName: event.eventName,

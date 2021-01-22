@@ -95,7 +95,7 @@ export const EventDetail = ({ pathId }) => {
     const bookEventHandler = async (values) => {
         console.log(values);
         const response = await axios.post(clientUrls.book, values);
-        successToast(response.data); 
+        successToast(response.data);
         document.body.style.overflow = 'auto';
         history.push("/Events/");
     }
@@ -128,7 +128,7 @@ export const EventDetail = ({ pathId }) => {
                                 <Form.Item style={{ left: "2rem", marginBottom: "0.5rem" }}>
                                     <InputNumber name="numOfPeople" onChange={(numOfPeople) => formik.setFieldValue("numOfPeople", numOfPeople)} placeholder="Number Of Tickets" style={{ width: "12rem" }} />
                                 </Form.Item>
-                                <Button disabled={formik.values.numOfPeople === null || formik.values.numOfPeople === 0} style={{ width: "8rem", width: "8rem", backgroundColor: "#ff7676", color: "white", marginTop: "0.5rem" }} htmlType="submit">Book</Button>
+                                <Button disabled={formik.values.numOfPeople === null || formik.values.numOfPeople === 0} style={{ width: "8rem", backgroundColor: "#ff7676", color: "white", marginTop: "0.5rem" }} htmlType="submit">Book</Button>
                             </Form>
                         </motion.div>
                     </motion.div>

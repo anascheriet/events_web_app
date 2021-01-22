@@ -16,7 +16,7 @@ export const EventTypes = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getAllEventTypes());
-    }, [eventTypes]);
+    }, [eventTypes,dispatch]);
 
     const [editMode, setEditMode] = useState(false);
 
