@@ -28,6 +28,7 @@ axios.interceptors.response.use(undefined, (error) => {
     if (error.message === "Network Error" && !error.response) {
         toast.error('Network error ☠️ - Make sure your API is running!');
     }
+    console.log(error);
 })
 
 
@@ -44,7 +45,11 @@ export const eventsUrls = {
     create: `${base_url}/events/create`,
     details: (id) => `${base_url}/events/${id}`,
     edit: (id) => `${base_url}/events/${id}`,
-    getAll : `${base_url}/events/`
+    getAll: `${base_url}/events/`
+}
+
+export const clientUrls = {
+    book: `${base_url}/reservations/create`
 }
 
 export const uploadImageUrl = `${base_url}/events/image`;

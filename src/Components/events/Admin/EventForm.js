@@ -69,7 +69,7 @@ export const EventForm = ({ closeDrawer, }) => {
         image: ''
     }
 
-    
+
 
 
     //Set up formik object to handle the form

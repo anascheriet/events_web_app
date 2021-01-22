@@ -126,7 +126,7 @@ export const EventTypes = () => {
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {eventTypes.map(item => {
+                    {eventTypes?.map(item => {
                         return <Table.Row key={item.id}>
                             <Table.Cell>{item.id}</Table.Cell>
                             <Table.Cell>{item.name}</Table.Cell>

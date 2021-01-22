@@ -6,7 +6,7 @@ export const getAllEventTypes = () => async (dispatch) => {
     dispatch({
         type: "Load_Event_Types",
         payload: {
-            eventTypes: Types.data
+            eventTypes: Types?.data
         }
     })
 }

@@ -40,7 +40,6 @@ function App() {
                 </Switch>
               </Content></>
               :
-
               <Fragment style>
                 <div style={{ marginTop: "5rem", marginLeft: "2rem" }}>
                   <Switch>
