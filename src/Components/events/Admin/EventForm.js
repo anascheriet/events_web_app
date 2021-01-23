@@ -122,7 +122,7 @@ export const EventForm = ({ closeDrawer, }) => {
                     name='eventtypeid'
                     onChange={evtype => formik.setFieldValue('eventtypeid', evtype)}
                     value={formik.values.eventtypeid}>
-                    {eventTypes.map(eType => {
+                    {eventTypes?.map(eType => {
                         return <Select.Option value={eType.id}>{eType.name}</Select.Option>
                     })}
                 </Select>

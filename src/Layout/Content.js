@@ -5,7 +5,9 @@ const Content = ({ toggleBtn, children }) => {
       className={`${toggleBtn ? "app-wrapper collapse" : "app-wrapper"}`}
       data-simplebar
     >
-      {children}
+      <div>
+        {children}
+      </div>
     </div>
   );
 };

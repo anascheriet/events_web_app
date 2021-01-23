@@ -33,7 +33,7 @@ export const EventsHome = () => {
                 <h2>Available events</h2>
                 <motion.div className="events" >
                     {availableEvents.map((event) => {
-                        return <Event event={event.event} />
+                        return <Event key={event.event.id} event={event.event} />
                     })}
                 </motion.div>
             </AnimateSharedLayout>

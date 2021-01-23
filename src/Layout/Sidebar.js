@@ -17,16 +17,14 @@ const Sidebar = ({ toggleBtn }) => {
     >
       <ul>
         {nav.map(item => (
-          <Link to={`/${item.text}`}>
-            <li key={item.text}>
-              <a href="#!" className={item.active ? "active" : ""}>
-                <span className="icon">
-                  <i className={`fas fa-${item.icon}`} />
-                </span>
-                <span className="title">{item.text}</span>
-              </a>
-            </li>
-          </Link>
+          <li key={item.text}>
+            <Link className={item.active ? "active" : ""} key={item.text} to={`/${item.text}`}>
+              <span className="icon">
+                <i className={`fas fa-${item.icon}`} />
+              </span>
+              <span className="title">{item.text}</span>
+            </Link>
+          </li>
         ))}
 
       </ul>

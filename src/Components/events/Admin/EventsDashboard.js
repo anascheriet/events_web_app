@@ -21,7 +21,7 @@ export const EventsDashboard = () => {
     useEffect(() => {
         console.log("here");
         dispatch(loadUserInfo());
-        dispatch(getAllEventTypes);
+        dispatch(getAllEventTypes());
     }, [dispatch]);
 
     //Getting the state
@@ -57,7 +57,7 @@ export const EventsDashboard = () => {
     }
 
     return (
-        <>
+        <div>
             <div className="header">
                 <Header as='h2'>
                     <Icon name='calendar' />
@@ -111,7 +111,7 @@ export const EventsDashboard = () => {
             </Drawer>
 
             {/* Edit form Drawer  */}
-            {drawer &&
+            {drawer ?
                 <Drawer
                     width={400}
                     placement="right"
@@ -121,8 +121,10 @@ export const EventsDashboard = () => {
                 >
                     <EventEditForm closeEDrawer={closeEDrawer} />
                 </Drawer>
+                :
+                <div>HHH</div>
             }
-        </>
+        </div>
 
     )
 }

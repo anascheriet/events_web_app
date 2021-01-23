@@ -46,14 +46,14 @@ export const EventDetail = ({ pathId }) => {
             for (let i = 0; i < 5; i++) {
                 stars.push(<img key={i} alt="star" src={fullStar} />)
             }
-        } else if (length > 3 && length < 5) {
+        } else if (length >= 2 && length <= 5) {
             for (let i = 0; i < 1; i++) {
                 stars.push(<img key={i} alt="star" src={fullStar} />)
             }
             for (let i = 0; i < 4; i++) {
                 stars.push(<img key={i} alt="star" src={emptyStar} />)
             }
-        } else if (length > 5 && length < 10) {
+        } else if (length > 5 && length <= 10) {
             for (let i = 0; i < 2; i++) {
                 stars.push(<img key={i} alt="star" src={fullStar} />)
             }
@@ -95,7 +95,7 @@ export const EventDetail = ({ pathId }) => {
     const bookEventHandler = async (values) => {
         console.log(values);
         const response = await axios.post(clientUrls.book, values);
-        successToast(response.data);
+        successToast(response?.data);
         document.body.style.overflow = 'auto';
         history.push("/Events/");
     }

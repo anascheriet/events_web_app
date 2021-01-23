@@ -12,11 +12,13 @@ import { createEventTypeAction } from '../../../redux/actions/eventTypes/eventTy
 
 export const EventTypes = () => {
 
-    const { eventTypes } = useSelector(state => state.eventTypesState);
     const dispatch = useDispatch();
+    const { eventTypes } = useSelector(state => state.eventTypesState);
     useEffect(() => {
         dispatch(getAllEventTypes());
-    }, [eventTypes,dispatch]);
+    }, [eventTypes, dispatch]);
+
+
 
     const [editMode, setEditMode] = useState(false);
 
@@ -105,10 +107,10 @@ export const EventTypes = () => {
 
 
     return (
-        <>
+        <div>
             <div className="header">
                 <Header as='h2'>
-                    <Icon name='fas fa-list' />
+                    <Icon style={{ marginTop: "0.7rem" }} name='list' />
                     <Header.Content>
                         Event Types List
                         <Header.Subheader>Manage event categories</Header.Subheader>
@@ -182,6 +184,6 @@ export const EventTypes = () => {
                 <h3>Are you sure you want to delete Event Type: <Tag style={{ fontSize: "20px" }} color="red">{getEvType.name}</Tag></h3>
             </Modal>
 
-        </>
+        </div>
     )
 }
