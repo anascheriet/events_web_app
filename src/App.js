@@ -5,6 +5,7 @@ import Navbar from "./Layout/Navbar";
 import Sidebar from "./Layout/Sidebar";
 import Content from "./Layout/Content";
 import "semantic-ui-css/semantic.min.css";
+import "./layout.scss";
 import "./styles.scss";
 import { EventsDashboard } from "./Components/events/Admin/EventsDashboard"
 import { useSelector } from "react-redux";

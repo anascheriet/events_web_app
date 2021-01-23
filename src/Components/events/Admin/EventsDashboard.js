@@ -70,32 +70,38 @@ export const EventsDashboard = () => {
             </div>
 
             <Divider />
-            <Card.Group >
-                {createdEvents?.map((item) => (
-                    <motion.div key={item.id} className="card" variants={popup} initial="hidden" animate="show">
-                        <Card
-                            key={item.id} color="yellow" >
-                            <img style={{ width: "20.7rem", height: "20rem" }} src={formatImageLink(item.imagePath)} alt="img" />
-                            <Card.Content>
-                                <Card.Header>{item.eventName}</Card.Header>
-                                <Card.Meta>
-                                    <span>{formatDate(item.eventDate)}</span>
-                                </Card.Meta>
-                                <Card.Description>
-                                    {item.description.substring(1, 60)}...
-                                </Card.Description>
-                            </Card.Content>
-                            <Card.Content extra>
-                                <ButtonGroup widths={2}>
-                                    <Button onClick={() => openEditEventForm(item.id)} basic color='blue' content='Edit' />
-                                    <Button basic color='red' content='Delete' />
-                                </ButtonGroup>
-                            </Card.Content>
-                        </Card>
-                    </motion.div>
 
-                ))}
-            </Card.Group>
+            {/* List of Events */}
+            <div className="container my-12 mx-auto px-4 md:px-12" style={{ backgroundImage: "" }}>
+                <div className="flex flex-wrap -mx-1 lg:-mx-4">
+                    {createdEvents.map((item) => {
+
+                        {/* Column_Start */ }
+                        return (
+                            <motion.div className="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3" variants={popup} initial="hidden" animate="show">
+                                {/* Article Start */}
+                                <article className="overflow-hidden rounded-lg shadow-lg">
+                                    <img alt="Placeholder" className="block h-auto w-full" src={formatImageLink(item.imagePath)} style={{ width: "400px", height: "200px" }} />
+
+                                    <header className="flex items-center justify-between leading-tight p-2 md:p-4">
+                                        <h1 class="text-lg">
+                                            <p class="text-lg text-gray-800">{item.eventName}</p>
+                                            <p class="text-lg text-gray-800">${item.ticketPrice}</p>
+                                        </h1>
+                                        {formatDate(item.eventDate)}
+                                    </header>
+                                    <p class="ml-3 mr-3 mb-4 text-grey-dark text-sm"> {item.description.substring(1, 160)}...</p>
+                                    <footer className="flex items-center justify-center leading-tight p-3 md:p-5">
+                                        <button onClick={() => openEditEventForm(item.id)} className="bg-white text-blue-700 font-bold py-2 px-4">Edit</button>&nbsp;
+          <button className="bg-white text-red-700 font-bold py-2 px-4">Delete</button>
+                                    </footer>
+
+                                </article>
+                            </motion.div>)
+                        {/* Column End */ }
+                    })}
+                </div>
+            </div>
 
             {/* Create form Drawer  */}
             <Drawer

@@ -39,7 +39,7 @@ export const Login = () => {
 
 
   return (
-    <div className="container">
+    <div className="all">
       <motion.div
         className="logo-container"
         initial={{ scale: 0 }}
