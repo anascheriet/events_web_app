@@ -16,7 +16,7 @@ export const EventTypes = () => {
     const { eventTypes } = useSelector(state => state.eventTypesState);
     useEffect(() => {
         dispatch(getAllEventTypes());
-    }, [eventTypes, dispatch]);
+    }, []);
 
 
 
@@ -75,7 +75,11 @@ export const EventTypes = () => {
     }
 
     const deleteETypeHandle = async (id) => {
-        await axios.delete(eventTypesUrls.delete(id));
+        await axios.delete(eventTypesUrls.delete(id)).catch(err => console.log(err));
+        eventTypes.filter(x => x.id !== id);
+        eventTypes.splice(eventTypes.findIndex(x => x.id === id), 1);
+        editToast("Event Type has been deleted ! 👍");
+        closeDModal();
     }
 
 
@@ -116,7 +120,7 @@ export const EventTypes = () => {
                         <Header.Subheader>Manage event categories</Header.Subheader>
                     </Header.Content>
                 </Header>
-                <Button onClick={openModalforAdd} color="green"><Icon name="calendar" /> Create new Event Type</Button>
+                <Button onClick={openModalforAdd} color="green"><Icon name="calendar plus" /> Create new Event Type</Button>
             </div>
             <Divider />
             <Table celled>

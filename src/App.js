@@ -13,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { EventTypes } from "./Components/events/Admin/EventTypes";
 import { EventsHome } from "./Components/events/Client/EventsHome"
+import { Dashboard } from "./Components/events/Admin/Dashboard";
 
 function App() {
   const [toggleBtn, setToggleBtn] = useState(true);
@@ -35,7 +36,8 @@ function App() {
               <Sidebar toggleBtn={toggleBtn} />
               <Content toggleBtn={toggleBtn}>
                 <Switch>
-                  <Route path="/Events" component={EventsDashboard} />
+                  <Route exact path="/" component={Dashboard} />
+                  <Route exact path="/Events" component={EventsDashboard} />
                   <Route exact path="/EventTypes" component={EventTypes} />
                 </Switch>
               </Content></>

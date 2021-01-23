@@ -91,8 +91,8 @@ export const EventEditForm = ({ closeEDrawer }) => {
                     name='eventtypeid'
                     onChange={evtype => formik.setFieldValue('eventtypeid', evtype)}
                     value={formik.values.eventtypeid}>
-                    {eventTypes.map(eType => {
-                        return <Select.Option value={eType.id}>{eType.name}</Select.Option>
+                    {eventTypes.map((eType, index) => {
+                        return <Select.Option key={index} value={eType.id}>{eType.name}</Select.Option>
                     })}
                 </Select>
                 {formik.touched.eventtypeid && formik.errors.eventtypeid &&
@@ -104,8 +104,8 @@ export const EventEditForm = ({ closeEDrawer }) => {
                     onChange={country => formik.setFieldValue('country', country)}
                     onSelect={country => ((setCities(CountryCity.filter(x => x.country === country)[0].cities), formik.setFieldValue('country', country)))}
                     value={formik.values.country}>
-                    {CountryCity.map(c => {
-                        return <Select.Option value={c.country}>{c.country}</Select.Option>
+                    {CountryCity.map((c, index) => {
+                        return <Select.Option key={index} value={c.country}>{c.country}</Select.Option>
                     })}
                 </Select>
                 {formik.touched.country && formik.values.country === "" && console.log(formik.errors.country)}
@@ -166,7 +166,7 @@ export const EventEditForm = ({ closeEDrawer }) => {
                 </Upload>
             </Form.Item>
             <Form.Item >
-                <Button color="blue" disabled={Object.keys(formik.errors).length > 1} htmlType="submit">Update</Button>
+                <Button color="blue" disabled={Object.keys(formik.errors).length > 1} type="submit">Update</Button>
                 <Button color="grey" type="button" onClick={closeEDrawer}>Cancel</Button>
             </Form.Item>
         </Form>

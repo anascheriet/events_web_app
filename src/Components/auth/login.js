@@ -29,7 +29,6 @@ export const Login = () => {
 
   const submitHandler = (values) => {
     dispatch(login(values));
-    history.push("/Events");
   }
 
   const formik = useFormik({

@@ -111,7 +111,7 @@ export const EventsDashboard = () => {
             </Drawer>
 
             {/* Edit form Drawer  */}
-            {drawer ?
+            {drawer &&
                 <Drawer
                     width={400}
                     placement="right"
@@ -121,8 +121,6 @@ export const EventsDashboard = () => {
                 >
                     <EventEditForm closeEDrawer={closeEDrawer} />
                 </Drawer>
-                :
-                <div>HHH</div>
             }
         </div>
 
