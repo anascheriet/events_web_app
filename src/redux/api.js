@@ -58,3 +58,5 @@ export const loginUrlUrl = `${base_url}/auth/login`;
 
 export const getCurrentUserUrl = `${base_url}/auth/loggedInUser`;
 
+export const incomeUrl = `${base_url}/reservations/income`
+
