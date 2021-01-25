@@ -1,20 +1,35 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Line } from 'react-chartjs-2';
+import { Bar, Line, Pie } from 'react-chartjs-2';
 import { Divider, Header, Icon } from 'semantic-ui-react';
-import { incomeUrl } from '../../../redux/api';
+import { byClientAgeUrl, byClientNationalityUrl, incomeUrl } from '../../../redux/api';
 
 export const Dashboard = () => {
 
 
   const [incomeData, setIncomeData] = useState({});
+  const [clientAgeData, setClientAgeData] = useState({});
+  const [clientNationalityData, setClientNationalityData] = useState({});
 
   useEffect(() => {
+    const getClientNationalityData = async () => {
+      const resp = await axios.get(byClientNationalityUrl);
+      setClientNationalityData(resp.data);
+    }
+
+    const getClientAgeData = async () => {
+      const resp = await axios.get(byClientAgeUrl);
+      setClientAgeData(resp.data);
+    }
+
     const getIncome = async () => {
       const response = await axios.get(incomeUrl);
       setIncomeData(response.data);
     }
+    getClientAgeData();
     getIncome();
+    getClientNationalityData();
+    console.log(Object.values(clientNationalityData));
   }, [])
 
 
@@ -86,6 +101,55 @@ export const Dashboard = () => {
       }]
     }
   };
+
+  const byClientAgeData = {
+    labels: ['18 to 29', '30 to 39', '40 to 65', 'Above 66'],
+    datasets: [
+      {
+        data: [clientAgeData["18 to 29"], clientAgeData["30 to 39"], clientAgeData["40 to 65"], clientAgeData["Above 66"]],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+        ],
+        borderWidth: 1,
+      },
+    ],
+  }
+
+  const byClientNationalitydata = {
+    labels: Object.keys(clientNationalityData),
+    datasets: [
+      {
+        label: '# of Clients',
+        data: Object.values(clientNationalityData),
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+        ],
+        borderWidth: 1,
+      },
+    ],
+  }
   return (
 
     <div>
@@ -99,46 +163,46 @@ export const Dashboard = () => {
         </Header>
       </div>
       <Divider />
-      <div class="flex items-center justify-center px-5 py-5">
-        <div class="w-full max-w-8xl">
-          <div class="-mx-2 md:flex">
-            <div class="w-full md:w-1/3 px-5">
-              <div class="rounded-lg shadow-sm mb-4">
-                <div class="rounded-lg bg-white shadow-lg md:shadow-xl relative overflow-hidden">
-                  <div class="px-3 pt-8 pb-10 text-center relative z-10">
-                    <h4 class="text-sm uppercase text-gray-500 leading-tight">Weekly Income</h4>
-                    <h3 class="text-3xl text-gray-700 font-semibold leading-tight my-3">${incomeData.weekIncome}</h3>
-                    <p class={`text-xs $ text-${incomeData.weekAvg < 0 ? "red" : "green"}-500 leading-tight`}>{incomeData.weekAvg < 0 ? "▼ " : "▲ "}{incomeData.weekAvg}%</p>
+      <div className="flex items-center justify-center px-5 py-5">
+        <div className="w-full max-w-8xl">
+          <div className="-mx-2 md:flex">
+            <div className="w-full md:w-1/3 px-5">
+              <div className="rounded-lg shadow-sm mb-4">
+                <div className="rounded-lg bg-white shadow-lg md:shadow-xl relative overflow-hidden">
+                  <div className="px-3 pt-8 pb-10 text-center relative z-10">
+                    <h4 className="text-sm uppercase text-gray-500 leading-tight">Weekly Income</h4>
+                    <h3 className="text-3xl text-gray-700 font-semibold leading-tight my-3">${incomeData.weekIncome}</h3>
+                    <p className={`text-xs $ text-${incomeData.weekAvg < 0 ? "red" : "green"}-500 leading-tight`}>{incomeData.weekAvg < 0 ? "▼ " : "▲ "}{incomeData.weekAvg}%</p>
                   </div>
-                  <div class="absolute bottom-0 inset-x-0">
+                  <div className="absolute bottom-0 inset-x-0">
                     <Line data={weekData} options={chartOptions} height={55} />
                   </div>
                 </div>
               </div>
             </div>
-            <div class="w-full md:w-1/3 px-2">
-              <div class="rounded-lg shadow-sm mb-4">
-                <div class="rounded-lg bg-white shadow-lg md:shadow-xl relative overflow-hidden">
-                  <div class="px-3 pt-8 pb-10 text-center relative z-10">
-                    <h4 class="text-sm uppercase text-gray-500 leading-tight">Monthly Income</h4>
-                    <h3 class="text-3xl text-gray-700 font-semibold leading-tight my-3">${incomeData.monthIncome}</h3>
-                    <p class={`text-xs $ text-${incomeData.monthAvg < 0 ? "red" : "green"}-500 leading-tight`}>{incomeData.monthAvg < 0 ? "▼ " : "▲ "}{incomeData.monthAvg}%</p>
+            <div className="w-full md:w-1/3 px-2">
+              <div className="rounded-lg shadow-sm mb-4">
+                <div className="rounded-lg bg-white shadow-lg md:shadow-xl relative overflow-hidden">
+                  <div className="px-3 pt-8 pb-10 text-center relative z-10">
+                    <h4 className="text-sm uppercase text-gray-500 leading-tight">Monthly Income</h4>
+                    <h3 className="text-3xl text-gray-700 font-semibold leading-tight my-3">${incomeData.monthIncome}</h3>
+                    <p className={`text-xs $ text-${incomeData.monthAvg < 0 ? "red" : "green"}-500 leading-tight`}>{incomeData.monthAvg < 0 ? "▼ " : "▲ "}{incomeData.monthAvg}%</p>
                   </div>
-                  <div class="absolute bottom-0 inset-x-0">
+                  <div className="absolute bottom-0 inset-x-0">
                     <Line data={monthData} options={chartOptions} height={55} />
                   </div>
                 </div>
               </div>
             </div>
-            <div class="w-full md:w-1/3 px-2">
-              <div class="rounded-lg shadow-sm mb-4">
-                <div class="rounded-lg bg-white shadow-lg md:shadow-xl relative overflow-hidden">
-                  <div class="px-3 pt-8 pb-10 text-center relative z-10">
-                    <h4 class="text-sm uppercase text-gray-500 leading-tight">Total Income</h4>
-                    <h3 class="text-3xl text-gray-700 font-semibold leading-tight my-3">${incomeData.totalIncome}</h3>
-                    <p class={`text-xs $ text-${incomeData.totalAvg < 0 ? "red" : "green"}-500 leading-tight`}>{incomeData.totalAvg < 0 ? "▼ " : "▲ "}{incomeData.totalAvg}%</p>
+            <div className="w-full md:w-1/3 px-2">
+              <div className="rounded-lg shadow-sm mb-4">
+                <div className="rounded-lg bg-white shadow-lg md:shadow-xl relative overflow-hidden">
+                  <div className="px-3 pt-8 pb-10 text-center relative z-10">
+                    <h4 className="text-sm uppercase text-gray-500 leading-tight">Total Income</h4>
+                    <h3 className="text-3xl text-gray-700 font-semibold leading-tight my-3">${incomeData.totalIncome}</h3>
+                    <p className={`text-xs $ text-${incomeData.totalAvg < 0 ? "red" : "green"}-500 leading-tight`}>{incomeData.totalAvg < 0 ? "▼ " : "▲ "}{incomeData.totalAvg}%</p>
                   </div>
-                  <div class="absolute bottom-0 inset-x-0">
+                  <div className="absolute bottom-0 inset-x-0">
                     <Line data={totalData} options={chartOptions} height={55} />
                   </div>
                 </div>
@@ -147,6 +211,78 @@ export const Dashboard = () => {
           </div>
         </div>
       </div>
+
+      <div className="container my-0 mx-auto px-4 md:px-12">
+        <div className="flex flex-wrap -mx-1 lg:-mx-7">
+
+
+          <div className="my-1 px-1 w-full md:w-1/2 lg:my-6 lg:px-9 lg:w-1/2">
+
+
+            <article className="overflow-hidden rounded-lg shadow-lg">
+
+
+              <header className="flex items-center justify-between leading-tight p-2 md:p-4">
+
+                <p className="text-grey-darker text-lg text-center">
+                  Clients Classed by AGE
+             </p>
+              </header>
+
+              <Pie data={byClientAgeData} />
+
+
+              <footer className="flex items-center justify-between leading-none p-2 md:p-4">
+              </footer>
+
+            </article>
+
+
+          </div>
+          <div className="my-1 px-1 w-full md:w-1/2 lg:my-6 lg:px-9 lg:w-1/2">
+
+
+            <article className="overflow-hidden rounded-lg shadow-lg">
+
+
+              <header className="flex items-center justify-between leading-tight p-2 md:p-4">
+
+                <p className="text-grey-darker text-lg text-center">
+                  Clients Classed by Country
+                         </p>
+              </header>
+
+              <Bar data={byClientNationalitydata} />
+
+
+              <footer className="flex items-center justify-between leading-none p-2 md:p-4">
+              </footer>
+
+            </article>
+
+
+          </div>
+
+
+
+
+        </div>
+      </div>
+
+      {/*  <div className="container my-12 mx-auto px-4 md:px-12">
+        <div className="flex flex-wrap -mx-1 lg:-mx-4">
+
+
+        <div className="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/2">
+            <h4 className="text-sm uppercase text-gray-500 leading-tight">Clients Grouped By Age</h4>
+            <Pie data={byClientAgeData} style={{ marginBottom: "2rem" }} />
+          </div>
+
+        </div>
+
+
+      </div> */}
+
     </div>
 
   )

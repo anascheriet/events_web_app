@@ -58,5 +58,9 @@ export const loginUrlUrl = `${base_url}/auth/login`;
 
 export const getCurrentUserUrl = `${base_url}/auth/loggedInUser`;
 
-export const incomeUrl = `${base_url}/reservations/income`
+export const incomeUrl = `${base_url}/reservations/income`;
+
+export const byClientAgeUrl = `${base_url}/reservations/byClientAge`;
+
+export const byClientNationalityUrl = `${base_url}/reservations/byCountry`;
 
