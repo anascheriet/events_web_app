@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Bar, Line, Pie } from 'react-chartjs-2';
+import { Bar, Line, Pie, Polar } from 'react-chartjs-2';
 import { Divider, Header, Icon } from 'semantic-ui-react';
-import { byClientAgeUrl, byClientNationalityUrl, incomeUrl } from '../../../redux/api';
+import { byBookingMonthUrl, byClientAgeUrl, byClientNationalityUrl, incomeUrl } from '../../../redux/api';
 
 export const Dashboard = () => {
 
@@ -10,8 +10,16 @@ export const Dashboard = () => {
   const [incomeData, setIncomeData] = useState({});
   const [clientAgeData, setClientAgeData] = useState({});
   const [clientNationalityData, setClientNationalityData] = useState({});
+  const [bookingMonthData, setBookingtMonthData] = useState({});
 
   useEffect(() => {
+
+    const getBookingMonthData = async () => {
+      const resp = await axios.get(byBookingMonthUrl);
+      console.log(resp.data);
+      setBookingtMonthData(resp.data);
+    }
+
     const getClientNationalityData = async () => {
       const resp = await axios.get(byClientNationalityUrl);
       setClientNationalityData(resp.data);
@@ -26,10 +34,12 @@ export const Dashboard = () => {
       const response = await axios.get(incomeUrl);
       setIncomeData(response.data);
     }
+
+    getBookingMonthData();
     getClientAgeData();
     getIncome();
     getClientNationalityData();
-    console.log(Object.values(clientNationalityData));
+
   }, [])
 
 
@@ -150,6 +160,32 @@ export const Dashboard = () => {
       },
     ],
   }
+
+
+  const byBookingMonthData = {
+    labels: Object.keys(bookingMonthData),
+    datasets: [
+      {
+        label: '# of Bookings',
+        data: Object.values(bookingMonthData),
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 206, 86, 0.5)',
+          'rgba(75, 192, 192, 0.5)',
+          'rgba(153, 102, 255, 0.5)',
+          'rgba(255, 159, 64, 0.5)',
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(75, 192, 192)',
+          'rgba(225, 224, 0, 1)',
+          'rgba(135, 10, 24, 0.5)',
+          'rgba(154, 262, 125, 103.5)',
+        ],
+        borderWidth: 1,
+      },
+    ],
+  }
   return (
 
     <div>
@@ -225,7 +261,7 @@ export const Dashboard = () => {
               <header className="flex items-center justify-between leading-tight p-2 md:p-4">
 
                 <p className="text-grey-darker text-lg text-center">
-                  Clients Classed by AGE
+                  Bookings Classed by Customer Age
              </p>
               </header>
 
@@ -248,7 +284,64 @@ export const Dashboard = () => {
               <header className="flex items-center justify-between leading-tight p-2 md:p-4">
 
                 <p className="text-grey-darker text-lg text-center">
-                  Clients Classed by Country
+                  Bookings Classed by Customer Country
+                         </p>
+              </header>
+
+              <Bar data={byClientNationalitydata} />
+
+
+              <footer className="flex items-center justify-between leading-none p-2 md:p-4">
+              </footer>
+
+            </article>
+
+
+          </div>
+
+
+
+
+        </div>
+      </div>
+
+      <div className="container my-0 mx-auto px-4 md:px-12">
+        <div className="flex flex-wrap -mx-1 lg:-mx-7">
+
+
+          <div className="my-1 px-1 w-full md:w-1/2 lg:my-6 lg:px-9 lg:w-1/2">
+
+
+            <article className="overflow-hidden rounded-lg shadow-lg">
+
+
+              <header className="flex items-center justify-between leading-tight p-2 md:p-4">
+
+                <p className="text-grey-darker text-lg text-center">
+                  Bookings Classed by Month
+             </p>
+              </header>
+
+              <Polar data={byBookingMonthData} />
+
+
+              <footer className="flex items-center justify-between leading-none p-2 md:p-4">
+              </footer>
+
+            </article>
+
+
+          </div>
+          <div className="my-1 px-1 w-full md:w-1/2 lg:my-6 lg:px-9 lg:w-1/2">
+
+
+            <article className="overflow-hidden rounded-lg shadow-lg">
+
+
+              <header className="flex items-center justify-between leading-tight p-2 md:p-4">
+
+                <p className="text-grey-darker text-lg text-center">
+                  Bookings Classed by Customer Country
                          </p>
               </header>
 

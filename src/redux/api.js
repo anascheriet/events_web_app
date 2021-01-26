@@ -62,5 +62,7 @@ export const incomeUrl = `${base_url}/reservations/income`;
 
 export const byClientAgeUrl = `${base_url}/reservations/byClientAge`;
 
-export const byClientNationalityUrl = `${base_url}/reservations/byCountry`;
+export const byClientNationalityUrl = `${base_url}/reservations/byClientCountry`;
+
+export const byBookingMonthUrl = `${base_url}/reservations/byBookingMonth`;
 
