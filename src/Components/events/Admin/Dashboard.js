@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Bar, Line, Pie, Polar } from 'react-chartjs-2';
+import { Bar, HorizontalBar, Line, Pie, Polar } from 'react-chartjs-2';
 import { Divider, Header, Icon } from 'semantic-ui-react';
-import { byBookingMonthUrl, byClientAgeUrl, byClientNationalityUrl, incomeUrl } from '../../../redux/api';
+import { byBookingMonthUrl, byClientAgeUrl, byClientNationalityUrl, byEventTypeUrl, incomeUrl } from '../../../redux/api';
 
 export const Dashboard = () => {
 
@@ -11,12 +11,18 @@ export const Dashboard = () => {
   const [clientAgeData, setClientAgeData] = useState({});
   const [clientNationalityData, setClientNationalityData] = useState({});
   const [bookingMonthData, setBookingtMonthData] = useState({});
+  const [bookingEventTypeData, setBookingtEventTypeData] = useState({});
 
   useEffect(() => {
 
+    const getBookingEventTypeData = async () => {
+      const resp = await axios.get(byEventTypeUrl);
+      console.log(resp.data);
+      setBookingtEventTypeData(resp.data);
+    }
+
     const getBookingMonthData = async () => {
       const resp = await axios.get(byBookingMonthUrl);
-      console.log(resp.data);
       setBookingtMonthData(resp.data);
     }
 
@@ -35,6 +41,7 @@ export const Dashboard = () => {
       setIncomeData(response.data);
     }
 
+    getBookingEventTypeData();
     getBookingMonthData();
     getClientAgeData();
     getIncome();
@@ -185,6 +192,46 @@ export const Dashboard = () => {
         borderWidth: 1,
       },
     ],
+  }
+
+
+
+  const byEventTypeData = {
+    labels: Object.keys(bookingEventTypeData),
+    datasets: [
+      {
+        data: Object.values(bookingEventTypeData),
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+        ],
+        borderWidth: 1,
+      },
+    ],
+  }
+
+  const byEventTypeOptions = {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
   }
   return (
 
@@ -341,12 +388,11 @@ export const Dashboard = () => {
               <header className="flex items-center justify-between leading-tight p-2 md:p-4">
 
                 <p className="text-grey-darker text-lg text-center">
-                  Bookings Classed by Customer Country
+                  Bookings Classed by Event Type
                          </p>
               </header>
 
-              <Bar data={byClientNationalitydata} />
-
+              <HorizontalBar data={byEventTypeData} options={byEventTypeOptions} />
 
               <footer className="flex items-center justify-between leading-none p-2 md:p-4">
               </footer>

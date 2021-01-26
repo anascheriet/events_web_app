@@ -66,3 +66,8 @@ export const byClientNationalityUrl = `${base_url}/reservations/byClientCountry`
 
 export const byBookingMonthUrl = `${base_url}/reservations/byBookingMonth`;
 
+export const byEventTypeUrl = `${base_url}/reservations/byEventType`;
+
+
+
+
