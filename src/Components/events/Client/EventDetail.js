@@ -17,6 +17,7 @@ import { successToast } from '../../../common/Notifications';
 export const EventDetail = ({ pathId }) => {
 
     const { event } = useSelector(state => state.eventState);
+    const { user } = useSelector(state => state.userState);
     const history = useHistory();
 
     const exitCardHandler = (e) => {
@@ -24,7 +25,13 @@ export const EventDetail = ({ pathId }) => {
         if (element.classList.contains('card-shadow')) {
             document.body.style.overflow = 'auto';
         }
-        history.push("/Home/");
+        if (user === null) {
+            history.push("/Guest/");
+        }
+        else {
+            history.push("/Home/");
+        }
+
     }
 
     const stopevent = (e) => {

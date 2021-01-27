@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Icon } from 'semantic-ui-react'
 import { popup } from '../../../common/animations'
@@ -9,6 +9,8 @@ import { loadEventAction } from '../../../redux/actions/eventActions/loadEventAc
 import "./events.scss"
 
 export const Event = ({ event }) => {
+
+    const { user } = useSelector(state => state.userState)
 
     const dispatch = useDispatch();
 
@@ -20,7 +22,7 @@ export const Event = ({ event }) => {
 
     return (
         <motion.div variants={popup} initial="hidden" animate="show" layoutId={event.id.toString()} className="event" onClick={loadDetailHandler}>
-            <Link to={`/Home/${event.id}`}>
+            <Link to={user === null ? `/Guest/${event.id}` : `/Home/${event.id}`}>
                 <motion.h3 layoutId={`name ${event.id.toString()}`}  >{event.eventName}</motion.h3>
                 <motion.h4 layoutId={`location ${event.id.toString()}`}><Icon name="map pin" />{event.city}, {event.country}</motion.h4>
                 <motion.h4 layoutId={`date ${event.id.toString()}`} > {formatDate(event.eventDate)}</motion.h4>

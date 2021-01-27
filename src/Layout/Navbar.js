@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { Menu, Dropdown } from 'antd';
 import { useDispatch, useSelector } from "react-redux";
 import { logoutAction } from "../redux/actions/Users/logoutAction"
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { loadUserInfo } from "../redux/actions/Users/loadUserInfo";
+import { Line } from "react-chartjs-2";
 const Navbar = ({ setToggle }) => {
 
   const dispatch = useDispatch();
@@ -53,11 +54,20 @@ const Navbar = ({ setToggle }) => {
         </div>
       </div>
 
-      <Dropdown overlay={menu}>
-        <div className="left">
-          <i style={{ color: "#fdde6c" }} className="fas fa-chevron-down" />
-        </div>
-      </Dropdown>
+      {user !== null &&
+        <Dropdown overlay={menu}>
+          <div className="left">
+            <i style={{ color: "#fdde6c" }} className="fas fa-chevron-down" />
+          </div>
+        </Dropdown>}
+
+      {user === null &&
+        <Link to="/">
+          <div className="left">
+            <i style={{ color: "#fdde6c" }} class="fas fa-arrow-right"></i>
+          </div>
+        </Link>
+      }
     </div>
   );
 };

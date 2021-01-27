@@ -30,15 +30,14 @@ function App() {
     <div >
       <Router>
         <ToastContainer />
-        <Route exact path="/" component={Login} />
         {token === null && <Route exact path="/" component={Login} />}
-
+        <Route exact path={["/Guest", "/Guest/:id"]}component={EventsHome} />
         <Route path={'/(.+)'}
           render={() => (
             <Fragment>
               <Navbar setToggle={toggle} />
               <Route exact path="/Redirect" component={Redirect} />
-              {isAdmin ? <>
+              {isAdmin && user !== null ? <>
                 <Sidebar toggleBtn={toggleBtn} />
                 <Content toggleBtn={toggleBtn}>
                   <Switch>
@@ -48,6 +47,7 @@ function App() {
                   </Switch>
                 </Content></>
                 :
+                user !== null &&
                 <div >
                   <div style={{ marginTop: "5rem", marginLeft: "2rem" }}>
                     <ClientContent>

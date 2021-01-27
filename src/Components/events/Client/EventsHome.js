@@ -8,16 +8,10 @@ import { EventDetail } from './EventDetail';
 import "./EventHome.scss"
 export const EventsHome = () => {
 
-    const dispatch = useDispatch();
-
     //get current location
     const location = useLocation();
     const pathId = location.pathname.split("/")[2];
 
-    //fetch existing events from the api
-    useEffect(() => {
-        dispatch(loadUserInfo());
-    }, [dispatch])
     //get events from the state
     const { availableEvents } = useSelector(state => state.clientState);
 
