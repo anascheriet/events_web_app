@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Bar, HorizontalBar, Line, Pie, Polar } from 'react-chartjs-2';
+import { useSelector } from 'react-redux';
 import { Divider, Header, Icon } from 'semantic-ui-react';
 import { byBookingMonthUrl, byClientAgeUrl, byClientNationalityUrl, byEventTypeUrl, incomeUrl } from '../../../redux/api';
 
@@ -13,39 +14,46 @@ export const Dashboard = () => {
   const [bookingMonthData, setBookingtMonthData] = useState({});
   const [bookingEventTypeData, setBookingtEventTypeData] = useState({});
 
+
+  const { user } = useSelector(state => state.userState);
+
   useEffect(() => {
+    console.log(user);
 
     const getBookingEventTypeData = async () => {
       const resp = await axios.get(byEventTypeUrl);
-      console.log(resp.data);
-      setBookingtEventTypeData(resp.data);
+      setBookingtEventTypeData(resp?.data);
     }
 
     const getBookingMonthData = async () => {
       const resp = await axios.get(byBookingMonthUrl);
-      setBookingtMonthData(resp.data);
+      setBookingtMonthData(resp?.data);
     }
 
     const getClientNationalityData = async () => {
       const resp = await axios.get(byClientNationalityUrl);
-      setClientNationalityData(resp.data);
+      setClientNationalityData(resp?.data);
     }
 
     const getClientAgeData = async () => {
       const resp = await axios.get(byClientAgeUrl);
-      setClientAgeData(resp.data);
+      setClientAgeData(resp?.data);
     }
 
     const getIncome = async () => {
       const response = await axios.get(incomeUrl);
-      setIncomeData(response.data);
+      setIncomeData(response?.data);
     }
 
-    getBookingEventTypeData();
-    getBookingMonthData();
-    getClientAgeData();
-    getIncome();
-    getClientNationalityData();
+    if (user?.role?.name !== "Client") {
+
+      getBookingEventTypeData();
+      getBookingMonthData();
+      getClientAgeData();
+      getIncome();
+      getClientNationalityData();
+    }
+
 
   }, [])
 
@@ -200,6 +208,7 @@ export const Dashboard = () => {
     labels: Object.keys(bookingEventTypeData),
     datasets: [
       {
+        label: "# of bookings",
         data: Object.values(bookingEventTypeData),
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',

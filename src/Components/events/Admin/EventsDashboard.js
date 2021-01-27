@@ -84,13 +84,13 @@ export const EventsDashboard = () => {
                                     <img alt="Placeholder" className="block h-auto w-full" src={formatImageLink(item.imagePath)} style={{ width: "400px", height: "200px" }} />
 
                                     <header className="flex items-center justify-between leading-tight p-2 md:p-4">
-                                        <h1 class="text-lg">
-                                            <p class="text-lg text-gray-800">{item.eventName}</p>
-                                            <p class="text-lg text-gray-800">${item.ticketPrice}</p>
+                                        <h1 className="text-lg">
+                                            <p className="text-lg text-gray-800">{item.eventName}</p>
+                                            <p className="text-lg text-gray-800">${item.ticketPrice}</p>
                                         </h1>
                                         {formatDate(item.eventDate)}
                                     </header>
-                                    <p class="ml-3 mr-3 mb-4 text-grey-dark text-sm"> {item.description.substring(1, 160)}...</p>
+                                    <p className="ml-3 mr-3 mb-4 text-grey-dark text-sm"> {item.description.substring(1, 160)}...</p>
                                     <footer className="flex items-center justify-center leading-tight p-3 md:p-5">
                                         <button onClick={() => openEditEventForm(item.id)} className="bg-white text-blue-700 font-bold py-2 px-4">Edit</button>&nbsp;
           <button className="bg-white text-red-700 font-bold py-2 px-4">Delete</button>

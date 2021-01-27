@@ -2,7 +2,7 @@ import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { getAllEventsAction } from '../../../redux/actions/clientActions/getAllEventsAction';
+import { loadUserInfo } from '../../../redux/actions/Users/loadUserInfo';
 import { Event } from "./Event"
 import { EventDetail } from './EventDetail';
 import "./EventHome.scss"
@@ -16,7 +16,7 @@ export const EventsHome = () => {
 
     //fetch existing events from the api
     useEffect(() => {
-        dispatch(getAllEventsAction());
+        dispatch(loadUserInfo());
     }, [dispatch])
     //get events from the state
     const { availableEvents } = useSelector(state => state.clientState);

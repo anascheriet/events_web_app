@@ -151,10 +151,9 @@ img {
   text-align: center;
 }
 
-
 .app-wrapper {
   position: fixed;
-  top: 5rem;  
+  top: 5rem;
   left: 17.5rem;
   bottom: 0.5rem;
   right: 0.5rem;
@@ -181,6 +180,18 @@ input {
   font-family: "Montserrat", sans-serif;
 }
 
-@import "./Components/events/Client/EventHome.scss" ;
-@import "./Components/events/Client/events.scss" ;
-@import "./Components/events/Client/eventDetail.scss" ;
+.client-contain {
+  position: fixed;
+  top: 5rem;
+  left: 2rem;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  padding: 2rem 1rem;
+  background: #ffffff;
+  border-bottom-right-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+@import "./Components/events/Client/EventHome.scss";
+@import "./Components/events/Client/events.scss";
+@import "./Components/events/Client/eventDetail.scss";

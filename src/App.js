@@ -4,6 +4,7 @@ import "simplebar/dist/simplebar.css";
 import Navbar from "./Layout/Navbar";
 import Sidebar from "./Layout/Sidebar";
 import Content from "./Layout/Content";
+import ClientContent from "./Layout/ClientContent";
 import "semantic-ui-css/semantic.min.css";
 import "./layout.scss";
 import "./styles.scss";
@@ -15,6 +16,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { EventTypes } from "./Components/events/Admin/EventTypes";
 import { EventsHome } from "./Components/events/Client/EventsHome"
 import { Dashboard } from "./Components/events/Admin/Dashboard";
+import { Redirect } from "./Components/Redirect";
 
 function App() {
   const [toggleBtn, setToggleBtn] = useState(true);
@@ -22,8 +24,10 @@ function App() {
 
   const { token, user } = useSelector(state => state.userState);
 
-  const isAdmin = token !== null && user?.role?.name !== "Client";
+  const isAdmin = user?.role?.name !== "Client";
 
+
+  //TODO Fix Client Redirect on login
   return (
     <div >
       <Router>
@@ -33,11 +37,12 @@ function App() {
           :
           <>
             <Navbar setToggle={toggle} />
-            {token !== null && isAdmin ? <>
+            {isAdmin ? <>
               <Sidebar toggleBtn={toggleBtn} />
               <Content toggleBtn={toggleBtn}>
                 <Switch>
-                  <Route exact path="/" component={Dashboard} />
+                  <Route exact path="/" component={Redirect} />
+                  <Route exact path="/Home" component={Dashboard} />
                   <Route exact path="/Events" component={EventsDashboard} />
                   <Route exact path="/EventTypes" component={EventTypes} />
                 </Switch>
@@ -45,14 +50,18 @@ function App() {
               :
               <div >
                 <div style={{ marginTop: "5rem", marginLeft: "2rem" }}>
-                  <Switch>
-                    <Route exact path={["/Events/:id", "/Events"]} component={EventsHome} />
-                  </Switch>
+                  <ClientContent>
+                    <Switch>
+
+                      <Route exact path="/" component={Redirect} />
+                      <Route exact path={["/Home", "/Home/:id"]} component={EventsHome} />
+
+                    </Switch>
+                  </ClientContent>
+
                 </div>
               </div>
-
             }
-
           </>
         }
       </Router>

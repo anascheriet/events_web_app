@@ -1,17 +1,15 @@
 import { motion } from 'framer-motion';
-import React, { useEffect } from 'react'
+import React from 'react'
 import "./login.scss"
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/actions/Users/loginAction';
-import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { loadUserInfo } from '../../redux/actions/Users/loadUserInfo';
 
 export const Login = () => {
 
-  //Router redirector
-  const history = useHistory();
+ 
 
   //need a dispatcher that executes the action !!!!!!!!!!:D
   const dispatch = useDispatch();

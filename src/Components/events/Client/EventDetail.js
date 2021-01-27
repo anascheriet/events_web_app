@@ -24,7 +24,7 @@ export const EventDetail = ({ pathId }) => {
         if (element.classList.contains('card-shadow')) {
             document.body.style.overflow = 'auto';
         }
-        history.push("/Events/");
+        history.push("/Home/");
     }
 
     const stopevent = (e) => {
@@ -97,7 +97,7 @@ export const EventDetail = ({ pathId }) => {
         const response = await axios.post(clientUrls.book, values);
         successToast(response?.data);
         document.body.style.overflow = 'auto';
-        history.push("/Events/");
+        history.push("/Home/");
     }
 
     return (
