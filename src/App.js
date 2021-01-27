@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import "simplebar"; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
 import "simplebar/dist/simplebar.css";
 import Navbar from "./Layout/Navbar";
@@ -26,44 +26,45 @@ function App() {
 
   const isAdmin = user?.role?.name !== "Client";
 
-
-  //TODO Fix Client Redirect on login
   return (
     <div >
       <Router>
         <ToastContainer />
-        {token === null ?
-          <Route exact path="/" component={Login} />
-          :
-          <>
-            <Navbar setToggle={toggle} />
-            {isAdmin ? <>
-              <Sidebar toggleBtn={toggleBtn} />
-              <Content toggleBtn={toggleBtn}>
-                <Switch>
-                  <Route exact path="/" component={Redirect} />
-                  <Route exact path="/Home" component={Dashboard} />
-                  <Route exact path="/Events" component={EventsDashboard} />
-                  <Route exact path="/EventTypes" component={EventTypes} />
-                </Switch>
-              </Content></>
-              :
-              <div >
-                <div style={{ marginTop: "5rem", marginLeft: "2rem" }}>
-                  <ClientContent>
-                    <Switch>
+        <Route exact path="/" component={Login} />
+        {token === null && <Route exact path="/" component={Login} />}
 
-                      <Route exact path="/" component={Redirect} />
-                      <Route exact path={["/Home", "/Home/:id"]} component={EventsHome} />
+        <Route path={'/(.+)'}
+          render={() => (
+            <Fragment>
+              <Navbar setToggle={toggle} />
+              <Route exact path="/Redirect" component={Redirect} />
+              {isAdmin ? <>
+                <Sidebar toggleBtn={toggleBtn} />
+                <Content toggleBtn={toggleBtn}>
+                  <Switch>
+                    <Route exact path="/Home" component={Dashboard} />
+                    <Route exact path="/Events" component={EventsDashboard} />
+                    <Route exact path="/EventTypes" component={EventTypes} />
+                  </Switch>
+                </Content></>
+                :
+                <div >
+                  <div style={{ marginTop: "5rem", marginLeft: "2rem" }}>
+                    <ClientContent>
+                      <Switch>
+                        <Route exact path="/Home" component={EventsHome} />
+                        <Route exact path={["/Home", "/Home/:id"]} component={EventsHome} />
+                      </Switch>
+                    </ClientContent>
 
-                    </Switch>
-                  </ClientContent>
-
+                  </div>
                 </div>
-              </div>
-            }
-          </>
-        }
+              }
+            </Fragment>
+
+
+          )} />
+
       </Router>
 
     </div >

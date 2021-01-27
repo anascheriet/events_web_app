@@ -6,13 +6,16 @@ import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/actions/Users/loginAction';
 import { loadUserInfo } from '../../redux/actions/Users/loadUserInfo';
+import { useHistory } from 'react-router-dom';
 
 export const Login = () => {
 
- 
+
 
   //need a dispatcher that executes the action !!!!!!!!!!:D
   const dispatch = useDispatch();
+
+  const history = useHistory();
 
   const initialValues = {
     username: '',
@@ -27,6 +30,10 @@ export const Login = () => {
 
   const submitHandler = (values) => {
     dispatch(login(values));
+    setTimeout(() => {
+      history.push("/Redirect");
+    }, 1000);
+
   }
 
   const formik = useFormik({

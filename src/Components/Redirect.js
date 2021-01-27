@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { loadUserInfo } from '../redux/actions/Users/loadUserInfo';
+import { Dimmer, Loader } from "semantic-ui-react";
+
 
 export const Redirect = () => {
 
@@ -9,11 +11,15 @@ export const Redirect = () => {
     const history = useHistory();
     useEffect(() => {
         dispatch(loadUserInfo());
-        history.push("/Home");
+        setTimeout(() => {
+            history.push("/Home");
+        }, 2000);
     }, [])
     return (
         <div>
-            HHHHH
+            <Dimmer active>
+                <Loader content={"Loading App..."} />
+            </Dimmer>
         </div>
     )
 }

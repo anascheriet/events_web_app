@@ -18,7 +18,7 @@ const Sidebar = ({ toggleBtn }) => {
       <ul>
         {nav.map(item => (
           <li key={item.text}>
-            <Link className={item.active ? "active" : ""} key={item.text} to={item.text === "Dashboard" ? "/" : `/${item.text}`}>
+            <Link className={item.active ? "active" : ""} key={item.text} to={item.text === "Dashboard" ? "/Home" : `/${item.text}`}>
               <span className="icon">
                 <i className={`fas fa-${item.icon}`} />
               </span>
