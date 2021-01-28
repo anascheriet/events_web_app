@@ -31,7 +31,7 @@ function App() {
       <Router>
         <ToastContainer />
         <Route exact path="/" component={Login} />
-        <Route exact path={["/Guest", "/Guest/:id"]}component={EventsHome} />
+        <Route exact path={["/Guest", "/Guest/:id"]} component={EventsHome} />
         <Route path={'/(.+)'}
           render={() => (
             <Fragment>

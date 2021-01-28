@@ -5,15 +5,13 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/actions/Users/loginAction';
-import { loadUserInfo } from '../../redux/actions/Users/loadUserInfo';
 import { Link, useHistory } from 'react-router-dom';
-import { Button } from 'antd';
 import { Icon } from 'semantic-ui-react';
 
 export const Login = () => {
 
   //Check if user is logged in
-  const { user, token } = useSelector(state => state.userState);
+  const { user, token, isLoggedIn } = useSelector(state => state.userState);
 
 
   //need a dispatcher that executes the action !!!!!!!!!!:D
@@ -33,11 +31,7 @@ export const Login = () => {
   })
 
   const submitHandler = (values) => {
-    dispatch(login(values));
-    //Redirect logged user
-    setTimeout(() => {
-      history.push("/Redirect");
-    }, 1000);
+    dispatch(login(values, history));
   }
 
   const formik = useFormik({
@@ -45,10 +39,6 @@ export const Login = () => {
     validationSchema: ValidationSchema,
     onSubmit: submitHandler
   })
-
-
-
-
 
   return (
     <div className="all">
