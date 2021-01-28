@@ -3,8 +3,6 @@ import { toast } from "react-toastify";
 
 const base_url = "http://localhost:8080";
 
-
-
 /* axios.interceptors.request.use((config) => {
     const token = window.localStorage.getItem('jwt');
     if (token) config.headers.Authorization = `Bearer ${token}`;
@@ -25,12 +23,21 @@ axios.interceptors.request.use((config) => {
 
 //Handle undefined connection to the backend (spring boot server is down)
 axios.interceptors.response.use(undefined, (error) => {
-    if (error.message === "Network Error" && !error.response) {
-        toast.error('Network error ☠️ - Make sure your API is running!');
+    if (error.message === 'Network Error' && !error.response) {
+        toast.error('Network error - Make sure your API is running!')
     }
-    console.log(error);
-})
 
+    const { status } = error.response;
+    if (error.response.status === 404) {
+        console.log("not found")
+    }
+
+    if (status === 500) {
+        toast.error('Server error - check the terminal for more info');
+    }
+    toast.error(error.response.data.message);
+    throw error.response;
+})
 
 
 export const eventTypesUrls = {

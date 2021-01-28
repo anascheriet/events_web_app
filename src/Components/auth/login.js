@@ -12,6 +12,8 @@ import { Icon } from 'semantic-ui-react';
 
 export const Login = () => {
 
+  //Check if user is logged in
+  const { user, token } = useSelector(state => state.userState);
 
 
   //need a dispatcher that executes the action !!!!!!!!!!:D
@@ -32,10 +34,10 @@ export const Login = () => {
 
   const submitHandler = (values) => {
     dispatch(login(values));
+    //Redirect logged user
     setTimeout(() => {
       history.push("/Redirect");
     }, 1000);
-
   }
 
   const formik = useFormik({
@@ -45,8 +47,7 @@ export const Login = () => {
   })
 
 
-  //Check if user is logged in
-  const { user } = useSelector(state => state.userState);
+
 
 
   return (

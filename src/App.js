@@ -30,7 +30,7 @@ function App() {
     <div >
       <Router>
         <ToastContainer />
-        {token === null && <Route exact path="/" component={Login} />}
+        <Route exact path="/" component={Login} />
         <Route exact path={["/Guest", "/Guest/:id"]}component={EventsHome} />
         <Route path={'/(.+)'}
           render={() => (

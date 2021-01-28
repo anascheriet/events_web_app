@@ -14,6 +14,9 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 import { clientUrls } from '../../../redux/api';
 import { successToast } from '../../../common/Notifications';
+
+//TODO inform guest of log in necessity before event booking
+
 export const EventDetail = ({ pathId }) => {
 
     const { event } = useSelector(state => state.eventState);

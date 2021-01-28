@@ -1,8 +1,11 @@
 import axios from "axios"
+import { useHistory } from "react-router-dom";
 import { loginUrlUrl } from "../../api"
 
 export const login = (user) => async (dispatch) => {
+
   const tokenData = await axios.post(loginUrlUrl, user);
+
   if (tokenData) {
     localStorage.setItem("userToken", tokenData.data.token);
     dispatch({
