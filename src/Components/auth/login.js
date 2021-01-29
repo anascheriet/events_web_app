@@ -69,14 +69,15 @@ export const Login = () => {
 
 
 
-  const forgotSubmitHandler = (values) => {
-    axios.post(forgotPasswordUrl, values).then((resp) => {
+  const forgotSubmitHandler = async (values) => {
+    try {
+      const resp = await axios.post(forgotPasswordUrl, values);
       successToast(resp.data);
       closeForgotPass();
       forgotFormik.values.username = '';
-    }, (error) => {
+    } catch (error) {
       toast.error(error.data);
-    });
+    }
   }
 
   const forgotFormik = useFormik({
@@ -115,6 +116,7 @@ export const Login = () => {
                 <br />
                 {forgotFormik.touched.username && forgotFormik.errors.username &&
                   <span style={{ color: "red" }}>{forgotFormik.errors.username}</span>}
+                <br />
                 <button type="submit" className="submitBtn" >Confirm</button>
               </form>
               <div className="links">

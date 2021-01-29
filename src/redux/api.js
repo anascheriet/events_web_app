@@ -77,5 +77,7 @@ export const byEventTypeUrl = `${base_url}/reservations/byEventType`;
 
 export const forgotPasswordUrl = `${base_url}/auth/forgotPassword`;
 
+export const resetPasswordUrl = `${base_url}/auth/resetPassword`;
+
 
 
