@@ -64,7 +64,7 @@ const Navbar = ({ setToggle }) => {
       {user === null &&
         <Link to="/">
           <div className="left">
-            <i style={{ color: "#fdde6c" }} class="fas fa-arrow-right"></i>
+            <i style={{ color: "#fdde6c" }} className="fas fa-arrow-right"></i>
           </div>
         </Link>
       }

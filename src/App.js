@@ -17,6 +17,7 @@ import { EventTypes } from "./Components/events/Admin/EventTypes";
 import { EventsHome } from "./Components/events/Client/EventsHome"
 import { Dashboard } from "./Components/events/Admin/Dashboard";
 import { Redirect } from "./Components/Redirect";
+import { ResetPassword } from "./Components/auth/ResetPassword";
 
 function App() {
   const [toggleBtn, setToggleBtn] = useState(true);
@@ -31,6 +32,7 @@ function App() {
       <Router>
         <ToastContainer />
         <Route exact path="/" component={Login} />
+        <Route exact path="/authentication/reset" component={ResetPassword} />
         <Route exact path={["/Guest", "/Guest/:id"]} component={EventsHome} />
         <Route path={'/(.+)'}
           render={() => (

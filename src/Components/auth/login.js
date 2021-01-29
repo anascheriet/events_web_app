@@ -71,9 +71,11 @@ export const Login = () => {
 
   const forgotSubmitHandler = (values) => {
     axios.post(forgotPasswordUrl, values).then((resp) => {
-      successToast(resp);
+      successToast(resp.data);
+      closeForgotPass();
+      forgotFormik.values.username = '';
     }, (error) => {
-      toast.error(error);
+      toast.error(error.data);
     });
   }
 

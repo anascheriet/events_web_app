@@ -1,0 +1,21 @@
+.global {
+  box-sizing: border-box;
+  background-image: url("../../Layout/img/background.png");
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.title {
+  h2 {
+    margin-top: 1.5rem;
+    color: #fdde6b;
+    text-align: center;
+    font-family: "Alegreya Sans", sans-serif;
+    font-size: 5rem;
+  }
+}
