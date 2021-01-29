@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import React from 'react'
+import React, { useState } from 'react'
 import "./login.scss"
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
@@ -7,6 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/actions/Users/loginAction';
 import { Link, useHistory } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
+import axios from 'axios';
+import { forgotPasswordUrl } from '../../redux/api';
+import { successToast } from '../../common/Notifications';
+import { toast } from 'react-toastify';
 
 export const Login = () => {
 
@@ -25,7 +29,7 @@ export const Login = () => {
   }
 
   const ValidationSchema = new Yup.ObjectSchema({
-    username: Yup.string().required(),
+    username: Yup.string().email().required(),
     password: Yup.string().required()
     /* password: Yup.string().matches("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$") */
   })
@@ -40,6 +44,45 @@ export const Login = () => {
     onSubmit: submitHandler
   })
 
+  //Forgot Password 
+
+  //Set up conditional rendering
+
+  const [forgotForm, setForgotForm] = useState(false);
+
+  const openForgotPass = () => {
+    setForgotForm(true);
+  }
+
+  const closeForgotPass = () => {
+    setForgotForm(false);
+  }
+
+  //Set up forgot password from
+  const forgotInitialValues = {
+    username: '',
+  }
+
+  const forgotValidationSchema = new Yup.ObjectSchema({
+    username: Yup.string().email().required(),
+  })
+
+
+
+  const forgotSubmitHandler = (values) => {
+    axios.post(forgotPasswordUrl, values).then((resp) => {
+      successToast(resp);
+    }, (error) => {
+      toast.error(error);
+    });
+  }
+
+  const forgotFormik = useFormik({
+    initialValues: forgotInitialValues,
+    validationSchema: forgotValidationSchema,
+    onSubmit: forgotSubmitHandler
+  })
+
   return (
     <div className="all">
       <motion.div
@@ -52,41 +95,58 @@ export const Login = () => {
         </div>
         <div className="description">
           <h2>EVENT PLANNING.</h2>
-          {user === null &&
+          {user === null && forgotForm === false &&
             <Link to="/Guest" >
               <button className="explore">Explore Events &nbsp;<Icon size="large" name="arrow alternate circle right" /></button>
             </Link>}
-
-
         </div>
       </motion.div>
 
       {user === null ?
-        <div className="form">
-          <form onSubmit={formik.handleSubmit}>
-            <label className="label">USERNAME</label>
-            <br />
-            <input type="text" name="username" className="input" {...formik.getFieldProps("username")} />
-            <br />
-            {formik.touched.username && formik.errors.username &&
-              <span>{formik.errors.username}</span>}
-            <br />
-            <label className="label">PASSWORD</label>
-            <br />
-            <input type="password" name="password" className="input" {...formik.getFieldProps("password")} />
-            <br />
-            {formik.touched.password && formik.errors.password &&
-              <span>{formik.errors.password}</span>}
-            <br />
+        (
+          forgotForm ?
+            <div className="form">
+              <form onSubmit={forgotFormik.handleSubmit}>
+                <label className="label">Please Enter Your Email</label>
+                <br />
+                <input type="text" name="username" className="input" {...forgotFormik.getFieldProps("username")} />
+                <br />
+                {forgotFormik.touched.username && forgotFormik.errors.username &&
+                  <span style={{ color: "red" }}>{forgotFormik.errors.username}</span>}
+                <button type="submit" className="submitBtn" >Confirm</button>
+              </form>
+              <div className="links">
+                <a onClick={closeForgotPass}>Cancel</a>
+              </div>
 
-            <button type="submit" className="submitBtn" >Log In</button>
+            </div>
 
-          </form>
-          <div className="links">
-            <a >Create Account</a>
-            <a >Forgot Password?</a>
-          </div>
-        </div> :
+            :
+            <div className="form">
+              <form onSubmit={formik.handleSubmit}>
+                <label className="label">EMAIL</label>
+                <br />
+                <input type="text" name="username" className="input" {...formik.getFieldProps("username")} />
+                <br />
+                {formik.touched.username && formik.errors.username &&
+                  <span style={{ color: "red" }}>{formik.errors.username}</span>}
+                <br />
+                <label className="label">PASSWORD</label>
+                <br />
+                <input type="password" name="password" className="input" {...formik.getFieldProps("password")} />
+                <br />
+                {formik.touched.password && formik.errors.password &&
+                  <span style={{ color: "red" }}>{formik.errors.password}</span>}
+                <br />
+
+                <button type="submit" className="submitBtn" >Log In</button>
+
+              </form>
+              <div className="links">
+                <a >Create Account</a>
+                <a onClick={openForgotPass}>Forgot Password?</a>
+              </div>
+            </div>) :
         <div className="back">
           <h2>{`Welcome Back ${user.displayName} !`}</h2>
           <Link to="/Redirect">
