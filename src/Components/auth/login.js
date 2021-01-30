@@ -15,7 +15,7 @@ import { toast } from 'react-toastify';
 export const Login = () => {
 
   //Check if user is logged in
-  const { user, token, isLoggedIn } = useSelector(state => state.userState);
+  const { user } = useSelector(state => state.userState);
 
 
   //need a dispatcher that executes the action !!!!!!!!!!:D

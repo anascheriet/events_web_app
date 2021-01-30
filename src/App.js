@@ -23,7 +23,7 @@ function App() {
   const [toggleBtn, setToggleBtn] = useState(true);
   const toggle = () => setToggleBtn(val => !val);
 
-  const { token, user } = useSelector(state => state.userState);
+  const { user } = useSelector(state => state.userState);
 
   const isAdmin = user?.role?.name !== "Client";
 

@@ -79,5 +79,9 @@ export const forgotPasswordUrl = `${base_url}/auth/forgotPassword`;
 
 export const resetPasswordUrl = `${base_url}/auth/resetPassword`;
 
+export const adminDataUrl = `${base_url}/auth/adminData`;
+
+export const lockUnlockAdminUrl = (id) => `${base_url}/auth/lockUnlockAdminAccount/${id}`;
+
 
 

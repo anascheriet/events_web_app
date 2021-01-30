@@ -1,8 +1,7 @@
 import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react'
+import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { loadUserInfo } from '../../../redux/actions/Users/loadUserInfo';
 import { Event } from "./Event"
 import { EventDetail } from './EventDetail';
 import "./EventHome.scss"

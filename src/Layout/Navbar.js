@@ -1,10 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Menu, Dropdown } from 'antd';
 import { useDispatch, useSelector } from "react-redux";
 import { logoutAction } from "../redux/actions/Users/logoutAction"
 import { Link, useHistory } from "react-router-dom";
-import { loadUserInfo } from "../redux/actions/Users/loadUserInfo";
-import { Line } from "react-chartjs-2";
 const Navbar = ({ setToggle }) => {
 
   const dispatch = useDispatch();

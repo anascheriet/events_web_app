@@ -14,7 +14,7 @@ export const Redirect = () => {
         setTimeout(() => {
             history.push("/Home");
         }, 2000);
-    }, [])
+    }, [dispatch, history])
     return (
         <div>
             <Dimmer active>

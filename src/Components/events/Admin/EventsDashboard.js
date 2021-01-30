@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Button, ButtonGroup, Card, Header, Icon, Divider } from 'semantic-ui-react'
+import { Button, Header, Icon, Divider } from 'semantic-ui-react'
 import { Drawer } from 'antd';
 import "./eventsDashboard.scss"
 import { popup } from '../../../common/animations';

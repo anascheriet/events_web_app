@@ -19,7 +19,6 @@ export const Dashboard = () => {
   const { user } = useSelector(state => state.userState);
 
   useEffect(() => {
-    console.log(user);
 
     const getBookingEventTypeData = async () => {
       const resp = await axios.get(byEventTypeUrl);
@@ -422,31 +421,35 @@ export const Dashboard = () => {
         </div>
       </div>
 
-      <div class="container my-0 mx-auto px-4 md:px-12">
-        <div class="flex flex-wrap -mx-7 lg:-mx-7">
+      {/* Show Admins list to superAdmin */}
+      {user.role.name === "SuperAdmin" &&
 
-          <div class="min-w-full my-1 px-1 md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+        <div className="container my-0 mx-auto px-4 md:px-12">
+          <div className="flex flex-wrap -mx-7 lg:-mx-7">
 
-            <article class="overflow-hidden rounded-lg shadow-lg">
+            <div className="min-w-full my-1 px-1 md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+
+              <article className="overflow-hidden rounded-lg shadow-lg">
 
 
 
-              <header class="flex items-center justify-between leading-tight p-2 md:p-4">
-                <h1 class="text-lg">
-                  <p className="text-grey-darker text-bg text-center">
-                    Admins List
+                <header className="flex items-center justify-between leading-tight p-2 md:p-4">
+                  <h1 className="text-lg">
+                    <p className="text-grey-darker text-bg text-center">
+                      Admins List
              </p>
-                </h1>
-                <a href="" class="border-2 border-indigo-700 rounded-full font-bold text-indigo-700 px-4 py-3 transition duration-300 ease-in-out hover:bg-indigo-700 hover:text-white mr-6">
-                  New Admin
+                  </h1>
+                  <a href="" className="border-2 border-indigo-700 rounded-full font-bold text-indigo-700 px-4 py-3 transition duration-300 ease-in-out hover:bg-indigo-700 hover:text-white mr-6">
+                    New Admin
 </a>
-              </header>
-              <AdminList />
-            </article>
-          </div>
+                </header>
+                <AdminList />
+              </article>
+            </div>
 
+          </div>
         </div>
-      </div>
+      }
 
     </div>
 
