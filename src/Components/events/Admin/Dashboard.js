@@ -439,9 +439,7 @@ export const Dashboard = () => {
                       Admins List
              </p>
                   </h1>
-                  <a href="" className="border-2 border-indigo-700 rounded-full font-bold text-indigo-700 px-4 py-3 transition duration-300 ease-in-out hover:bg-indigo-700 hover:text-white mr-6">
-                    New Admin
-</a>
+                 
                 </header>
                 <AdminList />
               </article>

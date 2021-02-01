@@ -83,5 +83,7 @@ export const adminDataUrl = `${base_url}/auth/adminData`;
 
 export const lockUnlockAdminUrl = (id) => `${base_url}/auth/lockUnlockAdminAccount/${id}`;
 
+export const registerUrl = `${base_url}/auth/register`;
+
 
 
