@@ -17,7 +17,6 @@ export const Login = () => {
   //Check if user is logged in
   const { user } = useSelector(state => state.userState);
 
-
   //need a dispatcher that executes the action !!!!!!!!!!:D
   const dispatch = useDispatch();
 
@@ -97,7 +96,7 @@ export const Login = () => {
           <h2>eventor</h2>
         </div>
         <div className="description">
-          <h2>EVENT PLANNING.</h2>
+          {forgotForm ? <h2 style={{ fontSize: "25px" }}>Forgot Password</h2> : <h2>EVENT PLANNING.</h2>}
           {user === null && forgotForm === false &&
             <Link to="/Guest" >
               <button className="explore">Explore Events &nbsp;<Icon size="large" name="arrow alternate circle right" /></button>
@@ -147,7 +146,9 @@ export const Login = () => {
 
               </form>
               <div className="links">
-                <a >Create Account</a>
+                <Link to="/authentication/register">
+                  <a>Create Account</a>
+                </Link>
                 <a onClick={openForgotPass}>Forgot Password?</a>
               </div>
             </div>) :

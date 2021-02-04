@@ -1,0 +1,46 @@
+.register {
+  box-sizing: border-box;
+  background-image: url("../../Layout/img/background.png");
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.reginput {
+  width: 25rem;
+  display: block;
+  font-size: 1rem;
+  padding: 0rem;
+  background: #fdde6b;
+  margin-top: 1rem;
+  border: 0;
+  outline: 0;
+  border-bottom: 2px solid var(--primary-color);
+  margin-bottom: 1rem;
+  color: black;
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+}
+.reginput:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.reglabel {
+  display: block;
+  margin-bottom: 0rem;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Open Sans", sans-serif;
+  color: var(--primary-color);
+}
+
+.error {
+  color: red;
+  margin-top: 0.1rem;
+  display: block;
+}

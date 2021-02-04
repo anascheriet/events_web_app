@@ -35,7 +35,18 @@ export const AdminList = () => {
     const [CountryData, setCountryData] = useState([]);
 
 
+    //Set up admin add Modal
 
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const openModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const closeModal = () => {
+        setIsModalVisible(false);
+        clearValues();
+    };
 
     //Admin Attributes
     const myInitialValues = {
@@ -55,26 +66,12 @@ export const AdminList = () => {
         formik.values.age = null;
     }
 
-    //Set up admin add Modal
-
-    const [isModalVisible, setIsModalVisible] = useState(false);
-
-    const openModal = () => {
-        setIsModalVisible(true);
-    };
-
-    const closeModal = () => {
-        setIsModalVisible(false);
-        clearValues();
-    };
-
     //Set up object validation
     const myValidationSchema = new Yup.ObjectSchema({
         displayName: Yup.string().required(),
         email: Yup.string().email().required(),
         country: Yup.string().required(),
         gender: Yup.string().required(),
-        country: Yup.string().required(),
         age: Yup.number().required()
     })
 
@@ -85,19 +82,12 @@ export const AdminList = () => {
             if (response) {
                 successToast(response.data);
                 closeModal();
-
+                getAdminData();
             }
         } catch (error) {
             toast.error(error.data);
         }
-        /*    axios.post(registerUrl, values).then((resp) => {
-               successToast(resp.data);
-               console.log(resp);
-               closeModal();
-           }, (error) => {
-               console.log(error);
-               toast.error(error.data);
-           }) */
+
     }
 
     //Set up formik object to handle the form
@@ -106,7 +96,6 @@ export const AdminList = () => {
         initialValues: myInitialValues,
 
     })
-
 
     useEffect(() => {
         getAdminData();
@@ -161,8 +150,7 @@ export const AdminList = () => {
                         Cancel
                 </Button>,
                     <Button
-                        /*  disabled={Object.keys(formik.errors).length !== 0} */
-                        /* onClick={() => editMode ? editHandler() : submitHandler(formik.values)} */
+                        disabled={Object.keys(formik.errors).length !== 0}
                         onClick={() => addAdminHandler(formik.values)}
                         color="purple">
                         Add
