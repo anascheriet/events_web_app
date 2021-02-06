@@ -14,9 +14,8 @@ export const EventsHome = () => {
     //get events from the state
     const { availableEvents } = useSelector(state => state.clientState);
 
-
     return (
-        <motion.div className="eventList">
+        <motion.div className="eventList" style={{ marginTop: location.pathname === "/Guest" ? "3rem" : "0rem" }}>
             <AnimateSharedLayout type="switch">
                 {/* wrap all the components that will be transitioning*/}
                 <AnimatePresence>

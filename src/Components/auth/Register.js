@@ -1,16 +1,20 @@
-import { Form, Input, Select } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import "./register.scss"
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import { registerUrl } from '../../redux/api';
+import { successToast } from '../../common/Notifications';
+import { toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 
 export const Register = () => {
 
 
+    const history = useHistory();
+
     //populate country dropdown
     const [CountryData, setCountryData] = useState([]);
-
 
     useEffect(() => {
         const fetchCountryAPI = async () => {
@@ -29,7 +33,7 @@ export const Register = () => {
         gender: "",
         country: "",
         password: "",
-        age: null
+        age: 0
     }
 
     //Set up object validation
@@ -45,16 +49,15 @@ export const Register = () => {
     //Submit method
     const registerHandler = async (values) => {
         console.log(values);
-        /* try {
+        try {
             const response = await axios.post(registerUrl, values);
             if (response) {
                 successToast(response.data);
-                closeModal();
-                getAdminData();
+                history.push("/");
             }
         } catch (error) {
             toast.error(error.data);
-        } */
+        }
     }
 
     //Set up formik object to handle the form
@@ -75,25 +78,25 @@ export const Register = () => {
 
                         <label className="reglabel">Email</label>
 
-                        <input className="reginput" type="text" name='email' {...formik.getFieldProps("email")} />
+                        <input className="reginput" type="text" name='email' value={formik.values.email} {...formik.getFieldProps("email")} />
 
                         {formik.touched.email && formik.errors.email &&
                             <pre className="error">{formik.errors.email}</pre>}
                         <label className="reglabel">Age</label>
-                        <input className="reginput" type="number" name='age' {...formik.getFieldProps('age')} />
+                        <input className="reginput" type="number" name='age' value={formik.values.age} {...formik.getFieldProps('age')} />
                         {formik.touched.age && formik.errors.age &&
                             <pre className="error">{formik.errors.age}</pre>}
 
                         <label className="reglabel">Country</label>
-                        <select className="reginput" type="text" >
-                            <option disabled></option>
+                        <select className="reginput" type="text" {...formik.getFieldProps("country")} >
+                            <option value="" disabled></option>
                             {CountryData.map(c => {
                                 return <option key={c.country} value={c.country}>{c.country}</option>
                             })}
                         </select>
 
 
-                        <button class="w-80 h-10 rounded-lg text-white bg-indigo-900 hover:bg-indigo-800 text-1xl">
+                        <button className="regBtn" onClick={() => registerHandler(formik.values)}>
                             Create Account
                         </button>
                     </div>
@@ -101,20 +104,20 @@ export const Register = () => {
 
                         <label className="reglabel">Display Name</label>
 
-                        <input className="reginput" type="text" name='displayName' {...formik.getFieldProps("displayName")} />
+                        <input className="reginput" type="text" name='displayName' value={formik.values.displayName} {...formik.getFieldProps("displayName")} />
 
                         {formik.touched.displayName && formik.errors.displayName &&
                             <pre className="error">{formik.errors.displayName}</pre>}
 
                         <label className="reglabel">Password</label>
 
-                        <input className="reginput" type="password" name='password' {...formik.getFieldProps('password')} />
+                        <input className="reginput" type="password" name='password' value={formik.values.password} {...formik.getFieldProps('password')} />
                         {formik.touched.password && formik.errors.password &&
                             <span className="error">{formik.errors.password}</span>}
 
                         <label className="reglabel">Gender</label>
-                        <select className="reginput" type="text" >
-                            <option disabled></option>
+                        <select className="reginput" type="text" {...formik.getFieldProps("gender")} >
+                            <option value="" disabled></option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                             <option value="Other">Other</option>
