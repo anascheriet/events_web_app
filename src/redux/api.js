@@ -56,36 +56,34 @@ export const eventsUrls = {
 }
 
 export const clientUrls = {
-    book: `${base_url}/reservations/create`
+    book: `${base_url}/reservations/create`,
+    clientBookings = `${base_url}/reservations/MyBookings`,
+    cancelBooking: (id) => `${base_url}/reservations/CancelBooking/${id}`
+}
+
+export const statUrls = {
+    income: `${base_url}/reservations/income`,
+    byClientAge: `${base_url}/reservations/byClientAge`,
+    byClientNationality: `${base_url}/reservations/byClientCountry`,
+    byBookingMonth: `${base_url}/reservations/byBookingMonth`,
+    byEventType: `${base_url}/reservations/byEventType`,
+}
+
+export const authUrls = {
+    login = `${base_url}/auth/login`,
+    forgotPassword = `${base_url}/auth/forgotPassword`,
+    resetPassword = `${base_url}/auth/resetPassword`,
+    register = `${base_url}/auth/register`,
+    getCurrentUser = `${base_url}/auth/loggedInUser`,
 }
 
 export const uploadImageUrl = `${base_url}/events/image`;
-
-export const loginUrlUrl = `${base_url}/auth/login`;
-
-export const getCurrentUserUrl = `${base_url}/auth/loggedInUser`;
-
-export const incomeUrl = `${base_url}/reservations/income`;
-
-export const byClientAgeUrl = `${base_url}/reservations/byClientAge`;
-
-export const byClientNationalityUrl = `${base_url}/reservations/byClientCountry`;
-
-export const byBookingMonthUrl = `${base_url}/reservations/byBookingMonth`;
-
-export const byEventTypeUrl = `${base_url}/reservations/byEventType`;
-
-export const clientBookingsUrl = `${base_url}/reservations/MyBookings`;
-
-export const forgotPasswordUrl = `${base_url}/auth/forgotPassword`;
-
-export const resetPasswordUrl = `${base_url}/auth/resetPassword`;
 
 export const adminDataUrl = `${base_url}/auth/adminData`;
 
 export const lockUnlockAdminUrl = (id) => `${base_url}/auth/lockUnlockAdminAccount/${id}`;
 
-export const registerUrl = `${base_url}/auth/register`;
+
 
 
 

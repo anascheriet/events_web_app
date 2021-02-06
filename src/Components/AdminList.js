@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Icon, Table } from 'semantic-ui-react'
 import { Form, Input, Modal, Select, Tag } from 'antd';
 import axios from 'axios';
-import { adminDataUrl, lockUnlockAdminUrl, registerUrl } from '../redux/api';
+import { adminDataUrl, authUrls, lockUnlockAdminUrl } from '../redux/api';
 import { successToast } from '../common/Notifications';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
@@ -78,7 +78,7 @@ export const AdminList = () => {
     //Submit method
     const addAdminHandler = async (values) => {
         try {
-            const response = await axios.post(registerUrl, values);
+            const response = await axios.post(authUrls.register, values);
             if (response) {
                 successToast(response.data);
                 closeModal();

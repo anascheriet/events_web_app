@@ -1,8 +1,8 @@
 import axios from "axios"
-import { loginUrlUrl } from "../../api"
+import { authUrls } from "../../api"
 
 export const login = (user, history) => async (dispatch) => {
-  const tokenData = await axios.post(loginUrlUrl, user);
+  const tokenData = await axios.post(authUrls.login, user);
   if (tokenData) {
     localStorage.setItem("userToken", tokenData.data.token);
     dispatch({

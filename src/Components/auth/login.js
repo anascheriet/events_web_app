@@ -8,7 +8,7 @@ import { login } from '../../redux/actions/Users/loginAction';
 import { Link, useHistory } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 import axios from 'axios';
-import { forgotPasswordUrl } from '../../redux/api';
+import { authUrls } from '../../redux/api';
 import { successToast } from '../../common/Notifications';
 import { toast } from 'react-toastify';
 
@@ -70,7 +70,7 @@ export const Login = () => {
 
   const forgotSubmitHandler = async (values) => {
     try {
-      const resp = await axios.post(forgotPasswordUrl, values);
+      const resp = await axios.post(authUrls.forgotPassword, values);
       successToast(resp.data);
       closeForgotPass();
       forgotFormik.values.username = '';

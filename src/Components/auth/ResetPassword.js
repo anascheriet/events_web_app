@@ -5,7 +5,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { successToast } from '../../common/Notifications';
-import { resetPasswordUrl } from "../../redux/api"
+import { authUrls } from "../../redux/api"
 import "./reset.scss"
 
 export const ResetPassword = () => {
@@ -34,7 +34,7 @@ export const ResetPassword = () => {
 
     //submit handler
     const mySubmitHandler = (values) => {
-        axios.post(resetPasswordUrl, values).then((resp) => {
+        axios.post(authUrls.resetPassword, values).then((resp) => {
             successToast(resp.data);
             history.push("/");
         }, (error) => {

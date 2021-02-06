@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Bar, HorizontalBar, Line, Pie, Polar } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
 import { Divider, Header, Icon } from 'semantic-ui-react';
-import { byBookingMonthUrl, byClientAgeUrl, byClientNationalityUrl, byEventTypeUrl, incomeUrl } from '../../../redux/api';
+import { byBookingMonthUrl, byClientAgeUrl, byClientNationalityUrl, byEventTypeUrl, incomeUrl, statUrls } from '../../../redux/api';
 import { AdminList } from '../../AdminList';
 
 export const Dashboard = () => {
@@ -21,27 +21,27 @@ export const Dashboard = () => {
   useEffect(() => {
 
     const getBookingEventTypeData = async () => {
-      const resp = await axios.get(byEventTypeUrl);
+      const resp = await axios.get(statUrls.byEventType);
       setBookingtEventTypeData(resp?.data);
     }
 
     const getBookingMonthData = async () => {
-      const resp = await axios.get(byBookingMonthUrl);
+      const resp = await axios.get(statUrls.byBookingMonth);
       setBookingtMonthData(resp?.data);
     }
 
     const getClientNationalityData = async () => {
-      const resp = await axios.get(byClientNationalityUrl);
+      const resp = await axios.get(statUrls.byClientNationality);
       setClientNationalityData(resp?.data);
     }
 
     const getClientAgeData = async () => {
-      const resp = await axios.get(byClientAgeUrl);
+      const resp = await axios.get(statUrls.byClientAge);
       setClientAgeData(resp?.data);
     }
 
     const getIncome = async () => {
-      const response = await axios.get(incomeUrl);
+      const response = await axios.get(statUrls.income);
       setIncomeData(response?.data);
     }
 
@@ -439,7 +439,7 @@ export const Dashboard = () => {
                       Admins List
              </p>
                   </h1>
-                 
+
                 </header>
                 <AdminList />
               </article>

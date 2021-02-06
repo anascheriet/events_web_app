@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import "./register.scss"
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { registerUrl } from '../../redux/api';
+import { authUrls } from '../../redux/api';
 import { successToast } from '../../common/Notifications';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
@@ -50,7 +50,7 @@ export const Register = () => {
     const registerHandler = async (values) => {
         console.log(values);
         try {
-            const response = await axios.post(registerUrl, values);
+            const response = await axios.post(authUrls.register, values);
             if (response) {
                 successToast(response.data);
                 history.push("/");
