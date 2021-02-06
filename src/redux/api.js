@@ -75,6 +75,8 @@ export const byBookingMonthUrl = `${base_url}/reservations/byBookingMonth`;
 
 export const byEventTypeUrl = `${base_url}/reservations/byEventType`;
 
+export const clientBookingsUrl = `${base_url}/reservations/MyBookings`;
+
 export const forgotPasswordUrl = `${base_url}/auth/forgotPassword`;
 
 export const resetPasswordUrl = `${base_url}/auth/resetPassword`;

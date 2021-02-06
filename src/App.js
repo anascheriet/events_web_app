@@ -19,6 +19,7 @@ import { Dashboard } from "./Components/events/Admin/Dashboard";
 import { Redirect } from "./Components/Redirect";
 import { ResetPassword } from "./Components/auth/ResetPassword";
 import { Register } from "./Components/auth/Register";
+import { ClientBookings } from "./Components/events/Client/ClientBookings";
 
 function App() {
   const [toggleBtn, setToggleBtn] = useState(true);
@@ -58,6 +59,7 @@ function App() {
                       <Switch>
                         <Route exact path="/Home" component={EventsHome} />
                         <Route exact path={["/Home", "/Home/:id"]} component={EventsHome} />
+                        <Route exact path="/MyBookings" component={ClientBookings} />
                       </Switch>
                     </ClientContent>
 
