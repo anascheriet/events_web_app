@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { errorToast, successToast } from '../../../common/Notifications';
 import { formatImageLink } from '../../../common/util';
 import { clientUrls } from '../../../redux/api'
 
@@ -18,8 +19,15 @@ export const ClientBookings = () => {
 
 
 
-    const cancelBookingHandler = async () => {
-       
+    const cancelBookingHandler = async (id) => {
+        try {
+            const resp = await axios.delete(clientUrls.cancelBooking(id));
+            if (resp) {
+                successToast(resp.data);
+            }
+        } catch (error) {
+            errorToast(error.data);
+        }
     }
     return (
         <>

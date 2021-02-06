@@ -3,6 +3,7 @@ import { Menu, Dropdown } from 'antd';
 import { useDispatch, useSelector } from "react-redux";
 import { logoutAction } from "../redux/actions/Users/logoutAction"
 import { Link, useHistory } from "react-router-dom";
+import { Icon } from "semantic-ui-react";
 const Navbar = ({ setToggle }) => {
 
   const dispatch = useDispatch();
@@ -25,13 +26,20 @@ const Navbar = ({ setToggle }) => {
     <Menu style={{ backgroundColor: "#14213d" }}>
       <Menu.Item >
         <a target="_blank" className="menuLink" style={{ color: "#fdde6c" }} >
-          <i className="fas fa-user" style={{ marginRight: "1rem" }} />
+          <Icon name="user" style={{ color: "#fdde6c" }} />
               Profile
             </a>
       </Menu.Item>
+      {user !== null && user.role.name === "Client"
+        && <Menu.Item>
+          <Link to="/MyBookings" style={{ color: "#fdde6c" }}>
+            <Icon name="ticket alternate" style={{ color: "#fdde6c" }} />
+            My Bookings
+          </Link>
+        </Menu.Item>}
       <Menu.Item >
         <a onClick={logOut} className="menuLink" target="_blank" style={{ color: "#fdde6c" }} >
-          <i className="fas fa-sign-out-alt" style={{ marginRight: "1rem" }} />
+          <Icon name="sign out" style={{ color: "#fdde6c" }} />
               Log out
             </a>
       </Menu.Item>
@@ -58,14 +66,14 @@ const Navbar = ({ setToggle }) => {
       {user !== null &&
         <Dropdown overlay={menu}>
           <div className="left">
-            <i style={{ color: "#fdde6c" }} className="fas fa-chevron-down" />
+            <Icon name="arrow down" style={{ color: "#fdde6c" }} />
           </div>
         </Dropdown>}
 
       {user === null &&
         <Link to="/">
           <div className="left">
-            <i style={{ color: "#fdde6c" }} className="fas fa-arrow-right"></i>
+            <i style={{ color: "#fdde6c" }} className="fas fa-arrow-right" />
           </div>
         </Link>
       }

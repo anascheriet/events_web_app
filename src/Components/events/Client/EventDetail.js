@@ -112,7 +112,6 @@ export const EventDetail = ({ pathId }) => {
 
     return (
         <>
-            (
             <motion.div
                 className="card-shadow" onClick={(e) => exitCardHandler(e)}>
                 <motion.div
@@ -150,7 +149,6 @@ export const EventDetail = ({ pathId }) => {
                     </div>
                 </motion.div>
             </motion.div>
-            )
         </>
     )
 }

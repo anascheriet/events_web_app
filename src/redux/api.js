@@ -55,9 +55,17 @@ export const eventsUrls = {
     getAll: `${base_url}/events/`
 }
 
+export const authUrls = {
+    login: `${base_url}/auth/login`,
+    forgotPassword: `${base_url}/auth/forgotPassword`,
+    resetPassword: `${base_url}/auth/resetPassword`,
+    register: `${base_url}/auth/register`,
+    getCurrentUser: `${base_url}/auth/loggedInUser`,
+}
+
 export const clientUrls = {
     book: `${base_url}/reservations/create`,
-    clientBookings = `${base_url}/reservations/MyBookings`,
+    clientBookings: `${base_url}/reservations/MyBookings`,
     cancelBooking: (id) => `${base_url}/reservations/CancelBooking/${id}`
 }
 
@@ -69,13 +77,7 @@ export const statUrls = {
     byEventType: `${base_url}/reservations/byEventType`,
 }
 
-export const authUrls = {
-    login = `${base_url}/auth/login`,
-    forgotPassword = `${base_url}/auth/forgotPassword`,
-    resetPassword = `${base_url}/auth/resetPassword`,
-    register = `${base_url}/auth/register`,
-    getCurrentUser = `${base_url}/auth/loggedInUser`,
-}
+
 
 export const uploadImageUrl = `${base_url}/events/image`;
 
