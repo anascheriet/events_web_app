@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Bar, HorizontalBar, Line, Pie, Polar } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
 import { Divider, Header, Icon } from 'semantic-ui-react';
-import { byBookingMonthUrl, byClientAgeUrl, byClientNationalityUrl, byEventTypeUrl, incomeUrl, statUrls } from '../../../redux/api';
+import { statUrls } from '../../../redux/api';
 import { AdminList } from '../../AdminList';
 
 export const Dashboard = () => {

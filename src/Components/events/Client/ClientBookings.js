@@ -12,7 +12,6 @@ export const ClientBookings = () => {
         const getMyBookings = async () => {
             const response = await axios.get(clientUrls.clientBookings);
             setBookings(response.data);
-            console.log(response.data[0]);
         }
         getMyBookings();
     }, [])
@@ -35,7 +34,7 @@ export const ClientBookings = () => {
             <div className="flex flex-wrap -mx-1 lg:-mx-4">
                 {bookings.map((item) => {
                     return (
-                        <div className="max-w-md shadow-lg rounded overflow-hidden m-4 sm:flex">
+                        <div key={item.reservation.id} className="max-w-md shadow-lg rounded overflow-hidden m-4 sm:flex">
                             <div className="h-48 sm:h-auto sm:w-48 md:w-64 flex-none bg-cover bg-center rounded rounded-t sm:rounded sm:rounded-l text-center overflow-hidden" style={{ backgroundImage: `url(${formatImageLink(item.imagePath)})` }} >
                             </div>
                             <div className="px-6 py-4">
