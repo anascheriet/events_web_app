@@ -20,6 +20,7 @@ import { Redirect } from "./Components/Redirect";
 import { ResetPassword } from "./Components/auth/ResetPassword";
 import { Register } from "./Components/auth/Register";
 import { ClientBookings } from "./Components/events/Client/ClientBookings";
+import { EditProfile } from "./Components/EditProfile";
 
 function App() {
   const [toggleBtn, setToggleBtn] = useState(true);
@@ -46,6 +47,7 @@ function App() {
                 <Sidebar toggleBtn={toggleBtn} />
                 <Content toggleBtn={toggleBtn}>
                   <Switch>
+                    <Route exact path="/EditProfile" component={EditProfile} />
                     <Route exact path="/Home" component={Dashboard} />
                     <Route exact path="/Events" component={EventsDashboard} />
                     <Route exact path="/EventTypes" component={EventTypes} />
@@ -57,6 +59,7 @@ function App() {
                   <div style={{ marginTop: "5rem", marginLeft: "2rem" }}>
                     <ClientContent>
                       <Switch>
+                        <Route exact path="/EditProfile" component={EditProfile} />
                         <Route exact path="/Home" component={EventsHome} />
                         <Route exact path={["/Home", "/Home/:id"]} component={EventsHome} />
                         <Route exact path="/MyBookings" component={ClientBookings} />

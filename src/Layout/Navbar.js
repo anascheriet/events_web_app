@@ -25,10 +25,12 @@ const Navbar = ({ setToggle }) => {
   const menu = (
     <Menu style={{ backgroundColor: "#14213d" }}>
       <Menu.Item >
-        <a target="_blank" className="menuLink" style={{ color: "#fdde6c" }} >
-          <Icon name="user" style={{ color: "#fdde6c" }} />
+        <Link to="/EditProfile">
+          <a target="_blank" className="menuLink" style={{ color: "#fdde6c" }} >
+            <Icon name="user" style={{ color: "#fdde6c" }} />
               Profile
             </a>
+        </Link>
       </Menu.Item>
       {user !== null && user.role.name === "Client"
         && <Menu.Item>
