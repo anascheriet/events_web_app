@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { loadUserInfo } from '../redux/actions/Users/loadUserInfo';
 import { Dimmer, Loader } from "semantic-ui-react";
+import { loadCountries } from '../redux/actions/Users/loadCountries';
 
 
 export const Redirect = () => {
@@ -11,6 +12,7 @@ export const Redirect = () => {
     const history = useHistory();
     useEffect(() => {
         dispatch(loadUserInfo());
+        dispatch(loadCountries());
         setTimeout(() => {
             history.push("/Home");
         }, 2000);

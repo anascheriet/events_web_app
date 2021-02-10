@@ -2,7 +2,8 @@ const initialState = {
     user: null,
     token: null,
     isLoggedIn: false,
-    createdEvents: []
+    createdEvents: [],
+    countries: []
 }
 
 const userReducer = (state = initialState, action) => {
@@ -28,6 +29,11 @@ const userReducer = (state = initialState, action) => {
                 user: action.payload.user,
                 createdEvents: action.payload.createdEvents
 
+            }
+        case "Load_Countries":
+            return {
+                ...state,
+                countries: action.payload.countries
             }
         default: // need this for default case
             return state;

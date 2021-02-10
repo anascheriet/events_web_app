@@ -7,6 +7,7 @@ import { successToast } from '../common/Notifications';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import { useSelector } from 'react-redux';
 
 export const AdminList = () => {
 
@@ -28,12 +29,6 @@ export const AdminList = () => {
             toast.error(error.data);
         })
     }
-
-
-    //populate country dropdown
-
-    const [CountryData, setCountryData] = useState([]);
-
 
     //Set up admin add Modal
 
@@ -99,14 +94,11 @@ export const AdminList = () => {
 
     useEffect(() => {
         getAdminData();
-
-        const fetchCountryAPI = async () => {
-            let response = await axios.get("https://countriesnow.space/api/v0.1/countries");
-            setCountryData(response.data.data);
-        }
-        fetchCountryAPI();
     }, [])
 
+
+    //get  countries
+    const { countries } = useSelector(state => state.userState);
 
     return (
         <div style={{ padding: "0.7rem" }}>
@@ -193,7 +185,7 @@ export const AdminList = () => {
                             name='country'
                             onChange={country => formik.setFieldValue('country', country)}
                             value={formik.values.country}>
-                            {CountryData.map(c => {
+                            {countries.map(c => {
                                 return <Select.Option key={c.country} value={c.country}>{c.country}</Select.Option>
                             })}
                         </Select>

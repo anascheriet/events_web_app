@@ -7,22 +7,12 @@ import { authUrls } from '../../redux/api';
 import { successToast } from '../../common/Notifications';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export const Register = () => {
 
 
     const history = useHistory();
-
-    //populate country dropdown
-    const [CountryData, setCountryData] = useState([]);
-
-    useEffect(() => {
-        const fetchCountryAPI = async () => {
-            let response = await axios.get("https://countriesnow.space/api/v0.1/countries");
-            setCountryData(response.data.data);
-        }
-        fetchCountryAPI();
-    }, [])
 
     //Formik Set Up
 
@@ -66,6 +56,8 @@ export const Register = () => {
         initialValues: myInitialValues,
     })
 
+
+    const { countries } = useSelector(state => state.userState)
     return (
         <div className="register">
             <div className="title">
@@ -90,7 +82,7 @@ export const Register = () => {
                         <label className="reglabel">Country</label>
                         <select className="reginput" type="text" {...formik.getFieldProps("country")} >
                             <option value="" disabled></option>
-                            {CountryData.map(c => {
+                            {countries.map(c => {
                                 return <option key={c.country} value={c.country}>{c.country}</option>
                             })}
                         </select>
