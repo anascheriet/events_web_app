@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { Event } from "./Event"
 import { EventDetail } from './EventDetail';
 import "./EventHome.scss"
+import "../../searchItems.scss";
 export const EventsHome = () => {
 
     //get current location
@@ -26,9 +27,24 @@ export const EventsHome = () => {
                     {pathId && <EventDetail pathId={pathId} />}
                 </AnimatePresence>
                 <h2 style={{ padding: "1rem", margin: "1rem" }}>Available events</h2>
-                <div className="searchedDiv">
-                    <input type="text" placeholder="Search event by name..." onChange={(e) => setSearchedEvent(e.target.value)} />
+
+                <div className="styled-input wide multi">
+                    <div >
+                        <input type="text" name="fn" id="fn" autoComplete="off" data-placeholder-focus="false" required onChange={(e) => setSearchedEvent(e.target.value)} />
+                        <label>Event Name</label>
+                    </div>
+                    <div >
+                        <input type="text" name="ln" id="ln" autoComplete="off" data-placeholder-focus="false" required />
+                        <label>Event Type</label>
+
+                    </div>
+                    <div>
+                        <input type="text" name="city" id="city" autoComplete="off" data-placeholder-focus="false" />
+                        <label>Country</label>
+                    </div>
                 </div>
+
+
 
                 <motion.div className="events" >
                     {availableEvents.filter((event) => {

@@ -7,8 +7,8 @@ import * as Yup from "yup";
 
 export const EditProfile = () => {
 
-    //get user
-    const { user } = useSelector(state => state.userState);
+    //get user amd countries array
+    const { user, countries } = useSelector(state => state.userState);
 
 
     //set up form field values
@@ -73,7 +73,18 @@ export const EditProfile = () => {
                     <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.eventName}</pre>} */}
                     </Form.Item>
                     <Form.Item label="Country">
-                        <Input name='country' {...formik.getFieldProps("country")} />
+                        <Select
+                            name='country'
+                            onChange={(country => formik.setFieldValue("country", country))}
+                            value={formik.values.country}>
+
+                            {countries.map(c => {
+                                return (
+                                    <Select.Option value={c.country}>
+                                        {c.country}
+                                    </Select.Option>)
+                            })}
+                        </Select>
                         {/*  {formik.touched.eventName && formik.errors.eventName &&
                     <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.eventName}</pre>} */}
                     </Form.Item>

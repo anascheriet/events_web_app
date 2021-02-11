@@ -40,21 +40,11 @@ export const EventForm = ({ closeDrawer, }) => {
     //retrieve event types array from evTypes reducer
     const { eventTypes } = useSelector(state => state.eventTypesState);
 
+    //retrieve countries array
+    const { countries } = useSelector(state => state.userState);
+
     //Country / City Dropdown logic
-    const [CountryCity, setCountryCity] = useState([]);
     const [Cities, setCities] = useState([]);
-
-    //fetch event types for form event type dropdown from the api on component load
-    useEffect(() => {
-        const fetchCountryAPI = async () => {
-            let response = await axios.get("https://countriesnow.space/api/v0.1/countries");
-            setCountryCity(response.data.data);
-        }
-        fetchCountryAPI();
-        console.log(new Date("2021-01-16T02:00:00.042+00:00"));
-    }, [])
-
-
 
     //Set up Event Object
     const initialValues = {
@@ -68,8 +58,6 @@ export const EventForm = ({ closeDrawer, }) => {
         eventDate: '',
         image: ''
     }
-
-
 
 
     //Set up formik object to handle the form
@@ -133,9 +121,9 @@ export const EventForm = ({ closeDrawer, }) => {
                 <Select
                     name='country'
                     onChange={country => formik.setFieldValue('country', country)}
-                    onSelect={country => ((setCities(CountryCity.filter(x => x.country === country)[0].cities), formik.setFieldValue('country', country)))}
+                    onSelect={country => ((setCities(countries.filter(x => x.country === country)[0].cities), formik.setFieldValue('country', country)))}
                     value={formik.values.country}>
-                    {CountryCity.map(c => {
+                    {countries.map(c => {
                         return <Select.Option value={c.country}>{c.country}</Select.Option>
                     })}
                 </Select>

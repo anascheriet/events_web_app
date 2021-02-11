@@ -3,6 +3,8 @@
 .eventList {
   top: 30rem;
   padding: 0rem 5rem;
+  display: flex;
+  flex-direction: column;
   h2 {
     padding: 4rem 0rem;
     font-family: "ubuntu";

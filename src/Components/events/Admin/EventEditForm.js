@@ -24,6 +24,8 @@ export const EventEditForm = ({ closeEDrawer }) => {
     const { eventTypes } = useSelector(state => state.eventTypesState);
     const { event } = useSelector(state => state.eventState);
 
+    const { countries } = useSelector(state => state.userState);
+
     //Set up Event Object to object
     const initialValues = {
         eventName: event.eventName,
@@ -54,17 +56,7 @@ export const EventEditForm = ({ closeEDrawer }) => {
 
 
     //Country / City Dropdown logic
-    const [CountryCity, setCountryCity] = useState([]);
     const [Cities, setCities] = useState([]);
-
-    //fetch event types for form event type dropdown from the api on component load
-    useEffect(() => {
-        const fetchCountryAPI = async () => {
-            let response = await axios.get("https://countriesnow.space/api/v0.1/countries");
-            setCountryCity(response.data.data);
-        }
-        fetchCountryAPI();
-    }, [])
 
     const submitHandler = async (ev) => {
         console.log(ev);
@@ -102,9 +94,9 @@ export const EventEditForm = ({ closeEDrawer }) => {
                 <Select
                     name='country'
                     onChange={country => formik.setFieldValue('country', country)}
-                    onSelect={country => ((setCities(CountryCity.filter(x => x.country === country)[0].cities), formik.setFieldValue('country', country)))}
+                    onSelect={country => ((setCities(countries.filter(x => x.country === country)[0].cities), formik.setFieldValue('country', country)))}
                     value={formik.values.country}>
-                    {CountryCity.map((c, index) => {
+                    {countries.map((c, index) => {
                         return <Select.Option key={index} value={c.country}>{c.country}</Select.Option>
                     })}
                 </Select>
