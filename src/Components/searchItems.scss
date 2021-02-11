@@ -82,10 +82,14 @@
 
 /* Focus Label */
 
-.styled-input input:focus ~ label {
+.styled-input input:focus ~ label, 
+.styled-input input#fn:valid ~ label, 
+.styled-input input#ln:valid ~ label, 
+.styled-input input#city[filled="true"]:valid ~ label, 
+.styled-input #select-state label {
   font-size: 13px;
   letter-spacing: 1.56px;
-  color: #14213d;
+  color: #4A3B8F;;
   top: -12.8px;
   -webkit-transition: all 0.125s cubic-bezier(0.2, 0, 0.03, 1);
   -o-transition: all 0.125s cubic-bezier(0.2, 0, 0.03, 1);

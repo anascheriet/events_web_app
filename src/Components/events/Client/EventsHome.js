@@ -15,8 +15,10 @@ export const EventsHome = () => {
     //get events from the state
     const { availableEvents } = useSelector(state => state.clientState);
 
-    //set up search input
-    const [searchedEvent, setSearchedEvent] = useState("");
+    //set up search inputs (event name, event type, event country)
+    const [searchedEName, setSearchedEName] = useState("");
+    const [searchedEType, setSearchedEType] = useState("");
+    const [searchedECountry, setSearchedECountry] = useState("");
 
     return (
         <motion.div className="eventList" style={{ marginTop: location.pathname === "/Guest" ? "3rem" : "0rem" }}>
@@ -30,28 +32,44 @@ export const EventsHome = () => {
 
                 <div className="styled-input wide multi">
                     <div >
-                        <input type="text" name="fn" id="fn" autoComplete="off" data-placeholder-focus="false" required onChange={(e) => setSearchedEvent(e.target.value)} />
+                        <input type="text" name="fn" id="fn" autoComplete="off" data-placeholder-focus="false" required onChange={(e) => setSearchedEName(e.target.value)} />
                         <label>Event Name</label>
                     </div>
                     <div >
-                        <input type="text" name="ln" id="ln" autoComplete="off" data-placeholder-focus="false" required />
+                        <input type="text" name="ln" id="ln" autoComplete="off" data-placeholder-focus="false" required onChange={(e) => setSearchedEType(e.target.value)} />
                         <label>Event Type</label>
 
                     </div>
                     <div>
-                        <input type="text" name="city" id="city" autoComplete="off" data-placeholder-focus="false" />
+                        <input type="text" name="city" id="city" autoComplete="off" data-placeholder-focus="false" onChange={(e) => setSearchedECountry(e.target.value)} />
                         <label>Country</label>
                     </div>
                 </div>
 
-
-
                 <motion.div className="events" >
                     {availableEvents.filter((event) => {
-                        if (searchedEvent == "") {
+                        if (searchedEName == "" && searchedECountry == "" && searchedEType == "") {
                             return event;
                         }
-                        else if (event.event.eventName.toLowerCase().includes(searchedEvent.toLowerCase())) {
+                        else if (event.event.eventName.toLowerCase().includes(searchedEName.toLowerCase()) && searchedEType == "" && searchedECountry == "") {
+                            return event;
+                        }
+                        else if (event.event.country.toLowerCase().includes(searchedECountry.toLowerCase()) && searchedEType == "" && searchedEName == "") {
+                            return event;
+                        }
+                        else if (event.event.eventType.name.toLowerCase().includes(searchedEType.toLowerCase()) && searchedEName == "" && searchedECountry == "") {
+                            return event;
+                        }
+                        else if (event.event.eventName.toLowerCase().includes(searchedEName.toLowerCase()) && event.event.eventType.name.toLowerCase().includes(searchedEType.toLowerCase()) && searchedECountry == "") {
+                            return event;
+                        }
+                        else if (event.event.eventName.toLowerCase().includes(searchedEName.toLowerCase()) && event.event.country.toLowerCase().includes(searchedECountry.toLowerCase()) && searchedEType == "") {
+                            return event;
+                        }
+                        else if (event.event.eventType.name.toLowerCase().includes(searchedEType.toLowerCase()) && event.event.country.toLowerCase().includes(searchedECountry.toLowerCase()) && searchedEName == "") {
+                            return event;
+                        }
+                        else if (event.event.eventName.toLowerCase().includes(searchedEName.toLowerCase()) && event.event.country.toLowerCase().includes(searchedECountry.toLowerCase()) && event.event.eventType.name.toLowerCase().includes(searchedEType.toLowerCase())) {
                             return event;
                         }
                     }).map((event) => {
