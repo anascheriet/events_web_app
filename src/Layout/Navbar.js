@@ -59,7 +59,7 @@ const Navbar = ({ setToggle }) => {
 
         <div className="logo">
           <Link to="/Home">
-            <a style={{ color: "#fdde6c", textTransform: "lowercase", paddingLeft: "2rem", fontSize: "25px" }} href="#!">eventor</a>
+            <p style={{ color: "#fdde6c", textTransform: "lowercase", paddingLeft: "2rem", fontSize: "25px" }} href="#!">eventor</p>
           </Link>
 
         </div>

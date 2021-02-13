@@ -1,13 +1,19 @@
 import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { Event } from "./Event"
 import { EventDetail } from './EventDetail';
 import "./EventHome.scss"
 import "../../searchItems.scss";
+import { getAllEventsAction } from '../../../redux/actions/clientActions/getAllEventsAction';
 export const EventsHome = () => {
 
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getAllEventsAction());
+    }, [])
     //get current location
     const location = useLocation();
     const pathId = location.pathname.split("/")[2];
@@ -37,7 +43,7 @@ export const EventsHome = () => {
     //const eventTypeContains = (event, against) => event.event.eventType.name.toLowerCase() ==== against.toLowerCase();
 
     return (
-        <motion.div className="eventList" style={{ marginTop: location.pathname === "/Guest" ? "3rem" : "0rem" }}>
+        <motion.div className="eventList" style={{ marginTop: location.pathname === "/Guest" ? "3rem" : "1rem" }}>
             <AnimateSharedLayout type="switch">
                 {/* wrap all the components that will be transitioning*/}
                 <AnimatePresence>
@@ -53,7 +59,7 @@ export const EventsHome = () => {
                             <label>Event Name</label>
                         </div>
                         <div>
-                            <input type="text" value={searchedECountry} name="fn" id="fn" autoComplete="off" data-placeholder-focus="false" onChange={(e) => setSearchedECountry(e.target.value)} />
+                            <input type="text" value={searchedECountry} name="fn" id="fn" autoComplete="off" data-placeholder-focus="false" required onChange={(e) => setSearchedECountry(e.target.value)} />
                             <label>Country</label>
                         </div>
 

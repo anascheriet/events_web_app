@@ -109,7 +109,7 @@ export const EditProfile = () => {
                     <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.eventName}</pre>} */}
                     </Form.Item>
                     <Form.Item className="align-middle">
-                        <Button color="green" htmlType="submit">Submit</Button>
+                        <Button color="green" type="submit">Submit</Button>
                         <Button color="grey">Cancel</Button>
                     </Form.Item>
                 </Form>

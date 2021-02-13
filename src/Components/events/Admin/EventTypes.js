@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import { eventTypesUrls } from '../../../redux/api'
-import { editToast, successToast } from '../../../common/Notifications';
+import { editToast, errorToast, successToast } from '../../../common/Notifications';
 import { getAllEventTypes } from '../../../redux/actions/eventTypes/getTypesAction';
 import { createEventTypeAction } from '../../../redux/actions/eventTypes/eventTypeCUD'
 
@@ -75,11 +75,15 @@ export const EventTypes = () => {
     }
 
     const deleteETypeHandle = async (id) => {
-        await axios.delete(eventTypesUrls.delete(id)).catch(err => console.log(err));
-        eventTypes.filter(x => x.id !== id);
-        eventTypes.splice(eventTypes.findIndex(x => x.id === id), 1);
-        editToast("Event Type has been deleted ! 👍");
-        closeDModal();
+        try {
+            const resp = await axios.delete(eventTypesUrls.delete(id));
+            editToast(resp.data);
+            eventTypes.filter(x => x.id !== id);
+            eventTypes.splice(eventTypes.findIndex(x => x.id === id), 1);
+            closeDModal();
+        } catch (error) {
+            errorToast(error.data);
+        }
     }
 
 

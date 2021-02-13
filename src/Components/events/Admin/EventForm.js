@@ -183,7 +183,7 @@ export const EventForm = ({ closeDrawer, }) => {
                 </Upload>
             </Form.Item>
             <Form.Item >
-                <Button color="green" disabled={Object.keys(formik.errors).length !== 0} htmlType="submit">Submit</Button>
+                <Button color="green" disabled={Object.keys(formik.errors).length !== 0} type="submit">Submit</Button>
                 <Button color="grey" type="button" onClick={closeDrawer}>Cancel</Button>
             </Form.Item>
         </Form>

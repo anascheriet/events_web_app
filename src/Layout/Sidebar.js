@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 const nav = [
   { text: "Dashboard", link: "#!", icon: "chart-line", active: true },
   { text: "Events", link: "#!", icon: "calendar-alt" },
-  { text: "Bookings", link: "#!", icon: "ticket-alt" },
   { text: "EventTypes", link: "#!", icon: "list-alt" },
 ];
 

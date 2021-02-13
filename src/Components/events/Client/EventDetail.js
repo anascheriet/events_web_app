@@ -13,14 +13,15 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import { clientUrls } from '../../../redux/api';
-import { successToast } from '../../../common/Notifications';
+import { errorToast, successToast } from '../../../common/Notifications';
+import { toast } from 'react-toastify';
 
 //TODO inform guest of log in necessity before event booking
 
 export const EventDetail = ({ pathId }) => {
 
     const { event } = useSelector(state => state.eventState);
-    const { user } = useSelector(state => state.userState);
+    const { user, token } = useSelector(state => state.userState);
     const history = useHistory();
 
     const exitCardHandler = (e) => {
@@ -104,10 +105,18 @@ export const EventDetail = ({ pathId }) => {
 
     const bookEventHandler = async (values) => {
         console.log(values);
-        const response = await axios.post(clientUrls.book, values);
-        successToast(response?.data);
-        document.body.style.overflow = 'auto';
-        history.push("/Home/");
+
+        if (token === null) {
+            toast.error("dffddfdd");
+            errorToast("Please try Logging in before booking an event.");
+            console.log("null");
+        }
+        else {
+            const response = await axios.post(clientUrls.book, values);
+            successToast(response?.data);
+            document.body.style.overflow = 'auto';
+            history.push("/Home/");
+        }
     }
 
     return (
@@ -137,7 +146,7 @@ export const EventDetail = ({ pathId }) => {
                                 <Form.Item style={{ left: "2rem", marginBottom: "0.5rem" }}>
                                     <InputNumber name="numOfPeople" onChange={(numOfPeople) => formik.setFieldValue("numOfPeople", numOfPeople)} placeholder="Number Of Tickets" style={{ width: "12rem" }} />
                                 </Form.Item>
-                                <Button disabled={formik.values.numOfPeople === null || formik.values.numOfPeople === 0} style={{ width: "8rem", backgroundColor: "#ff7676", color: "white", marginTop: "0.5rem" }} htmlType="submit">Book</Button>
+                                <Button disabled={formik.values.numOfPeople === null || formik.values.numOfPeople === 0 || user === null} style={{ width: "8rem", backgroundColor: "#ff7676", color: "white", marginTop: "0.5rem" }} type="submit">Book</Button>
                             </Form>
                         </motion.div>
                     </motion.div>
