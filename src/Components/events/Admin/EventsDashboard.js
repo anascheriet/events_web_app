@@ -76,10 +76,10 @@ export const EventsDashboard = () => {
                 <div className="flex flex-wrap -mx-1 lg:-mx-4">
                     {createdEvents.map((item) => {
 
-                        {/* Column_Start */ }
+                     
                         return (
                             <motion.div className="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3" variants={popup} initial="hidden" animate="show">
-                                {/* Article Start */}
+                              
                                 <article className="overflow-hidden rounded-lg shadow-lg">
                                     <img alt="Placeholder" className="block h-auto w-full" src={formatImageLink(item.imagePath)} style={{ width: "400px", height: "200px" }} />
 
@@ -98,7 +98,6 @@ export const EventsDashboard = () => {
 
                                 </article>
                             </motion.div>)
-                        {/* Column End */ }
                     })}
                 </div>
             </div>

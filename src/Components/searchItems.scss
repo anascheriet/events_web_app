@@ -4,7 +4,7 @@
   float: left;
   background: #fff;
   -webkit-box-shadow: inset 0 -1px 4px 0 rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0 -1px 4px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.1);
   width: 100%;
   position: relative;
   margin-bottom: 10px;
@@ -80,6 +80,29 @@
   background: transparent;
 }
 
+.styled-input select {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: relative;
+  z-index: 1;
+  left: 11px;
+}
+
+.styled-input input, 
+.styled-input textarea, 
+.styled-input select {
+  color: #4A4A4A;
+  border: 0;
+  width: 90%;
+  font-size: 18px;
+  padding-top: 20px;
+  background: transparent;
+}
+
 /* Focus Label */
 
 .styled-input input:focus ~ label, 
@@ -134,6 +157,19 @@
     height: 60px;
     padding: 0;
   }
+}
+
+.styled-input .icon--check, 
+.styled-input .icon--error, 
+.styled-input .chevron-down {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  right: 2%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 0;
 }
 
 @media (max-width: 767.98px) {

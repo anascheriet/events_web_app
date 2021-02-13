@@ -17,8 +17,24 @@ export const EventsHome = () => {
 
     //set up search inputs (event name, event type, event country)
     const [searchedEName, setSearchedEName] = useState("");
-    const [searchedEType, setSearchedEType] = useState("");
+    const [searchedEType, setSearchedEType] = useState("Any");
     const [searchedECountry, setSearchedECountry] = useState("");
+    const [searchedECity, setSearchedECity] = useState("");
+
+
+    //Clear filters
+    const clearFilters = () => {
+        setSearchedECity("");
+        setSearchedECountry("");
+        setSearchedEType("Any");
+        setSearchedEName("");
+
+        //console.table(searchedECountry, searchedEName);
+    }
+
+    const contains = (event, prop, against) => event.event[prop].toLowerCase().includes(against.toLowerCase());
+
+    //const eventTypeContains = (event, against) => event.event.eventType.name.toLowerCase() ==== against.toLowerCase();
 
     return (
         <motion.div className="eventList" style={{ marginTop: location.pathname === "/Guest" ? "3rem" : "0rem" }}>
@@ -28,48 +44,52 @@ export const EventsHome = () => {
                     {/* The component that will be animated should have a conditional toggle, pathId here */}
                     {pathId && <EventDetail pathId={pathId} />}
                 </AnimatePresence>
-                <h2 style={{ padding: "1rem", margin: "1rem" }}>Available events</h2>
+                <h2 style={{ padding: "0.3rem", marginTop: "3rem" }}>Upcoming events</h2>
 
-                <div className="styled-input wide multi">
-                    <div >
-                        <input type="text" name="fn" id="fn" autoComplete="off" data-placeholder-focus="false" required onChange={(e) => setSearchedEName(e.target.value)} />
-                        <label>Event Name</label>
+                <div className="flex flex-row space-x-10 items-center">
+                    <div className="styled-input wide multi">
+                        <div >
+                            <input type="text" value={searchedEName} name="fn" id="fn" autoComplete="off" data-placeholder-focus="false" required onChange={(e) => setSearchedEName(e.target.value)} />
+                            <label>Event Name</label>
+                        </div>
+                        <div>
+                            <input type="text" value={searchedECountry} name="fn" id="fn" autoComplete="off" data-placeholder-focus="false" onChange={(e) => setSearchedECountry(e.target.value)} />
+                            <label>Country</label>
+                        </div>
+
+                        <div >
+                            <input type="text" value={searchedECity} name="ln" id="ln" autoComplete="off" data-placeholder-focus="false" required
+                                onChange={(e) => setSearchedECity(e.target.value)} />
+                            <label>City</label>
+                        </div>
                     </div>
                     <div >
-                        <input type="text" name="ln" id="ln" autoComplete="off" data-placeholder-focus="false" required onChange={(e) => setSearchedEType(e.target.value)} />
-                        <label>Event Type</label>
-
-                    </div>
-                    <div>
-                        <input type="text" name="city" id="city" autoComplete="off" data-placeholder-focus="false" onChange={(e) => setSearchedECountry(e.target.value)} />
-                        <label>Country</label>
+                        <button onClick={clearFilters} className="bg-pink-500 hover:bg-pink-700 text-white text-md rounded-lg w-32 h-20 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:ring-opacity-50">Clear</button>
                     </div>
                 </div>
 
                 <motion.div className="events" >
                     {availableEvents.filter((event) => {
-                        if (searchedEName == "" && searchedECountry == "" && searchedEType == "") {
+                        if (contains(event, "eventName", searchedEName) && searchedECity === "" && searchedECountry === "" && searchedEType === "Any") {
                             return event;
                         }
-                        else if (event.event.eventName.toLowerCase().includes(searchedEName.toLowerCase()) && searchedEType == "" && searchedECountry == "") {
+                        else if (contains(event, "country", searchedECountry) && searchedECity === "" && searchedEName === "") {
                             return event;
                         }
-                        else if (event.event.country.toLowerCase().includes(searchedECountry.toLowerCase()) && searchedEType == "" && searchedEName == "") {
+                        else if (contains(event, "city", searchedECity) && searchedEName === "" && searchedECountry === "") {
                             return event;
                         }
-                        else if (event.event.eventType.name.toLowerCase().includes(searchedEType.toLowerCase()) && searchedEName == "" && searchedECountry == "") {
+                        else if (contains(event, "eventName", searchedEName) && contains(event, "city", searchedECity) && searchedECountry === "") {
                             return event;
                         }
-                        else if (event.event.eventName.toLowerCase().includes(searchedEName.toLowerCase()) && event.event.eventType.name.toLowerCase().includes(searchedEType.toLowerCase()) && searchedECountry == "") {
+
+                        else if (contains(event, "eventName", searchedEName) && contains(event, "country", searchedECountry) && searchedECity === "") {
                             return event;
                         }
-                        else if (event.event.eventName.toLowerCase().includes(searchedEName.toLowerCase()) && event.event.country.toLowerCase().includes(searchedECountry.toLowerCase()) && searchedEType == "") {
+                        else if (contains(event, "city", searchedECity) && contains(event, "country", searchedECountry) && searchedEName === "") {
                             return event;
                         }
-                        else if (event.event.eventType.name.toLowerCase().includes(searchedEType.toLowerCase()) && event.event.country.toLowerCase().includes(searchedECountry.toLowerCase()) && searchedEName == "") {
-                            return event;
-                        }
-                        else if (event.event.eventName.toLowerCase().includes(searchedEName.toLowerCase()) && event.event.country.toLowerCase().includes(searchedECountry.toLowerCase()) && event.event.eventType.name.toLowerCase().includes(searchedEType.toLowerCase())) {
+                        else if (contains(event, "eventName", searchedEName) && contains(event, "country", searchedECountry) && contains(event, "city", searchedECity)) {
                             return event;
                         }
                     }).map((event) => {
