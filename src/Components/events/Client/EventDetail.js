@@ -142,12 +142,12 @@ export const EventDetail = ({ pathId }) => {
                             <motion.p layoutId={`location ${pathId}`}><Icon name="map pin" />{event.city}, {event.country}</motion.p>
                             <motion.p layoutId={`date ${pathId}`}>{formatDate(event.eventDate)}</motion.p>
                             <Divider />
-                            <Form layout="vertical" onFinish={() => bookEventHandler(formik.values)} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                            <Form layout="vertical" onFinish={() => bookEventHandler(formik.values)} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                                 <Form.Item style={{ left: "2rem", marginBottom: "0.5rem" }}>
                                     <InputNumber name="numOfPeople" onChange={(numOfPeople) => formik.setFieldValue("numOfPeople", numOfPeople)} placeholder="Number Of Tickets" style={{ width: "12rem" }} />
                                 </Form.Item>
                                 <Button disabled={formik.values.numOfPeople === null || formik.values.numOfPeople === 0 || user === null} style={{ width: "8rem", backgroundColor: "#ff7676", color: "white", marginTop: "0.5rem" }} type="submit">Book</Button>
-                                {formik.values.numOfPeople !== null && user === null && <span style={{color: "red"}}>Please Log In before Booking</span>}
+                                {formik.values.numOfPeople !== null && user === null && <span style={{ color: "red" }}>Please Log In before Booking</span>}
                             </Form>
                         </motion.div>
                     </motion.div>
