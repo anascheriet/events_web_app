@@ -15,7 +15,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import { Button } from 'semantic-ui-react';
 import { eventsUrls, uploadImageUrl } from '../../../redux/api';
 import axios from 'axios';
-import { editToast } from '../../../common/Notifications';
+import { editToast, errorToast } from '../../../common/Notifications';
 
 export const EventEditForm = ({ closeEDrawer }) => {
 
@@ -59,10 +59,15 @@ export const EventEditForm = ({ closeEDrawer }) => {
     const [Cities, setCities] = useState([]);
 
     const submitHandler = async (ev) => {
-        console.log(ev);
-        await axios.patch(eventsUrls.edit(event.id), ev)
-        closeEDrawer();
-        editToast("The event Has been Updated! ✅");
+
+        try {
+            const resp = await axios.patch(eventsUrls.edit(event.id), ev)
+            editToast(resp.data + " ✅");
+            closeEDrawer();
+        } catch (error) {
+            errorToast(error.data);
+        }
+
     }
 
 

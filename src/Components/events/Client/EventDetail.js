@@ -39,7 +39,7 @@ export const EventDetail = ({ pathId }) => {
     }
 
     const stopevent = (e) => {
-        //make game detail unclickable
+        //make game detail card unclickable
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
     }
@@ -106,17 +106,16 @@ export const EventDetail = ({ pathId }) => {
     const bookEventHandler = async (values) => {
         console.log(values);
 
-        if (token === null) {
-            toast.error("dffddfdd");
-            errorToast("Please try Logging in before booking an event.");
-            console.log("null");
-        }
-        else {
+        try {
             const response = await axios.post(clientUrls.book, values);
             successToast(response?.data);
             document.body.style.overflow = 'auto';
             history.push("/Home/");
+        } catch (error) {
+            errorToast(error.data);
         }
+
+
     }
 
     return (

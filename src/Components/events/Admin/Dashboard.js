@@ -254,7 +254,7 @@ export const Dashboard = () => {
           <Icon name='chart line' />
           <Header.Content>
             Analytics Dashboard
-      <Header.Subheader>Check Your Events Performance </Header.Subheader>
+      <Header.Subheader>Check {user.role.name === "Admin" ? "Your" : "All"} Events Performance </Header.Subheader>
           </Header.Content>
         </Header>
       </div>

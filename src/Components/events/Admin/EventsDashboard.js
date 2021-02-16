@@ -11,6 +11,9 @@ import { EventEditForm } from './EventEditForm';
 import { getAllEventTypes } from '../../../redux/actions/eventTypes/getTypesAction';
 import { loadEventAction, unMountDrawer } from '../../../redux/actions/eventActions/loadEventAction';
 import { formatDate, formatImageLink } from '../../../common/util';
+import axios from 'axios';
+import { eventsUrls } from '../../../redux/api';
+import { errorToast, successToast } from '../../../common/Notifications';
 
 export const EventsDashboard = () => {
 
@@ -56,6 +59,16 @@ export const EventsDashboard = () => {
         dispatch(loadEventAction(id));
     }
 
+
+    const deleteEventHandler = async (id) => {
+        try {
+            const resp = await axios.delete(eventsUrls.delete(id));
+            successToast(resp.data);
+        } catch (error) {
+            errorToast(error.data);
+        }
+    }
+
     return (
         <div>
             <div className="header">
@@ -76,10 +89,10 @@ export const EventsDashboard = () => {
                 <div className="flex flex-wrap -mx-1 lg:-mx-4">
                     {createdEvents.map((item) => {
 
-                     
+
                         return (
                             <motion.div className="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3" variants={popup} initial="hidden" animate="show">
-                              
+
                                 <article className="overflow-hidden rounded-lg shadow-lg">
                                     <img alt="Placeholder" className="block h-auto w-full" src={formatImageLink(item.imagePath)} style={{ width: "400px", height: "200px" }} />
 
@@ -93,7 +106,7 @@ export const EventsDashboard = () => {
                                     <p className="ml-3 mr-3 mb-4 text-grey-dark text-sm"> {item.description.substring(1, 160)}...</p>
                                     <footer className="flex items-center justify-center leading-tight p-3 md:p-5">
                                         <button onClick={() => openEditEventForm(item.id)} className="bg-white text-blue-700 font-bold py-2 px-4">Edit</button>&nbsp;
-          <button className="bg-white text-red-700 font-bold py-2 px-4">Delete</button>
+          <button onClick={() => deleteEventHandler(item.id)} className="bg-white text-red-700 font-bold py-2 px-4">Delete</button>
                                     </footer>
 
                                 </article>
