@@ -13,3 +13,9 @@ export const formatDate = (date) => {
     )
     /* (<div>{<Icon name="calendar" color="grey" />}{date?.split("T")[0]}<br/>{<Icon name="clock" color="grey" />}{date?.split("T")[1].split(".")[0]}</div>); */
 }
+
+
+
+export const contains = (event, prop, against) => event.event[prop].toLowerCase().includes(against.toLowerCase());
+
+export const containsForEvDash = (event, prop, against) => event[prop].toLowerCase().includes(against.toLowerCase());

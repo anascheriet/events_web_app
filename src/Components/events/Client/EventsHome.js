@@ -7,6 +7,8 @@ import { EventDetail } from './EventDetail';
 import "./EventHome.scss"
 import "../../searchItems.scss";
 import { getAllEventsAction } from '../../../redux/actions/clientActions/getAllEventsAction';
+import { contains } from '../../../common/util';
+import { EventsFilterBar } from '../../../common/EventsFilterBar';
 export const EventsHome = () => {
 
     const dispatch = useDispatch();
@@ -23,24 +25,12 @@ export const EventsHome = () => {
 
     //set up search inputs (event name, event type, event country)
     const [searchedEName, setSearchedEName] = useState("");
-    const [searchedEType, setSearchedEType] = useState("Any");
     const [searchedECountry, setSearchedECountry] = useState("");
     const [searchedECity, setSearchedECity] = useState("");
 
 
-    //Clear filters
-    const clearFilters = () => {
-        setSearchedECity("");
-        setSearchedECountry("");
-        setSearchedEType("Any");
-        setSearchedEName("");
 
-        //console.table(searchedECountry, searchedEName);
-    }
 
-    const contains = (event, prop, against) => event.event[prop].toLowerCase().includes(against.toLowerCase());
-
-    //const eventTypeContains = (event, against) => event.event.eventType.name.toLowerCase() ==== against.toLowerCase();
 
     return (
         <motion.div className="eventList" style={{ marginTop: location.pathname === "/Guest" ? "3rem" : "1rem" }}>
@@ -52,31 +42,12 @@ export const EventsHome = () => {
                 </AnimatePresence>
                 <h2 style={{ padding: "0.3rem", marginTop: "3rem" }}>Upcoming events</h2>
 
-                <div className="flex flex-row space-x-10 items-center">
-                    <div className="styled-input wide multi">
-                        <div >
-                            <input type="text" value={searchedEName} name="fn" id="fn" autoComplete="off" data-placeholder-focus="false" required onChange={(e) => setSearchedEName(e.target.value)} />
-                            <label>Event Name</label>
-                        </div>
-                        <div>
-                            <input type="text" value={searchedECountry} name="fn" id="fn" autoComplete="off" data-placeholder-focus="false" required onChange={(e) => setSearchedECountry(e.target.value)} />
-                            <label>Country</label>
-                        </div>
-
-                        <div >
-                            <input type="text" value={searchedECity} name="ln" id="ln" autoComplete="off" data-placeholder-focus="false" required
-                                onChange={(e) => setSearchedECity(e.target.value)} />
-                            <label>City</label>
-                        </div>
-                    </div>
-                    <div >
-                        <button onClick={clearFilters} className="bg-pink-500 hover:bg-pink-700 text-white text-md rounded-lg w-32 h-20 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:ring-opacity-50">Clear</button>
-                    </div>
-                </div>
+                {/* Filter component */}
+                <EventsFilterBar setSearchedECity={setSearchedECity} searchedECity={searchedECity} setSearchedECountry={setSearchedECountry} searchedECountry={searchedECountry} setSearchedEName={setSearchedEName} searchedEName={searchedEName} />
 
                 <motion.div className="events" >
                     {availableEvents.filter((event) => {
-                        if (contains(event, "eventName", searchedEName) && searchedECity === "" && searchedECountry === "" && searchedEType === "Any") {
+                        if (contains(event, "eventName", searchedEName) && searchedECity === "" && searchedECountry === "") {
                             return event;
                         }
                         else if (contains(event, "country", searchedECountry) && searchedECity === "" && searchedEName === "") {

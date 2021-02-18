@@ -10,10 +10,11 @@ import { loadUserInfo } from '../../../redux/actions/Users/loadUserInfo';
 import { EventEditForm } from './EventEditForm';
 import { getAllEventTypes } from '../../../redux/actions/eventTypes/getTypesAction';
 import { loadEventAction, unMountDrawer } from '../../../redux/actions/eventActions/loadEventAction';
-import { formatDate, formatImageLink } from '../../../common/util';
+import { containsForEvDash, formatDate, formatImageLink } from '../../../common/util';
 import axios from 'axios';
 import { eventsUrls } from '../../../redux/api';
 import { errorToast, successToast } from '../../../common/Notifications';
+import { EventsFilterBar } from '../../../common/EventsFilterBar';
 
 export const EventsDashboard = () => {
 
@@ -61,18 +62,25 @@ export const EventsDashboard = () => {
 
     const deleteEventHandler = async (id) => {
         try {
-            console.log("before delete: "+ createdEvents);
+            console.log("before delete: " + createdEvents);
             const resp = await axios.delete(eventsUrls.delete(id));
             successToast(resp.data);
 
             setTimeout(() => {
-               dispatch(loadUserInfo());
+                dispatch(loadUserInfo());
             }, 1000);
-           
+
         } catch (error) {
             errorToast(error.data);
         }
     }
+
+
+    //set up search inputs (event name, event type, event country)
+    const [searchedEName, setSearchedEName] = useState("");
+    const [searchedECountry, setSearchedECountry] = useState("");
+    const [searchedECity, setSearchedECity] = useState("");
+
 
     return (
         <div>
@@ -89,12 +97,36 @@ export const EventsDashboard = () => {
 
             <Divider />
 
+            {/* Filter component */}
+            <EventsFilterBar setSearchedECity={setSearchedECity} searchedECity={searchedECity} setSearchedECountry={setSearchedECountry} searchedECountry={searchedECountry} setSearchedEName={setSearchedEName} searchedEName={searchedEName} />
+
             {/* List of Events */}
             <div className="container my-12 mx-auto px-4 md:px-12" style={{ backgroundImage: "" }}>
                 <div className="flex flex-wrap -mx-1 lg:-mx-4">
-                    {createdEvents.map((item) => {
+                    {createdEvents.filter((event) => {
+                        if (containsForEvDash(event, "eventName", searchedEName) && searchedECity === "" && searchedECountry === "") {
+                            return event;
+                        }
+                        else if (containsForEvDash(event, "country", searchedECountry) && searchedECity === "" && searchedEName === "") {
+                            return event;
+                        }
+                        else if (containsForEvDash(event, "city", searchedECity) && searchedEName === "" && searchedECountry === "") {
+                            return event;
+                        }
+                        else if (containsForEvDash(event, "eventName", searchedEName) && containsForEvDash(event, "city", searchedECity) && searchedECountry === "") {
+                            return event;
+                        }
 
-
+                        else if (containsForEvDash(event, "eventName", searchedEName) && containsForEvDash(event, "country", searchedECountry) && searchedECity === "") {
+                            return event;
+                        }
+                        else if (containsForEvDash(event, "city", searchedECity) && containsForEvDash(event, "country", searchedECountry) && searchedEName === "") {
+                            return event;
+                        }
+                        else if (containsForEvDash(event, "eventName", searchedEName) && containsForEvDash(event, "country", searchedECountry) && containsForEvDash(event, "city", searchedECity)) {
+                            return event;
+                        }
+                    }).map((item) => {
                         return (
                             <motion.div key={item.id} className="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3" variants={popup} initial="hidden" animate="show">
 
@@ -109,6 +141,7 @@ export const EventsDashboard = () => {
                                         {formatDate(item.eventDate)}
                                     </header>
                                     <p className="ml-3 mr-3 mb-4 text-grey-dark text-sm"> {item.description.substring(1, 160)}...</p>
+                                    <p style={{margin: "0rem 1rem", fontSize: "1rem"}}><Icon name="map pin" />{item.city}, {item.country}</p>
                                     <footer className="flex items-center justify-center leading-tight p-3 md:p-5">
                                         <button onClick={() => openEditEventForm(item.id)} className="bg-white text-blue-700 font-bold py-2 px-4">Edit</button>&nbsp;
           <button onClick={() => deleteEventHandler(item.id)} className="bg-white text-red-700 font-bold py-2 px-4">Delete</button>
