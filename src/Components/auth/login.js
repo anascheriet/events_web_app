@@ -85,6 +85,13 @@ export const Login = () => {
     onSubmit: forgotSubmitHandler
   })
 
+  //handle show/hide password
+  const [isPassword, setIsPassword] = useState(true);
+
+  const showPassword = () => {
+    setIsPassword(!isPassword);
+  }
+
   return (
     <div className="all">
       <motion.div
@@ -136,7 +143,7 @@ export const Login = () => {
                 <br />
                 <label className="label">PASSWORD</label>
                 <br />
-                <input type="password" name="password" className="input" {...formik.getFieldProps("password")} />
+                <input type={isPassword ? "password" : "text"} name="password" className="input" {...formik.getFieldProps("password")} /> <Icon name={isPassword ? "eye" : "eye slash"} onClick={showPassword} />
                 <br />
                 {formik.touched.password && formik.errors.password &&
                   <span style={{ color: "red" }}>{formik.errors.password}</span>}

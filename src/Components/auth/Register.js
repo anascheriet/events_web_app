@@ -8,6 +8,7 @@ import { successToast } from '../../common/Notifications';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Icon } from 'semantic-ui-react';
 
 export const Register = () => {
 
@@ -57,7 +58,16 @@ export const Register = () => {
     })
 
 
-    const { countries } = useSelector(state => state.userState)
+    const { countries } = useSelector(state => state.userState);
+
+
+    //handle show/hide password
+    const [isPassword, setIsPassword] = useState(true);
+
+    const showPassword = () => {
+        setIsPassword(!isPassword);
+    }
+
     return (
         <div className="register">
             <div className="title">
@@ -103,7 +113,10 @@ export const Register = () => {
 
                         <label className="reglabel">Password</label>
 
-                        <input className="reginput" type="password" name='password' value={formik.values.password} {...formik.getFieldProps('password')} />
+                        <div style={{ display: "flex", flexDirection: "row" }}>
+                            <input className="reginput" type={isPassword ? "password" : "text"} name='password' value={formik.values.password} {...formik.getFieldProps('password')} />
+                            <Icon name={isPassword ? "eye" : "eye slash"} onClick={showPassword} />
+                        </div>
                         {formik.touched.password && formik.errors.password &&
                             <span className="error">{formik.errors.password}</span>}
 
