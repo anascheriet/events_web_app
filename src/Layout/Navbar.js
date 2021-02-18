@@ -26,10 +26,10 @@ const Navbar = ({ setToggle }) => {
     <Menu style={{ backgroundColor: "#14213d" }}>
       <Menu.Item >
         <Link to="/EditProfile">
-          <a target="_blank" className="menuLink" style={{ color: "#fdde6c" }} >
+          <p className="menuLink" style={{ color: "#fdde6c" }} >
             <Icon name="user" style={{ color: "#fdde6c" }} />
               Profile
-            </a>
+            </p>
         </Link>
       </Menu.Item>
       {user !== null && user.role.name === "Client"
@@ -40,10 +40,10 @@ const Navbar = ({ setToggle }) => {
           </Link>
         </Menu.Item>}
       <Menu.Item >
-        <a onClick={logOut} className="menuLink" target="_blank" style={{ color: "#fdde6c" }} >
+        <p onClick={logOut} className="menuLink" style={{ color: "#fdde6c" }} >
           <Icon name="sign out" style={{ color: "#fdde6c" }} />
               Log out
-            </a>
+            </p>
       </Menu.Item>
     </Menu>
   );

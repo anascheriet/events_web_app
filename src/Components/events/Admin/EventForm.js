@@ -15,7 +15,7 @@ import { useFormik } from 'formik';
 import { Button } from 'semantic-ui-react'
 import { useDispatch, useSelector } from 'react-redux';
 import { createEventAction } from '../../../redux/actions/eventActions/eventAction'
-import { successToast } from '../../../common/Notifications';
+import { errorToast, successToast } from '../../../common/Notifications';
 import axios from 'axios';
 import { uploadImageUrl } from '../../../redux/api';
 import { loadUserInfo } from '../../../redux/actions/Users/loadUserInfo';
@@ -69,31 +69,34 @@ export const EventForm = ({ closeDrawer, }) => {
 
     //get events so we can add to them
     const { user } = useSelector(state => state.userState);
-    const { createdEvents } = user;
 
 
     const clearInputs = () => {
         formik.values.eventName = '';
-            formik.values.description = '';
-            formik.values.country = '';
-            formik.values.city = '';
-            formik.values.availabletickets = null;
-            formik.values.ticketprice = null;
-            formik.values.eventtypeid = null;
-            formik.values.eventDate = '';
-            formik.values.image = null;
+        formik.values.description = '';
+        formik.values.country = '';
+        formik.values.city = '';
+        formik.values.availabletickets = null;
+        formik.values.ticketprice = null;
+        formik.values.eventtypeid = null;
+        formik.values.eventDate = '';
+        formik.values.image = null;
     }
 
 
     //Submit method
     const submitHandler = (event) => {
-        dispatch(createEventAction(event));
-        setTimeout(() => {
-            dispatch(loadUserInfo());
-        }, 1000);
-        closeDrawer();
-        successToast("The event Has been Created!");
-        clearInputs();
+        try {
+            dispatch(createEventAction(event));
+            setTimeout(() => {
+                dispatch(loadUserInfo());
+            }, 1000);
+            closeDrawer();
+            clearInputs();
+        } catch (error) {
+            errorToast(error.data);
+        }
+
     }
 
 

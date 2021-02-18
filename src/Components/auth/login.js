@@ -147,9 +147,9 @@ export const Login = () => {
               </form>
               <div className="links">
                 <Link to="/authentication/register">
-                  <a>Create Account</a>
+                  <p style={{ color: "#14213D" }}>Create Account</p>
                 </Link>
-                <a onClick={openForgotPass}>Forgot Password?</a>
+                <p style={{ color: "#14213D", fontWeight: "bold" }} onClick={openForgotPass}>Forgot Password?</p>
               </div>
             </div>) :
         <div className="back">
