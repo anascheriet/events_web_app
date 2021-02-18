@@ -16,7 +16,6 @@ import { clientUrls } from '../../../redux/api';
 import { errorToast, successToast } from '../../../common/Notifications';
 import { toast } from 'react-toastify';
 
-//TODO inform guest of log in necessity before event booking
 
 export const EventDetail = ({ pathId }) => {
 
