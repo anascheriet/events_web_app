@@ -18,6 +18,7 @@ import { createEventAction } from '../../../redux/actions/eventActions/eventActi
 import { successToast } from '../../../common/Notifications';
 import axios from 'axios';
 import { uploadImageUrl } from '../../../redux/api';
+import { loadUserInfo } from '../../../redux/actions/Users/loadUserInfo';
 
 //Set up object validation
 export const myValidationSchema = new Yup.ObjectSchema({
@@ -71,12 +72,28 @@ export const EventForm = ({ closeDrawer, }) => {
     const { createdEvents } = user;
 
 
+    const clearInputs = () => {
+        formik.values.eventName = '';
+            formik.values.description = '';
+            formik.values.country = '';
+            formik.values.city = '';
+            formik.values.availabletickets = null;
+            formik.values.ticketprice = null;
+            formik.values.eventtypeid = null;
+            formik.values.eventDate = '';
+            formik.values.image = null;
+    }
+
+
     //Submit method
     const submitHandler = (event) => {
         dispatch(createEventAction(event));
-        createdEvents.push(event);
+        setTimeout(() => {
+            dispatch(loadUserInfo());
+        }, 1000);
         closeDrawer();
         successToast("The event Has been Created!");
+        clearInputs();
     }
 
 
@@ -88,10 +105,6 @@ export const EventForm = ({ closeDrawer, }) => {
         //Assign response to image path
         formik.values.image = response.data;
     }
-
-
-
-
 
     return (
         <Form

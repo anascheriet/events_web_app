@@ -62,8 +62,14 @@ export const EventsDashboard = () => {
 
     const deleteEventHandler = async (id) => {
         try {
+            console.log("before delete: "+ createdEvents);
             const resp = await axios.delete(eventsUrls.delete(id));
             successToast(resp.data);
+
+            setTimeout(() => {
+               dispatch(loadUserInfo());
+            }, 1000);
+           
         } catch (error) {
             errorToast(error.data);
         }
