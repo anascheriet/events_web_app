@@ -9,6 +9,7 @@ import "../../searchItems.scss";
 import { getAllEventsAction } from '../../../redux/actions/clientActions/getAllEventsAction';
 import { contains } from '../../../common/util';
 import { EventsFilterBar } from '../../../common/EventsFilterBar';
+import filterEvents from "../../../common/EventsFilterMethod"
 export const EventsHome = () => {
 
     const dispatch = useDispatch();
@@ -30,6 +31,9 @@ export const EventsHome = () => {
 
 
 
+    console.log(filterEvents(availableEvents, contains, searchedEName, "eventName", searchedEName, "city", searchedECountry, "country"));
+
+    console.log(filterEvents);
 
 
     return (
@@ -46,30 +50,7 @@ export const EventsHome = () => {
                 <EventsFilterBar setSearchedECity={setSearchedECity} searchedECity={searchedECity} setSearchedECountry={setSearchedECountry} searchedECountry={searchedECountry} setSearchedEName={setSearchedEName} searchedEName={searchedEName} />
 
                 <motion.div className="events" >
-                    {availableEvents.filter((event) => {
-                        if (contains(event, "eventName", searchedEName) && searchedECity === "" && searchedECountry === "") {
-                            return event;
-                        }
-                        else if (contains(event, "country", searchedECountry) && searchedECity === "" && searchedEName === "") {
-                            return event;
-                        }
-                        else if (contains(event, "city", searchedECity) && searchedEName === "" && searchedECountry === "") {
-                            return event;
-                        }
-                        else if (contains(event, "eventName", searchedEName) && contains(event, "city", searchedECity) && searchedECountry === "") {
-                            return event;
-                        }
-
-                        else if (contains(event, "eventName", searchedEName) && contains(event, "country", searchedECountry) && searchedECity === "") {
-                            return event;
-                        }
-                        else if (contains(event, "city", searchedECity) && contains(event, "country", searchedECountry) && searchedEName === "") {
-                            return event;
-                        }
-                        else if (contains(event, "eventName", searchedEName) && contains(event, "country", searchedECountry) && contains(event, "city", searchedECity)) {
-                            return event;
-                        }
-                    }).map((event) => {
+                    {filterEvents(availableEvents, contains, searchedEName, "eventName", searchedECity, "city", searchedECountry, "country").map((event) => {
                         return <Event key={event.event.id} event={event.event} />
                     })}
                 </motion.div>

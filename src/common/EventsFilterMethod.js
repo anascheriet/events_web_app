@@ -1,9 +1,5 @@
-
-
-//TODO implement this function in EventsHome and EventsDashboard to reduce boilerplate
-
-export const filterEvents = (arr, containsMethod, nameInput, nameProp, cityInput, cityProp, countryInput, countryProp) => {
-    arr.filter((item) => {
+const filterEvents = (arr, containsMethod, nameInput, nameProp, cityInput, cityProp, countryInput, countryProp) => {
+    return arr.filter((item) => {
         if (containsMethod(item, nameProp, nameInput) && cityInput === "" && countryInput === "") {
             return item;
         }
@@ -26,6 +22,10 @@ export const filterEvents = (arr, containsMethod, nameInput, nameProp, cityInput
         else if (containsMethod(item, nameProp, nameInput) && containsMethod(item, countryProp, countryInput) && containsMethod(item, cityProp, cityInput)) {
             return item;
         }
-        return arr;
     })
+
+    
 };
+
+
+export default filterEvents;
