@@ -28,7 +28,7 @@ export const Login = () => {
   }
 
   const ValidationSchema = new Yup.ObjectSchema({
-    username: Yup.string().email().required(),
+    username: Yup.string().email().required("Email is required"),
     password: Yup.string().required()
     /* password: Yup.string().matches("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$") */
   })
@@ -63,7 +63,7 @@ export const Login = () => {
   }
 
   const forgotValidationSchema = new Yup.ObjectSchema({
-    username: Yup.string().email().required(),
+    username: Yup.string().email().required("Email is required"),
   })
 
 
@@ -156,7 +156,7 @@ export const Login = () => {
                 <Link to="/authentication/register">
                   <p style={{ color: "#14213D" }}>Create Account</p>
                 </Link>
-                <p style={{ color: "#14213D", fontWeight: "bold" }} onClick={openForgotPass}>Forgot Password?</p>
+                <p style={{ color: "#14213D", fontWeight: "bold", cursor: "pointer" }} onClick={openForgotPass}>Forgot Password?</p>
               </div>
             </div>) :
         <div className="back">

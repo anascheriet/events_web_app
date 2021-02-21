@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import "./register.scss"
 import * as Yup from 'yup';
 import { useFormik } from 'formik';

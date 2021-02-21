@@ -1,11 +1,20 @@
-import { Form, Input, Select } from 'antd';
+import { Form, Input, Modal, Select } from 'antd';
+import axios from 'axios';
 import { useFormik } from 'formik';
-import React from 'react'
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Button, Divider, Header, Icon } from 'semantic-ui-react';
 import * as Yup from "yup";
+import { errorToast, successToast } from '../common/Notifications';
+import { loadUserInfo } from '../redux/actions/Users/loadUserInfo';
+import { logoutAction } from '../redux/actions/Users/logoutAction';
+import { authUrls } from '../redux/api';
 
 export const EditProfile = () => {
+
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     //get user amd countries array
     const { user, countries } = useSelector(state => state.userState);
@@ -16,24 +25,18 @@ export const EditProfile = () => {
         displayName: user.displayName,
         email: user.email,
         gender: user.gender,
-        country: user.country,
-        age: user.age,
-        password: user.password
+        country: user.country
     }
 
     //set up validation
-
     const myValidationSchema = new Yup.ObjectSchema({
         displayName: Yup.string().required(),
         email: Yup.string().email().required(),
         gender: Yup.string().required(),
         country: Yup.string().required(),
-        age: Yup.number().required(),
-        password: Yup.string().required(),
     });
 
     //Set up formik form handler 
-
     const formik = useFormik({
         initialValues: myInitiaValues,
         validationSchema: myValidationSchema
@@ -46,6 +49,54 @@ export const EditProfile = () => {
         wrapperCol: { span: 16 },
     };
 
+
+    const updateProfileHandler = async (values) => {
+        try {
+            const resp = await axios.patch(authUrls.updateProfile, values);
+            successToast(resp.data);
+            dispatch(loadUserInfo());
+        } catch (error) {
+            errorToast(error.data);
+        }
+    }
+
+
+    //update password modal
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const closeModal = () => {
+        setIsModalVisible(false);
+    }
+
+
+    //
+    const passInitialValues = {
+        password: "",
+        confirmPassword: ""
+    }
+
+    const passValidationSchema = new Yup.ObjectSchema({
+        password: Yup.string().required().min(6),
+        confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], "Passwords do not match")
+            .required('Password confirm is required')
+    })
+
+    const passFormik = useFormik({
+        initialValues: passInitialValues,
+        validationSchema: passValidationSchema
+    })
+
+    const updatePasswordHandler = async (values) => {
+        try {
+            //change the password/ log out and redirect the user to login page
+            const resp = await axios.patch(authUrls.updatePassword, values);
+            successToast(resp.data);
+            dispatch(logoutAction());
+            history.push("/");
+        } catch (error) {
+            errorToast(error.data);
+        }
+    }
 
     return (
         <div>
@@ -66,7 +117,6 @@ export const EditProfile = () => {
                         {/*  {formik.touched.eventName && formik.errors.eventName &&
                     <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.eventName}</pre>} */}
                     </Form.Item>
-
                     <Form.Item label="Email">
                         <Input name='email' {...formik.getFieldProps("email")} />
                         {/*  {formik.touched.eventName && formik.errors.eventName &&
@@ -77,10 +127,9 @@ export const EditProfile = () => {
                             name='country'
                             onChange={(country => formik.setFieldValue("country", country))}
                             value={formik.values.country}>
-
                             {countries.map(c => {
                                 return (
-                                    <Select.Option value={c.country}>
+                                    <Select.Option key={c.country} value={c.country}>
                                         {c.country}
                                     </Select.Option>)
                             })}
@@ -88,11 +137,9 @@ export const EditProfile = () => {
                         {/*  {formik.touched.eventName && formik.errors.eventName &&
                     <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.eventName}</pre>} */}
                     </Form.Item>
-                    <Form.Item label="Age">
+                    {/*  <Form.Item label="Age">
                         <Input name='age' {...formik.getFieldProps("age")} />
-                        {/*  {formik.touched.eventName && formik.errors.eventName &&
-                    <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.eventName}</pre>} */}
-                    </Form.Item>
+                    </Form.Item> */}
                     <Form.Item
                         label="Gender">
                         <Select name='gender'
@@ -103,17 +150,47 @@ export const EditProfile = () => {
                             <Select.Option value="Other">Other</Select.Option>
                         </Select>
                     </Form.Item>
-                    <Form.Item label="Password">
+                    {/*  <Form.Item label="Password">
                         <Input name='password' type="password" {...formik.getFieldProps("password")} />
-                        {/*  {formik.touched.eventName && formik.errors.eventName &&
-                    <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.eventName}</pre>} */}
-                    </Form.Item>
-                    <Form.Item className="align-middle">
-                        <Button color="green" type="submit">Submit</Button>
-                        <Button color="grey">Cancel</Button>
+                     
+                    </Form.Item> */}
+                    <Form.Item style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "1rem" }}>
+                        <Button onClick={() => updateProfileHandler(formik.values)} color="blue" type="submit"><Icon name="check" />Update</Button>
+                        <Button onClick={() => setIsModalVisible(true)}><Icon name="lock" /> Change Password</Button>
+                        <Button color="grey" onClick={() => history.push("/Home")}><Icon name="cancel" />Cancel</Button>
                     </Form.Item>
                 </Form>
             </div>
+
+
+            {/* Delete evType Modal */}
+            <Modal title='Update Password'
+                visible={isModalVisible}
+                onCancel={closeModal}
+                footer={[
+                    <Button onClick={closeModal}>
+                        Cancel
+                </Button>,
+                    <Button
+                        onClick={() => updatePasswordHandler(passFormik.values)}
+                        disabled={Object.keys(passFormik.errors).length !== 0}
+                        color="blue">
+                        Submit
+                </Button>,
+                ]}>
+                <Form layout="vertical">
+                    <Form.Item label="Password">
+                        <Input type="password" name="password" {...passFormik.getFieldProps("password")} />
+                        {passFormik.touched.password && passFormik.errors.password &&
+                            <pre style={{ color: "red", marginTop: "0.1rem" }}>{passFormik.errors.password}</pre>}
+                    </Form.Item>
+                    <Form.Item label="Confirm Password">
+                        <Input type="password" name="confirmPassword" {...passFormik.getFieldProps("confirmPassword")} />
+                        {passFormik.touched.confirmPassword && passFormik.errors.confirmPassword &&
+                            <pre style={{ color: "red", marginTop: "0.1rem" }}>{passFormik.errors.confirmPassword}</pre>}
+                    </Form.Item>
+                </Form>
+            </Modal>
         </div>
 
     )

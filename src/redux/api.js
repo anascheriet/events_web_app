@@ -62,6 +62,8 @@ export const authUrls = {
     resetPassword: `${base_url}/auth/resetPassword`,
     register: `${base_url}/auth/register`,
     getCurrentUser: `${base_url}/auth/loggedInUser`,
+    updateProfile: `${base_url}/auth/updateProfile`,
+    updatePassword: `${base_url}/auth/updatePassword`
 }
 
 export const clientUrls = {

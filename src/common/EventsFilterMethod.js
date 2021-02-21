@@ -23,8 +23,6 @@ const filterEvents = (arr, containsMethod, nameInput, nameProp, cityInput, cityP
             return item;
         }
     })
-
-    
 };
 
 

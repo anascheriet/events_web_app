@@ -15,7 +15,7 @@ import { useFormik } from 'formik';
 import { Button } from 'semantic-ui-react'
 import { useDispatch, useSelector } from 'react-redux';
 import { createEventAction } from '../../../redux/actions/eventActions/eventAction'
-import { errorToast, successToast } from '../../../common/Notifications';
+import { errorToast } from '../../../common/Notifications';
 import axios from 'axios';
 import { uploadImageUrl } from '../../../redux/api';
 import { loadUserInfo } from '../../../redux/actions/Users/loadUserInfo';

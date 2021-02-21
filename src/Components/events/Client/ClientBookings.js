@@ -8,11 +8,12 @@ export const ClientBookings = () => {
 
     const [bookings, setBookings] = useState([]);
 
+    const getMyBookings = async () => {
+        const response = await axios.get(clientUrls.clientBookings);
+        setBookings(response.data);
+    }
+
     useEffect(() => {
-        const getMyBookings = async () => {
-            const response = await axios.get(clientUrls.clientBookings);
-            setBookings(response.data);
-        }
         getMyBookings();
     }, [])
 
@@ -23,6 +24,7 @@ export const ClientBookings = () => {
             const resp = await axios.delete(clientUrls.cancelBooking(id));
             if (resp) {
                 successToast(resp.data);
+                getMyBookings();
             }
         } catch (error) {
             errorToast(error.data);
