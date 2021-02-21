@@ -98,6 +98,19 @@ export const EditProfile = () => {
         }
     }
 
+    const [passVisible, setPassVisible] = useState(false);
+
+    const showHidePass = () => {
+        setPassVisible(!passVisible);
+    }
+
+
+    const [confPassVisible, setConfPassVisible] = useState(false);
+
+    const showHideConfPass = () => {
+        setConfPassVisible(!confPassVisible);
+    }
+
     return (
         <div>
             <div className="header">
@@ -114,13 +127,13 @@ export const EditProfile = () => {
                 <Form  {...layout}>
                     <Form.Item label="Display Name">
                         <Input name='displayName' {...formik.getFieldProps("displayName")} />
-                        {/*  {formik.touched.eventName && formik.errors.eventName &&
-                    <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.eventName}</pre>} */}
+                        {formik.touched.displayName && formik.errors.displayName &&
+                            <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.displayName}</pre>}
                     </Form.Item>
                     <Form.Item label="Email">
                         <Input name='email' {...formik.getFieldProps("email")} />
-                        {/*  {formik.touched.eventName && formik.errors.eventName &&
-                    <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.eventName}</pre>} */}
+                        {formik.touched.email && formik.errors.email &&
+                            <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.email}</pre>}
                     </Form.Item>
                     <Form.Item label="Country">
                         <Select
@@ -134,8 +147,8 @@ export const EditProfile = () => {
                                     </Select.Option>)
                             })}
                         </Select>
-                        {/*  {formik.touched.eventName && formik.errors.eventName &&
-                    <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.eventName}</pre>} */}
+                        {formik.touched.country && formik.errors.country &&
+                            <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.country}</pre>}
                     </Form.Item>
                     {/*  <Form.Item label="Age">
                         <Input name='age' {...formik.getFieldProps("age")} />
@@ -155,7 +168,7 @@ export const EditProfile = () => {
                      
                     </Form.Item> */}
                     <Form.Item style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "1rem" }}>
-                        <Button onClick={() => updateProfileHandler(formik.values)} color="blue" type="submit"><Icon name="check" />Update</Button>
+                        <Button disabled={Object.keys(formik.errors).length !== 0} onClick={() => updateProfileHandler(formik.values)} color="blue" type="submit"><Icon name="check" />Update</Button>
                         <Button onClick={() => setIsModalVisible(true)}><Icon name="lock" /> Change Password</Button>
                         <Button color="grey" onClick={() => history.push("/Home")}><Icon name="cancel" />Cancel</Button>
                     </Form.Item>
@@ -180,12 +193,18 @@ export const EditProfile = () => {
                 ]}>
                 <Form layout="vertical">
                     <Form.Item label="Password">
-                        <Input type="password" name="password" {...passFormik.getFieldProps("password")} />
+                        <div style={{ display: "flex", flexDirection: "row" }}>
+                            <Input style={{ marginRight: "0.5rem" }} type={passVisible ? "text" : "password"} name="password" {...passFormik.getFieldProps("password")} />
+                            <Icon name={passVisible ? "eye slash" : "eye"} onClick={showHidePass} />
+                        </div>
                         {passFormik.touched.password && passFormik.errors.password &&
                             <pre style={{ color: "red", marginTop: "0.1rem" }}>{passFormik.errors.password}</pre>}
                     </Form.Item>
                     <Form.Item label="Confirm Password">
-                        <Input type="password" name="confirmPassword" {...passFormik.getFieldProps("confirmPassword")} />
+                        <div style={{ display: "flex", flexDirection: "row" }}>
+                            <Input style={{ marginRight: "0.5rem" }} type={confPassVisible ? "text" : "password"} name="confirmPassword" {...passFormik.getFieldProps("confirmPassword")} />
+                            <Icon name={confPassVisible ? "eye slash" : "eye"} onClick={showHideConfPass} />
+                        </div>
                         {passFormik.touched.confirmPassword && passFormik.errors.confirmPassword &&
                             <pre style={{ color: "red", marginTop: "0.1rem" }}>{passFormik.errors.confirmPassword}</pre>}
                     </Form.Item>
