@@ -24,7 +24,8 @@ export const Register = () => {
         gender: "",
         country: "",
         password: "",
-        age: 0
+        age: 0,
+        birthDate: null
     }
 
     //Set up object validation
@@ -84,10 +85,11 @@ export const Register = () => {
 
                         {formik.touched.email && formik.errors.email &&
                             <pre className="error">{formik.errors.email}</pre>}
-                        <label className="reglabel">Age</label>
-                        <input className="reginput" type="number" name='age' value={formik.values.age} {...formik.getFieldProps('age')} />
+                        <label className="reglabel">Date of Birth</label>
+                        <input className="reginput" type="date" name="birthDate" value={formik.values.birthDate} {...formik.getFieldProps('birthDate')} />
+                       {/*  <input className="reginput" type="number" name='age' value={formik.values.age} {...formik.getFieldProps('age')} />
                         {formik.touched.age && formik.errors.age &&
-                            <pre className="error">{formik.errors.age}</pre>}
+                            <pre className="error">{formik.errors.age}</pre>} */}
 
                         <label className="reglabel">Country</label>
                         <select className="reginput" type="text" {...formik.getFieldProps("country")} >

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Icon, Table } from 'semantic-ui-react'
-import { Form, Input, Modal, Select, Tag } from 'antd';
+import { DatePicker, Form, Input, Modal, Select, Tag } from 'antd';
 import axios from 'axios';
 import { adminDataUrl, authUrls, lockUnlockAdminUrl } from '../redux/api';
 import { successToast } from '../common/Notifications';
@@ -17,8 +17,6 @@ export const AdminList = () => {
         const response = await axios.get(adminDataUrl);
         setAdminData(response.data);
     }
-
-
 
     const lockUnlockAdmin = (id) => {
         axios.get(lockUnlockAdminUrl(id)).then((resp) => {
@@ -49,7 +47,7 @@ export const AdminList = () => {
         email: "",
         gender: "",
         country: "",
-        age: null
+        birthDate: null
     }
 
     //clear form Attributes
@@ -58,7 +56,6 @@ export const AdminList = () => {
         formik.values.country = "";
         formik.values.gender = "";
         formik.values.displayName = "";
-        formik.values.age = null;
     }
 
     //Set up object validation
@@ -67,7 +64,7 @@ export const AdminList = () => {
         email: Yup.string().email().required(),
         country: Yup.string().required(),
         gender: Yup.string().required(),
-        age: Yup.number().required()
+        birthDate: Yup.string().required()
     })
 
     //Submit method
@@ -82,7 +79,6 @@ export const AdminList = () => {
         } catch (error) {
             toast.error(error.data);
         }
-
     }
 
     //Set up formik object to handle the form
@@ -142,7 +138,7 @@ export const AdminList = () => {
                         Cancel
                 </Button>,
                     <Button
-                        disabled={Object.keys(formik.errors).length !== 0}
+                        disabled={Object.keys(formik.errors).length > 1}
                         onClick={() => addAdminHandler(formik.values)}
                         color="purple">
                         Add
@@ -162,10 +158,11 @@ export const AdminList = () => {
                     </Form.Item>
 
                     <Form.Item
-                        label="Age">
-                        <Input name='age' {...formik.getFieldProps('age')} />
+                        label="Birth Date">
+                        <DatePicker name="birthDate" style={{ width: '100%' }} onChange={birthDate => (formik.setFieldValue('birthDate', birthDate._d))} />
+                        {/*  <Input name='age' {...formik.getFieldProps('age')} />
                         {formik.touched.age && formik.errors.age &&
-                            <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.age}</pre>}
+                            <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.age}</pre>} */}
                     </Form.Item>
                     <Form.Item
                         label="Gender">
@@ -194,8 +191,6 @@ export const AdminList = () => {
                 </Form>
             </Modal>
         </div>
-
-
 
     )
 }

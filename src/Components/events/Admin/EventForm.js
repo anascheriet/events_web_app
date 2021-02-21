@@ -34,7 +34,6 @@ export const myValidationSchema = new Yup.ObjectSchema({
 
 export const EventForm = ({ closeDrawer, }) => {
 
-
     //set uo the dispatcher for different actions
     const dispatch = useDispatch();
 
@@ -60,7 +59,6 @@ export const EventForm = ({ closeDrawer, }) => {
         image: ''
     }
 
-
     //Set up formik object to handle the form
     const formik = useFormik({
         validationSchema: myValidationSchema,
@@ -69,7 +67,6 @@ export const EventForm = ({ closeDrawer, }) => {
 
     //get events so we can add to them
     const { user } = useSelector(state => state.userState);
-
 
     const clearInputs = () => {
         formik.values.eventName = '';
@@ -82,7 +79,6 @@ export const EventForm = ({ closeDrawer, }) => {
         formik.values.eventDate = '';
         formik.values.image = null;
     }
-
 
     //Submit method
     const submitHandler = (event) => {
@@ -98,7 +94,6 @@ export const EventForm = ({ closeDrawer, }) => {
         }
 
     }
-
 
     //Image upload logic
     const eventImageUpload = async (file) => {
