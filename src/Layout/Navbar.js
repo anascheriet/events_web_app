@@ -25,25 +25,30 @@ const Navbar = ({ setToggle }) => {
   const menu = (
     <Menu style={{ backgroundColor: "#14213d" }}>
       <Menu.Item >
-        <Link to="/EditProfile">
-          <p className="menuLink" style={{ color: "#fdde6c" }} >
+        <Link to="/EditProfile" className="menuLink">
+          <p style={{ color: "#fdde6c" }} >
             <Icon name="user" style={{ color: "#fdde6c" }} />
               Profile
             </p>
         </Link>
       </Menu.Item>
       {user !== null && user.role.name === "Client"
-        && <Menu.Item>
-          <Link to="/MyBookings" style={{ color: "#fdde6c" }}>
-            <Icon name="ticket alternate" style={{ color: "#fdde6c" }} />
-            My Bookings
+        &&
+        <Menu.Item className="menuLink">
+          <Link to="/MyBookings" className="menuLink">
+            <p style={{ color: "#fdde6c" }} >
+              <Icon name="ticket alternate" style={{ color: "#fdde6c" }} />
+          My Bookings
+            </p>
           </Link>
         </Menu.Item>}
       <Menu.Item >
-        <p onClick={logOut} className="menuLink" style={{ color: "#fdde6c" }} >
-          <Icon name="sign out" style={{ color: "#fdde6c" }} />
+        <Link to="/" className="menuLink">
+          <p onClick={logOut}  style={{ color: "#fdde6c" }} >
+            <Icon name="sign out" style={{ color: "#fdde6c" }} />
               Log out
             </p>
+        </Link>
       </Menu.Item>
     </Menu>
   );
@@ -75,7 +80,7 @@ const Navbar = ({ setToggle }) => {
       {user === null &&
         <Link to="/">
           <div className="left">
-            <i style={{ color: "#fdde6c" }} className="fas fa-arrow-right" />
+            <i className="fas fa-arrow-right" style={{ color: "#fdde6c" }} />
           </div>
         </Link>
       }

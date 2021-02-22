@@ -1,5 +1,7 @@
 import axios from 'axios'
+import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react'
+import { popup } from '../../../common/animations';
 import { errorToast, successToast } from '../../../common/Notifications';
 import { formatImageLink } from '../../../common/util';
 import { clientUrls } from '../../../redux/api'
@@ -33,10 +35,10 @@ export const ClientBookings = () => {
     return (
         <>
             <h2 style={{ fontFamily: "poppins", fontSize: "3rem", fontWeight: "7rem" }}>My Bookings</h2>
-            <div className="flex flex-wrap -mx-1 lg:-mx-4">
+            <div style={{marginLeft: "4rem"}} className="flex flex-wrap lg:-mx-4">
                 {bookings.map((item) => {
                     return (
-                        <div key={item.reservation.id} className="max-w-md shadow-lg rounded overflow-hidden m-4 sm:flex">
+                        <motion.div variants={popup} initial="hidden" animate="show" key={item.reservation.id} className="max-w-sm shadow-lg rounded overflow-hidden m-4 sm:flex">
                             <div className="h-48 sm:h-auto sm:w-48 md:w-64 flex-none bg-cover bg-center rounded rounded-t sm:rounded sm:rounded-l text-center overflow-hidden" style={{ backgroundImage: `url(${formatImageLink(item.imagePath)})` }} >
                             </div>
                             <div className="px-6 py-4">
@@ -58,7 +60,7 @@ export const ClientBookings = () => {
 
                             </div>
 
-                        </div>
+                        </motion.div>
                     )
                 })}
             </div>
