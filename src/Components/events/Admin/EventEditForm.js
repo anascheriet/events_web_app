@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { myValidationSchema } from './EventForm';
 import {
     Form,
@@ -16,8 +16,11 @@ import { Button } from 'semantic-ui-react';
 import { eventsUrls, uploadImageUrl } from '../../../redux/api';
 import axios from 'axios';
 import { editToast, errorToast } from '../../../common/Notifications';
+import { loadUserInfo } from '../../../redux/actions/Users/loadUserInfo';
 
 export const EventEditForm = ({ closeEDrawer }) => {
+
+    const dispatch = useDispatch();
 
 
     //retrieve event types array from evTypes reducer
@@ -64,6 +67,9 @@ export const EventEditForm = ({ closeEDrawer }) => {
             const resp = await axios.patch(eventsUrls.edit(event.id), ev)
             editToast(resp.data + " ✅");
             closeEDrawer();
+            setTimeout(() => {
+                dispatch(loadUserInfo());
+            }, 1000);
         } catch (error) {
             errorToast(error.data);
         }
@@ -159,8 +165,9 @@ export const EventEditForm = ({ closeEDrawer }) => {
             </Form.Item>
             <Form.Item label="Event Image">
                 <Upload name='image' action={eventImageUpload}>
-                    <AntdButton icon={<UploadOutlined />}>Click to Upload</AntdButton>
+                    <AntdButton style={{marginBottom: "0.5rem"}} icon={<UploadOutlined />}>Click to Upload</AntdButton>
                 </Upload>
+                <span style={{color: "red"}}>{formik.values.image.split("public/")[1]}</span>
             </Form.Item>
             <Form.Item >
                 <Button color="blue" disabled={Object.keys(formik.errors).length > 1} type="submit">Update</Button>

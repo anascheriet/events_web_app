@@ -12,9 +12,7 @@ const Navbar = ({ setToggle }) => {
 
   const history = useHistory();
 
-
   const isAdmin = token !== null && user?.role?.name !== "Client";
-
 
 
   const logOut = () => {
@@ -44,7 +42,7 @@ const Navbar = ({ setToggle }) => {
         </Menu.Item>}
       <Menu.Item >
         <Link to="/" className="menuLink">
-          <p onClick={logOut}  style={{ color: "#fdde6c" }} >
+          <p onClick={logOut} style={{ color: "#fdde6c" }} >
             <Icon name="sign out" style={{ color: "#fdde6c" }} />
               Log out
             </p>
@@ -80,7 +78,7 @@ const Navbar = ({ setToggle }) => {
       {user === null &&
         <Link to="/">
           <div className="left">
-            <i className="fas fa-arrow-right" style={{ color: "#fdde6c" }} />
+            <Icon name="arrow right" style={{ color: "#fdde6c" }} />
           </div>
         </Link>
       }

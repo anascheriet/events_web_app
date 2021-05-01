@@ -130,7 +130,6 @@ export const Login = () => {
               </div>
 
             </div>
-
             :
             <div className="form">
               <form onSubmit={formik.handleSubmit}>

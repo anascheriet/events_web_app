@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react'
+import { Button } from 'semantic-ui-react';
 import { popup } from '../../../common/animations';
 import { errorToast, successToast } from '../../../common/Notifications';
 import { formatImageLink } from '../../../common/util';
@@ -32,10 +33,17 @@ export const ClientBookings = () => {
             errorToast(error.data);
         }
     }
+
+    const date = (date) => {
+        const date1 = new Date();
+        const eventDate = new Date(date);
+
+        return date1 > eventDate;
+    }
     return (
         <>
             <h2 style={{ fontFamily: "poppins", fontSize: "3rem", fontWeight: "7rem" }}>My Bookings</h2>
-            <div style={{marginLeft: "4rem"}} className="flex flex-wrap lg:-mx-4">
+            <div style={{ marginLeft: "4rem" }} className="flex flex-wrap lg:-mx-4">
                 {bookings.map((item) => {
                     return (
                         <motion.div variants={popup} initial="hidden" animate="show" key={item.reservation.id} className="max-w-sm shadow-lg rounded overflow-hidden m-4 sm:flex">
@@ -56,10 +64,8 @@ export const ClientBookings = () => {
                                     <br />
                                     ${item.toPay}
                                 </p>
-                                <button onClick={() => cancelBookingHandler(item.reservation.id)} className="bg-red-500 hover:bg-red-700 text-white text-md rounded-lg w-24 h-10 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50">Cancel</button>
-
+                                <Button disabled={date(item.eventDate)} color="red" onClick={() => cancelBookingHandler(item.reservation.id)} className="bg-red-500 hover:bg-red-700 text-white text-md rounded-lg w-24 h-10 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50">Cancel</Button>
                             </div>
-
                         </motion.div>
                     )
                 })}
@@ -67,3 +73,5 @@ export const ClientBookings = () => {
         </>
     )
 }
+
+/* cancelBookingHandler(item.reservation.id) */

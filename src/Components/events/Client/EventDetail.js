@@ -56,7 +56,7 @@ export const EventDetail = ({ pathId }) => {
             for (let i = 0; i < 5; i++) {
                 stars.push(<img key={i} alt="star" src={fullStar} />)
             }
-        } else if (length >= 2 && length <= 5) {
+        } else if (length >= 1 && length <= 5) {
             for (let i = 0; i < 1; i++) {
                 stars.push(<img key={i} alt="star" src={fullStar} />)
             }
@@ -71,7 +71,7 @@ export const EventDetail = ({ pathId }) => {
                 stars.push(<img key={i} alt="star" src={emptyStar} />)
             }
 
-        } else if (length > 10 && length < 13) {
+        } else if (length > 10) {
             for (let i = 0; i < 4; i++) {
                 stars.push(<img key={i} alt="star" src={fullStar} />)
             }
@@ -124,11 +124,12 @@ export const EventDetail = ({ pathId }) => {
                 <motion.div
                     onClick={stopevent}
                     layoutId={pathId}
+                    key={pathId}
                     /* I added the layoutId because framer motion needs an id for each component it uses */
                     className="detail"
                 >
                     <motion.div className="stats">
-                        <motion.div className="rating">
+                        <motion.div className="rating"  >
                             <motion.h3 layoutId={`name ${pathId}`} style={{ fontSize: "2rem", marginBottom: "0rem", marginTop: "0rem" }} >{event.eventName}</motion.h3>
                             <Divider style={{ margin: "0rem 0rem", marginBottom: "0.5rem" }} />
                             <motion.h4 style={{ fontSize: "2rem", marginBottom: "0rem", marginTop: "0rem" }}><Icon name="dollar" />{event.ticketPrice}</motion.h4>
@@ -136,7 +137,7 @@ export const EventDetail = ({ pathId }) => {
                             <motion.p style={{ marginBottom: "0.5rem" }} >Popularity: {/* {game.rating} */}</motion.p>
                             {getStars()}
                         </motion.div>
-                        <motion.div style={{ marginTop: "2rem" }} className="info">
+                        <motion.div style={{ marginTop: "2rem" }} className="info" >
                             <motion.p layoutId={`location ${pathId}`}><Icon name="map pin" />{event.city}, {event.country}</motion.p>
                             <motion.p layoutId={`date ${pathId}`}>{formatDate(event.eventDate)}</motion.p>
                             <Divider />

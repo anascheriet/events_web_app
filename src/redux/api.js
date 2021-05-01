@@ -80,8 +80,6 @@ export const statUrls = {
     byEventType: `${base_url}/reservations/byEventType`,
 }
 
-
-
 export const uploadImageUrl = `${base_url}/events/image`;
 
 export const adminDataUrl = `${base_url}/auth/adminData`;

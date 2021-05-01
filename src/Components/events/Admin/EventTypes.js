@@ -19,7 +19,6 @@ export const EventTypes = () => {
     }, []);
 
 
-
     const [editMode, setEditMode] = useState(false);
 
     //Add event type modal
@@ -106,11 +105,17 @@ export const EventTypes = () => {
 
     //Create Submit eType handler
     const submitHandler = (eType) => {
-        eType.id = eventTypes[eventTypes.length - 1].id + 1;
+        //eType.id = eventTypes[eventTypes.length - 1].id + 1;
         dispatch(createEventTypeAction(eType));
-        eventTypes.push(eType);
+        //eventTypes.push(eType);
         setIsModalVisible(false);
         successToast("Event Type has been Added ! 👌");
+
+        setTimeout(() => {
+            dispatch(getAllEventTypes());
+        }, 1000);
+
+        //dispatch(getAllEventTypes());
     }
 
 
@@ -159,6 +164,7 @@ export const EventTypes = () => {
                         Cancel
                 </Button>,
                     <Button
+                        data-testid="submit-button"
                         disabled={Object.keys(formik.errors).length !== 0}
                         onClick={() => editMode ? editHandler() : submitHandler(formik.values)}
                         color={editMode ? "blue" : "green"}>
@@ -168,7 +174,7 @@ export const EventTypes = () => {
                 <Form layout="vertical">
                     <Form.Item
                         label="Type Name">
-                        <Input name='name' {...formik.getFieldProps('name')} />
+                        <Input placeholder="Event type name ..." name='name' {...formik.getFieldProps('name')} />
                         {formik.touched.name && formik.errors.name && <pre style={{ color: "red", marginTop: "0.1rem" }}>{formik.errors.name}</pre>}
                     </Form.Item>
                 </Form>

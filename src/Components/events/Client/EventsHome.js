@@ -29,20 +29,13 @@ export const EventsHome = () => {
     const [searchedECountry, setSearchedECountry] = useState("");
     const [searchedECity, setSearchedECity] = useState("");
 
-
-
-    console.log(filterEvents(availableEvents, contains, searchedEName, "eventName", searchedEName, "city", searchedECountry, "country"));
-
-    console.log(filterEvents);
-
-
     return (
         <motion.div className="eventList" style={{ marginTop: location.pathname === "/Guest" ? "3rem" : "1rem" }}>
             <AnimateSharedLayout type="switch">
                 {/* wrap all the components that will be transitioning*/}
                 <AnimatePresence>
                     {/* The component that will be animated should have a conditional toggle, pathId here */}
-                    {pathId && <EventDetail pathId={pathId} />}
+                    {pathId && <EventDetail key={pathId} pathId={pathId} />}
                 </AnimatePresence>
                 <h2 style={{ padding: "0.3rem", marginTop: "3rem" }}>Upcoming events</h2>
 
