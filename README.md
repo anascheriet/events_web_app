@@ -1,4 +1,4 @@
-![logo](https://user-images.githubusercontent.com/23432615/87607144-f6080380-c6fc-11ea-8023-3da84fb4a389.png)
+![logo](https://user-images.githubusercontent.com/23432615/138572270-277cb753-8cc9-4041-83bb-9de8557d8d20.png)
 # Eventor : An App For Event Planning
 This App was Developed using ReactJs, Redux, Tailwind and Spring boot
 
