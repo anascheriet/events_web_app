@@ -1,6 +1,8 @@
 ![logo](https://user-images.githubusercontent.com/23432615/138572270-277cb753-8cc9-4041-83bb-9de8557d8d20.png)
 # Eventor : An App For Event Planning
-This App was Developed using ReactJs, Redux, Tailwind and Spring boot
+This App was Developed using ReactJs, Redux, Tailwind.
+
+The [Api](https://github.com/anascheriet/EventManagement_Backend_SpringBoot) for this app was developped using Spring Boot
 
 ## To Do
 `npm install` - Will add all the needed modules to start the App.
