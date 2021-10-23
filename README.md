@@ -32,6 +32,3 @@ The [Api](https://github.com/anascheriet/EventManagement_Backend_SpringBoot) for
 Click Run in IntelliJ To start the API server
 
 `npm start` To start the developement Server . Go to link `http://localhost:3000/`.
-
-## App Demo Video
-[![screeen](https://user-images.githubusercontent.com/23432615/87678934-d7951d00-c77b-11ea-9f2a-c50ce412ec06.png)](https://youtu.be/eoXdW1Jo-Y8)
